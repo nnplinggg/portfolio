@@ -79,7 +79,28 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
         }
-        
+
+        /* ── Scroll reveal ── */
+        [data-reveal] {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        [data-reveal].revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── Hero entrance animations ── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .hero-badge   { animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s both; }
+        .hero-title   { animation: fadeUp 1s   cubic-bezier(0.16,1,0.3,1) 0.4s  both; }
+        .hero-roles   { animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.75s both; }
+        .hero-minerva { animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.95s both; }
     </style>
 </head>
 <body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
@@ -106,13 +127,13 @@
 <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-surface/80"></div>
 </div>
 <div class="relative z-10 max-w-5xl text-center space-y-8">
-<div class="inline-flex items-center gap-4 bg-primary/90 px-8 py-3 rounded-full border border-primary/30 backdrop-blur-md shadow-lg shadow-primary/20">
+<div class="hero-badge inline-flex items-center gap-4 bg-primary/90 px-8 py-3 rounded-full border border-primary/30 backdrop-blur-md shadow-lg shadow-primary/20">
 <span class="font-label text-sm tracking-[0.25em] uppercase font-bold text-on-primary">LINH (PHUONG) NGUYEN</span>
 </div>
-<h1 class="font-headline text-5xl md:text-8xl leading-[1.1] text-primary-container tracking-tighter">
+<h1 class="hero-title font-headline text-5xl md:text-8xl leading-[1.1] text-primary-container tracking-tighter bg-black/20 backdrop-blur-sm px-8 py-6 rounded-2xl">
                 a builder obsessed with <span class="italic font-normal">stories</span> and <span class="italic font-normal">impacts</span>
 </h1>
-<div class="flex flex-wrap justify-center gap-x-3 font-body text-[11px] text-on-surface-variant opacity-100 uppercase tracking-widest whitespace-normal font-bold">
+<div class="hero-roles flex flex-wrap justify-center gap-x-3 font-body text-[11px] text-on-surface-variant opacity-100 uppercase tracking-widest whitespace-normal font-bold">
     <span>project manager</span>
     <span class="text-primary/30">·</span>
     <span>product manager</span>
@@ -124,7 +145,7 @@
     <span>business strategist</span>
 </div>
 <!-- Identity Strip -->
-<div class="inline-flex flex-nowrap justify-center items-center gap-3 font-label text-[10px] tracking-[0.25em] uppercase font-bold text-on-surface-variant/70 bg-surface-container-high/30 backdrop-blur-sm px-5 py-2 rounded-full border border-outline-variant/20 whitespace-nowrap">
+<div class="hero-minerva inline-flex flex-nowrap justify-center items-center gap-3 font-label text-[10px] tracking-[0.25em] uppercase font-bold text-on-surface-variant/70 bg-surface-container-high/30 backdrop-blur-sm px-5 py-2 rounded-full border border-outline-variant/20 whitespace-nowrap">
 <span>Minerva University</span>
 <span class="w-1 h-1 rounded-full bg-outline-variant"></span>
 <span>Computational Science &amp; Business</span>
@@ -139,7 +160,7 @@
 <section class="max-w-screen-2xl mx-auto px-8 py-32">
 <div class="flex flex-col md:flex-row gap-8">
 <!-- Builder Card — half width, portrait -->
-<a class="group relative bg-surface-container-highest rounded-2xl overflow-hidden md:w-1/2 aspect-[4/5] hover:bg-[#1A1A1A] transition-all duration-700" href="work.html">
+<a data-reveal class="group relative bg-surface-container-highest rounded-2xl overflow-hidden md:w-1/2 aspect-[4/5] hover:bg-[#1A1A1A] transition-all duration-700" href="work.html">
 <div class="absolute inset-0 opacity-40 group-hover:opacity-20 transition-opacity">
 <img alt="Builder" class="w-full h-full object-cover" src="images/builder.jpg"/>
 </div>
@@ -150,7 +171,7 @@
 </div>
 </a>
 <!-- Right column — Learner + Storyteller stacked, half width, same height as Builder -->
-<div class="md:w-1/2 flex flex-col gap-8" style="aspect-ratio:4/5">
+<div data-reveal class="md:w-1/2 flex flex-col gap-8" style="aspect-ratio:4/5; transition-delay:0.15s">
 <!-- Learner Card -->
 <a class="group relative bg-surface-container-highest rounded-2xl overflow-hidden flex-1 min-h-0 hover:bg-[#1A1A1A] transition-all duration-700" href="#learner">
 <div class="absolute inset-0 opacity-40 group-hover:opacity-20 transition-opacity">
@@ -180,7 +201,7 @@
 <section class="bg-surface-container-low py-40 overflow-hidden" id="about">
 <div class="max-w-screen-2xl mx-auto px-8 flex flex-col items-center">
 <!-- Collage Header -->
-<div class="relative w-full max-w-4xl h-[500px] mb-20 flex items-center justify-center">
+<div data-reveal class="relative w-full max-w-4xl h-[500px] mb-20 flex items-center justify-center">
 <!-- Decorative background photos -->
 <div class="absolute -top-10 -left-10 w-48 h-64 rotate-[-12deg] rounded-lg overflow-hidden shadow-xl z-0 opacity-40">
 <img alt="Personal collage" class="w-full h-full object-cover" src="images/main2.jpg"/>
@@ -197,7 +218,7 @@
 </div>
 </div>
 <!-- Bio Text -->
-<div class="max-w-3xl text-center space-y-8 mb-24">
+<div data-reveal class="max-w-3xl text-center space-y-8 mb-24" style="transition-delay:0.1s">
 <h2 class="font-headline text-5xl text-primary tracking-tight">Hi, I'm Linh.</h2>
 <div class="h-px w-24 bg-primary/20 mx-auto"></div>
 <p class="font-body text-sm text-on-surface-variant leading-relaxed text-left md:text-center whitespace-pre-line">
@@ -219,7 +240,7 @@ Long term? I'm not optimizing for a title. I believe in my ability to <strong>co
 <h4 class="font-label text-xs tracking-[0.4em] uppercase font-bold text-primary/60 text-center">Currently</h4>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <!-- MLV -->
-    <div class="p-8 rounded-2xl bg-surface border border-outline-variant/10 shadow-sm flex items-start gap-6">
+    <div data-reveal class="p-8 rounded-2xl bg-surface border border-outline-variant/10 shadow-sm flex items-start gap-6" style="transition-delay:0s">
         <span class="material-symbols-outlined text-primary text-3xl">work</span>
         <div class="space-y-1">
             <p class="font-body font-bold text-lg text-on-surface">Product Management Associate</p>
@@ -232,7 +253,7 @@ Long term? I'm not optimizing for a title. I believe in my ability to <strong>co
         </div>
     </div>
     <!-- Creativity Explored -->
-    <div class="p-8 rounded-2xl bg-surface border border-outline-variant/10 shadow-sm flex items-start gap-6">
+    <div data-reveal class="p-8 rounded-2xl bg-surface border border-outline-variant/10 shadow-sm flex items-start gap-6" style="transition-delay:0.1s">
         <span class="material-symbols-outlined text-primary text-3xl">diversity_3</span>
         <div class="space-y-1">
             <p class="font-body font-bold text-lg text-on-surface">Product Research Student Consultant</p>
@@ -246,7 +267,7 @@ Long term? I'm not optimizing for a title. I believe in my ability to <strong>co
         </div>
     </div>
     <!-- Minerva University -->
-    <div class="p-8 rounded-2xl bg-surface border border-outline-variant/10 shadow-sm flex items-start gap-6">
+    <div data-reveal class="p-8 rounded-2xl bg-surface border border-outline-variant/10 shadow-sm flex items-start gap-6" style="transition-delay:0.2s">
         <span class="material-symbols-outlined text-primary text-3xl">school</span>
         <div class="space-y-1">
             <p class="font-body font-bold text-lg text-on-surface">Admission Processor</p>
@@ -259,7 +280,7 @@ Long term? I'm not optimizing for a title. I believe in my ability to <strong>co
         </div>
     </div>
     <!-- Beezniz -->
-    <div class="p-8 rounded-2xl bg-surface border border-outline-variant/10 shadow-sm flex items-start gap-6">
+    <div data-reveal class="p-8 rounded-2xl bg-surface border border-outline-variant/10 shadow-sm flex items-start gap-6" style="transition-delay:0.3s">
         <span class="material-symbols-outlined text-primary text-3xl">rocket_launch</span>
         <div class="space-y-1">
             <p class="font-body font-bold text-lg text-on-surface">Founder/Advisor</p>
@@ -280,7 +301,7 @@ Long term? I'm not optimizing for a title. I believe in my ability to <strong>co
 <!-- Contact Section -->
 <section class="py-40 bg-surface border-t border-outline-variant/10" id="contact">
 <div class="max-w-4xl mx-auto px-8 text-center space-y-16">
-<div class="space-y-4">
+<div data-reveal class="space-y-4">
 <h2 class="font-headline text-6xl text-primary-container">Let's talk shop.</h2>
 <p class="font-body text-on-surface-variant uppercase tracking-widest text-sm">Available for collaborations and conversations.</p>
 </div>
@@ -336,4 +357,16 @@ Long term? I'm not optimizing for a title. I believe in my ability to <strong>co
 </div>
 </div>
 </footer>
+<script>
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+</script>
 </body></html>
