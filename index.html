@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>pling's portfolio</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&amp;family=Montserrat:wght@300;400;600;700&amp;family=Nunito+Sans:wght@300;400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-low": "#f5f5dc",
+              "secondary-fixed": "#e5e2e1",
+              "surface-bright": "#fbfbe2",
+              "secondary-fixed-dim": "#c8c6c5",
+              "on-secondary-fixed-variant": "#474746",
+              "on-secondary": "#ffffff",
+              "surface-container-highest": "#e4e4cc",
+              "on-error": "#ffffff",
+              "on-tertiary-container": "#ffb6c8",
+              "primary": "#1d4626",
+              "inverse-primary": "#a4d2a6",
+              "on-tertiary-fixed": "#370b1b",
+              "outline-variant": "#c1c9be",
+              "on-primary": "#ffffff",
+              "inverse-surface": "#303221",
+              "primary-container": "#355e3b",
+              "surface-dim": "#dbdcc3",
+              "on-secondary-fixed": "#1c1b1b",
+              "error": "#ba1a1a",
+              "primary-fixed-dim": "#a4d2a6",
+              "on-tertiary-fixed-variant": "#6b3646",
+              "secondary-container": "#e2dfde",
+              "surface-container-high": "#eaead1",
+              "on-primary-fixed-variant": "#274f2e",
+              "outline": "#727970",
+              "surface-variant": "#e4e4cc",
+              "surface-tint": "#3e6844",
+              "primary-fixed": "#bfeec1",
+              "on-primary-fixed": "#002109",
+              "on-error-container": "#93000a",
+              "tertiary-container": "#7c4454",
+              "surface": "#fbfbe2",
+              "error-container": "#ffdad6",
+              "background": "#fbfbe2",
+              "on-surface-variant": "#424941",
+              "on-surface": "#1b1d0e",
+              "tertiary-fixed-dim": "#fcb2c5",
+              "secondary": "#5f5e5e",
+              "on-tertiary": "#ffffff",
+              "on-background": "#1b1d0e",
+              "inverse-on-surface": "#f2f2d9",
+              "tertiary-fixed": "#ffd9e1",
+              "on-primary-container": "#a8d6a9",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary-container": "#636262",
+              "tertiary": "#612d3d",
+              "surface-container": "#efefd7"
+            },
+            fontFamily: {
+              "headline": ["Libre Caslon Text"],
+              "body": ["Montserrat"],
+              "label": ["Nunito Sans"]
+            },
+            borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .scroll-indicator::after {
+            content: '';
+            width: 1px;
+            height: 60px;
+            background: currentColor;
+            display: block;
+            margin: 10px auto;
+            animation: scroll-line 2s ease-in-out infinite;
+        }
+        @keyframes scroll-line {
+            0% { transform: scaleY(0); transform-origin: top; }
+            50% { transform: scaleY(1); transform-origin: top; }
+            50.1% { transform: scaleY(1); transform-origin: bottom; }
+            100% { transform: scaleY(0); transform-origin: bottom; }
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- Top Navigation -->
+<nav class="fixed top-0 w-full z-50 bg-[#fbfbe2]/80 dark:bg-[#1A1A1A]/80 backdrop-blur-xl border-b border-outline-variant/10">
+<div class="flex justify-between items-center px-8 py-6 max-w-screen-2xl mx-auto">
+<a class="font-['Libre_Caslon_Text'] text-2xl font-bold tracking-tighter text-[#1A1A1A] dark:text-[#F5F5DC]" href="/">pling's portfolio</a>
+<div class="hidden md:flex items-center gap-10 font-['Libre_Caslon_Text'] text-base tracking-tight">
+<a class="text-[#1A1A1A]/60 dark:text-[#F5F5DC]/60 hover:text-[#1A1A1A] dark:hover:text-[#F5F5DC] transition-colors" href="#about">About</a>
+<a class="text-[#1A1A1A]/60 dark:text-[#F5F5DC]/60 hover:text-[#1A1A1A] dark:hover:text-[#F5F5DC] transition-colors" href="#builder">A Builder</a>
+<a class="text-[#1A1A1A]/60 dark:text-[#F5F5DC]/60 hover:text-[#1A1A1A] dark:hover:text-[#F5F5DC] transition-colors" href="#storyteller">A Storyteller</a>
+<a class="text-[#1A1A1A]/60 dark:text-[#F5F5DC]/60 hover:text-[#1A1A1A] dark:hover:text-[#F5F5DC] transition-colors" href="#learner">A Learner</a>
+</div>
+<button class="bg-primary text-on-primary px-8 py-2.5 rounded-full font-label text-sm font-semibold tracking-widest uppercase hover:scale-[1.02] active:scale-95 transition-all duration-300">
+            Resume
+        </button>
+</div>
+</nav>
+<main>
+<!-- Hero Section -->
+<section class="relative h-screen flex flex-col justify-center items-center px-6 overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img alt="Atmospheric creative workspace" class="w-full h-full object-cover grayscale opacity-30" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDW-SryLS4x7T4oRe8BjbZbY_lxw8SusMrbY6YwKBlejxBK7ZQF30FuquQLPt0AJpb_WEmiGIGYeoDeWbhvVh5iHxvObgYiGtVl1Eb3rjweHliFez2us2BXNh0VWURT5ghBV9rBKaPZOClLVvZroDyxRxCLjg3ZXFmKwb0lPYdFu617mFmLk8syre874YpbWN7daHdfF4Oqz1RYq3pSlTOPAnLciRWFYo_Z9psOKh-iqglltdqoYzk9lHLmpxivWYP4phPA16_qeLU"/>
+<div class="absolute inset-0 bg-gradient-to-b from-surface/40 via-surface/60 to-surface"></div>
+</div>
+<div class="relative z-10 max-w-5xl text-center space-y-8">
+<div class="inline-flex items-center gap-4 bg-surface-container-high/50 px-6 py-2 rounded-full border border-outline-variant/10 backdrop-blur-md">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-label text-xs tracking-[0.2em] uppercase font-bold text-on-surface-variant">LINH (PHUONG) NGUYEN</span>
+</div>
+<h1 class="font-headline text-5xl md:text-8xl leading-[1.1] text-primary-container tracking-tighter">
+                a builder obsessed with <span class="italic font-normal">stories</span> and <span class="italic font-normal">impacts</span>
+</h1>
+<div class="flex flex-nowrap justify-center gap-x-3 font-body text-[11px] text-on-surface-variant opacity-80 uppercase tracking-widest whitespace-nowrap">
+<span>project manager</span>
+<span class="text-primary/30">·</span>
+<span>product manager</span>
+<span class="text-primary/30">·</span>
+<span>photographer</span>
+<span class="text-primary/30">·</span>
+<span>storyteller</span>
+<span class="text-primary/30">·</span>
+<span>business strategist</span>
+</div>
+</div>
+<!-- Identity Strip & Scroll Indicator -->
+<div class="absolute bottom-12 w-full px-12 flex flex-col items-center gap-8 z-10">
+<div class="inline-flex flex-nowrap justify-center items-center gap-3 font-label text-[10px] tracking-[0.25em] uppercase font-bold text-on-surface-variant/70 bg-surface-container-high/30 backdrop-blur-sm px-5 py-2 rounded-full border border-outline-variant/20 whitespace-nowrap">
+<span>Minerva University</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span>Computational Science &amp; Business</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span>San Francisco, CA</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span>Viet Nam</span>
+</div>
+<div class="scroll-indicator text-primary/40 flex flex-col items-center">
+<span class="text-[10px] uppercase tracking-widest mb-2 font-bold">Scroll</span>
+</div>
+</div>
+</section>
+<!-- Preview Tiles -->
+<section class="max-w-screen-2xl mx-auto px-8 py-32">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Builder Card -->
+<a class="group relative bg-surface-container-highest rounded-2xl overflow-hidden aspect-[4/5] hover:bg-[#1A1A1A] transition-all duration-700" href="#builder">
+<div class="absolute inset-0 opacity-40 group-hover:opacity-20 transition-opacity">
+<img alt="Builder" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdR_E5bFlZnvytFo4ENXGZWo-2gKbzJ1xoy3Vr_KHiDzLaHOJgok6ZxMuHKWbEaxHNpAnKR9Dzgun9VdVFzddoNbEFN0SOOJ2jpveMzoIPZ02yx0uJnPJu2vhIoWyaFy5j-zV7g86ya4bP8qsgmj0dVC-bPUszEuDfqQ794DV5yd4cOc3FJQpvCUx6r2b8TRskTLndXfsmKQDVUdQNnXXC4HGnBS2tFcV9c7eZQBgVwKHyrf5FLVCT6D0Tuq1l20PxTs6ASclfeZw"/>
+</div>
+<div class="relative h-full p-10 flex flex-col justify-end">
+<span class="font-label text-xs tracking-widest uppercase text-primary group-hover:text-surface-container-low transition-colors mb-2 block">Archive 01</span>
+<h3 class="font-headline text-4xl text-primary-container group-hover:text-surface transition-colors mb-4">Builder</h3>
+<div class="h-px w-0 group-hover:w-full bg-primary/30 group-hover:bg-surface/30 transition-all duration-700"></div>
+</div>
+</a>
+<!-- Learner Card -->
+<a class="group relative bg-surface-container-highest rounded-2xl overflow-hidden aspect-[4/5] hover:bg-[#1A1A1A] transition-all duration-700" href="#learner">
+<div class="absolute inset-0 opacity-40 group-hover:opacity-20 transition-opacity">
+<img alt="Learner" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRC-Nq6WINwLnVFExJYa-9Nuh0gc2bkbEo05GekixPygP5tH659bwYlDxxOuNfuxW7lMnVOvI1kZhrpfuKrjpoNAOfGs893dkh0P7V9Arqg78gVeegMcA4GYgqB3zK9_8FP_rlXGGMOl-pKXraHJxQYIPhcIOSBJ0zS7e2on2fjZ3f3VJnx3fQPaBNNu1NUeIPPmK9GCkPHSqlqy6d985blcxNGqrlNVFq4CK4Ed5EWgPQNZt120arZmazP3i7zPBkq7JO37PvetU"/>
+</div>
+<div class="relative h-full p-10 flex flex-col justify-end">
+<span class="font-label text-xs tracking-widest uppercase text-primary group-hover:text-surface-container-low transition-colors mb-2 block">Archive 02</span>
+<h3 class="font-headline text-4xl text-primary-container group-hover:text-surface transition-colors mb-4">Learner</h3>
+<div class="h-px w-0 group-hover:w-full bg-primary/30 group-hover:bg-surface/30 transition-all duration-700"></div>
+</div>
+</a>
+<!-- Storyteller Card -->
+<a class="group relative bg-surface-container-highest rounded-2xl overflow-hidden aspect-[4/5] hover:bg-[#1A1A1A] transition-all duration-700" href="#storyteller">
+<div class="absolute inset-0 opacity-40 group-hover:opacity-20 transition-opacity">
+<img alt="Storyteller" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0rQUJG3V4pX7iWeTUc4i7XQ_3kZGagrMr6tzG4Y0EKFNHANeTl_5Uux7REKD2Ujd9NkJ7UBVUt1_v4sGsKZamki6NlKkyv_73snyOg3qYAUTXt_-yyDB62XWFxU4WAwDPN8NrVumWi3gZEMNJDTpuKknW73ESPsiw27QgyG0AnAkyTMVZ-HxWthkAEerY5fl6ZfgcutZSEXO5GmE2fQExkIhK7kTw4jo0rueVpFtEwTIqZKj-Rs8CGeTrFjQB5I7CgUfK5yJRzL8"/>
+</div>
+<div class="relative h-full p-10 flex flex-col justify-end">
+<span class="font-label text-xs tracking-widest uppercase text-primary group-hover:text-surface-container-low transition-colors mb-2 block">Archive 03</span>
+<h3 class="font-headline text-4xl text-primary-container group-hover:text-surface transition-colors mb-4">Storyteller</h3>
+<div class="h-px w-0 group-hover:w-full bg-primary/30 group-hover:bg-surface/30 transition-all duration-700"></div>
+</div>
+</a>
+</div>
+</section>
+<!-- About Section -->
+<section class="bg-surface-container-low py-40 overflow-hidden" id="about">
+<div class="max-w-screen-2xl mx-auto px-8 flex flex-col items-center">
+<!-- Collage Header -->
+<div class="relative w-full max-w-4xl h-[500px] mb-20 flex items-center justify-center">
+<!-- Decorative background photos -->
+<div class="absolute -top-10 -left-10 w-48 h-64 rotate-[-12deg] rounded-lg overflow-hidden shadow-xl z-0 opacity-40">
+<img alt="Personal collage" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlhfD6H8RAo5i1eiwj-FxL-zZ41sFO233jZpS6J_H5avQfg7D8HIRSGI24NCrbh4yXCceMB7_1DF99et17_ErY54WlSwlniztklDjgaGrehg_y_RfNafwlXq1FhVgmM9kdsO585-iMNfblHIeo2icarAHeBFiBSJrJWxKwZ5-c5krUT_XiLJWpWYPIb0Ys9VqCrOaA9aJAiSV3nnP-bsLFgkGzZiWqLCstEcc8gxNnwCt3DqT1t9u7xM0vE1wOeG_6DEISN_IWc9A"/>
+</div>
+<div class="absolute top-20 right-[-5%] w-60 h-80 rotate-[8deg] rounded-lg overflow-hidden shadow-xl z-0 opacity-40">
+<img alt="Personal collage" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSWb6PgtAq3V5sXP4ZyNhl3rKRufC32Bpr3JVrYnzh4a5fcOoNkTCtSghQRVP2uWDigTtEzIbvi1RfQdbDYOhdJJnXkM81H17kuKCFUeVQfcjRqhFeEH9BDwxZXry9ukA4gAo7lsfWYUO9aIKviH8tTlvJHYARawNU_v3WH-F1wYKTZjlk-Y73Ur77zcvrXKVdnl5k5PsFr671Q8XlF3oB_fufTFTFBXWkee1MI1zJ9sPewEVpXKHHSyLNEc6cml2i2_317srT4IY"/>
+</div>
+<div class="absolute bottom-[-10%] left-20 w-56 h-40 rotate-[5deg] rounded-lg overflow-hidden shadow-xl z-0 opacity-40">
+<img alt="Personal collage" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5qLLGzHobmlkY23pp793bw6LCNazG_j3FsYStHzQQrUxRZon_-6s0ecl1zsPJoTBRdVirT4_eCEzWUCBrPRGx2pFkYfXtystw1ZGuwh5f1N-Od9NG_eWs48XxAGB6as7zhAho7XFvjFkOBY5mcH2oxi0AkR2Sa7kEEGobZ5Gii5T0qdLiy_BCq27ITj4EexA_cFI93uxAmUP-Ojspq-0s7k6FyxFnMHrLiwS8lyTtwdNvhevYBEs5NO1PXn6CPOf7fxthIrrng_4"/>
+</div>
+<!-- Main Portrait -->
+<div class="relative z-10 w-72 md:w-80 aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border-8 border-surface">
+<img alt="Linh Nguyen Portrait" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCcQ2hEJoyAwMurk0njCGwhjDGXfL2WotTbedGMnYWCzi3xrYMinXWoyg2DEYL9TrsdMkzC3fHDiDRRiI2vbo2X336N2x0X7NHNx321f0S5zuyK6Un1MccLdYaWNazFZI1qIZBlR04Ael8PYY7Hx1dxuQaml_pP-Cw8T7VuUtJuH2NGcajnntQSsrLMEodYC4knwWVdo27mQA2evEsNOAwRvNo9VjPB4yBwUrjQ9Uz_Y0XjjCkOSWxkNXqrr9km0Z8DtREBqxDfgs"/>
+</div>
+</div>
+<!-- Bio Text -->
+<div class="max-w-3xl text-center space-y-8 mb-24">
+<h2 class="font-headline text-5xl text-primary tracking-tight">Hi, I'm Linh.</h2>
+<div class="h-px w-24 bg-primary/20 mx-auto"></div>
+<p class="font-body text-xl text-on-surface-variant leading-relaxed text-left md:text-center">
+                    Hi, I'm Linh — born on Christmas, from Ha Long, Quang Ninh Province, Vietnam. I'm a builder obsessed with stories and impacts. Currently, I'm navigating complex systems through Computational Science and Business at Minerva University while bridging global perspectives between San Francisco and Vietnam.
+                </p>
+</div>
+<!-- 'Currently' List -->
+<div class="w-full max-w-5xl space-y-12">
+<h4 class="font-label text-xs tracking-[0.4em] uppercase font-bold text-primary/60 text-center">Currently</h4>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="p-8 rounded-2xl bg-surface border border-outline-variant/10 shadow-sm flex items-start gap-6">
+<span class="material-symbols-outlined text-primary text-3xl">work</span>
+<div class="space-y-1">
+<p class="font-body font-bold text-lg text-on-surface">Product Management Associate</p>
+<p class="font-label text-sm text-on-surface-variant/70">MLV</p>
+<p class="font-body text-xs text-on-surface-variant/50 pt-1 italic">empowering young start-up founders across Asia</p>
+</div>
+</div>
+<div class="p-8 rounded-2xl bg-surface border border-outline-variant/10 shadow-sm flex items-start gap-6">
+<span class="material-symbols-outlined text-primary text-3xl">diversity_3</span>
+<div class="space-y-1">
+<p class="font-body font-bold text-lg text-on-surface">Product Research Student Consultant Lead</p>
+<p class="font-label text-sm text-on-surface-variant/70">Creativity Explored</p>
+<p class="font-body text-xs text-on-surface-variant/50 pt-1 italic">empowering San Francisco artists with disabilities</p>
+</div>
+</div>
+<div class="p-8 rounded-2xl bg-surface border border-outline-variant/10 shadow-sm flex items-start gap-6">
+<span class="material-symbols-outlined text-primary text-3xl">school</span>
+<div class="space-y-1">
+<p class="font-body font-bold text-lg text-on-surface">Admission Processor</p>
+<p class="font-label text-sm text-on-surface-variant/70">Minerva University</p>
+</div>
+</div>
+<div class="p-8 rounded-2xl bg-surface border border-outline-variant/10 shadow-sm flex items-start gap-6">
+<span class="material-symbols-outlined text-primary text-3xl">rocket_launch</span>
+<div class="space-y-1">
+<p class="font-body font-bold text-lg text-on-surface">Founder/Advisor</p>
+<p class="font-label text-sm text-on-surface-variant/70">Beezniz</p>
+<p class="font-body text-xs text-on-surface-variant/50 pt-1 italic">Career Orientation and Youth Entrepreneurship Club of Quang Ninh Province</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Contact Section -->
+<section class="py-40 bg-surface border-t border-outline-variant/10" id="contact">
+<div class="max-w-4xl mx-auto px-8 text-center space-y-16">
+<div class="space-y-4">
+<h2 class="font-headline text-6xl text-primary-container">Let's talk shop.</h2>
+<p class="font-body text-on-surface-variant uppercase tracking-widest text-sm">Available for collaborations and conversations.</p>
+</div>
+<div class="grid md:grid-cols-3 gap-6 text-left">
+<a class="group p-6 rounded-xl bg-surface-container-high hover:bg-primary transition-all duration-500" href="mailto:linhphuongng.work@gmail.com">
+<p class="font-label text-[10px] tracking-[0.2em] uppercase text-primary/60 group-hover:text-surface/60 mb-2 transition-colors">Email</p>
+<p class="font-body text-sm text-on-surface group-hover:text-surface transition-colors font-medium truncate">linhphuongng.work@gmail.com</p>
+</a>
+<a class="group p-6 rounded-xl bg-surface-container-high hover:bg-primary transition-all duration-500" href="tel:+16282466995">
+<p class="font-label text-[10px] tracking-[0.2em] uppercase text-primary/60 group-hover:text-surface/60 mb-2 transition-colors">Phone</p>
+<p class="font-body text-sm text-on-surface group-hover:text-surface transition-colors font-medium">(+1) 628-246-6995</p>
+</a>
+<a class="group p-6 rounded-xl bg-surface-container-high hover:bg-primary transition-all duration-500" href="https://linkedin.com/in/phuong-linh-nguyen-" target="_blank">
+<p class="font-label text-[10px] tracking-[0.2em] uppercase text-primary/60 group-hover:text-surface/60 mb-2 transition-colors">LinkedIn</p>
+<p class="font-body text-sm text-on-surface group-hover:text-surface transition-colors font-medium">phuong-linh-nguyen-</p>
+</a>
+</div>
+<div class="flex justify-center">
+<a class="bg-primary text-on-primary px-12 py-4 rounded-full font-label text-sm font-semibold tracking-widest uppercase hover:scale-[1.05] transition-transform duration-300 shadow-2xl shadow-primary/20 flex items-center gap-3" href="https://drive.google.com/your-resume-link">
+<span class="material-symbols-outlined text-base">download</span>
+                    Download Full Resume
+                </a>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full pt-20 pb-10 bg-surface-container-low dark:bg-[#1A1A1A] border-t border-outline-variant/10">
+<div class="flex flex-col md:flex-row justify-between items-start px-12 max-w-screen-2xl mx-auto gap-12">
+<div class="max-w-xs">
+<span class="font-['Libre_Caslon_Text'] text-xl mb-4 block text-primary dark:text-[#F5F5DC]">pling's portfolio</span>
+<p class="font-['Montserrat'] text-[10px] tracking-widest uppercase text-on-surface-variant/70 leading-relaxed">
+                © 2025 pling's portfolio. Built for the intersection of human and system.
+            </p>
+</div>
+<div class="flex flex-wrap gap-12">
+<div class="space-y-4">
+<p class="font-['Montserrat'] text-xs font-bold tracking-[0.3em] uppercase text-primary">Explore</p>
+<div class="flex flex-col gap-2 font-['Montserrat'] text-xs tracking-widest uppercase text-on-surface-variant">
+<a class="hover:text-primary transition-all" href="#about">About</a>
+<a class="hover:text-primary transition-all" href="#builder">Work</a>
+<a class="hover:text-primary transition-all" href="#storyteller">Stories</a>
+</div>
+</div>
+<div class="space-y-4">
+<p class="font-['Montserrat'] text-xs font-bold tracking-[0.3em] uppercase text-primary">Connect</p>
+<div class="flex flex-col gap-2 font-['Montserrat'] text-xs tracking-widest uppercase text-on-surface-variant">
+<a class="hover:text-primary transition-all" href="mailto:linhphuongng.work@gmail.com">Email</a>
+<a class="hover:text-primary transition-all" href="https://linkedin.com/in/phuong-linh-nguyen-">LinkedIn</a>
+<a class="hover:text-primary transition-all" href="#">Resume</a>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</body></html>
