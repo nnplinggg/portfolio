@@ -101,6 +101,13 @@
         .hero-title   { animation: fadeUp 1s   cubic-bezier(0.16,1,0.3,1) 0.4s  both; }
         .hero-roles   { animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.75s both; }
         .hero-minerva { animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.95s both; }
+
+        .hero-glow {
+            text-shadow:
+                0 0 30px rgba(164, 210, 166, 0.9),
+                0 0 60px rgba(164, 210, 166, 0.6),
+                0 0 100px rgba(164, 210, 166, 0.3);
+        }
     </style>
 </head>
 <body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
@@ -130,7 +137,7 @@
 <div class="hero-badge inline-flex items-center gap-4 bg-primary/90 px-8 py-3 rounded-full border border-primary/30 backdrop-blur-md shadow-lg shadow-primary/20">
 <span class="font-label text-sm tracking-[0.25em] uppercase font-bold text-on-primary">LINH (PHUONG) NGUYEN</span>
 </div>
-<h1 class="hero-title font-headline text-5xl md:text-8xl leading-[1.1] text-primary-container tracking-tighter bg-black/20 backdrop-blur-sm px-8 py-6 rounded-2xl">
+<h1 class="hero-title hero-glow font-headline text-5xl md:text-8xl leading-[1.1] text-primary-container tracking-tighter">
                 a builder of <span class="italic font-normal">stories</span> and <span class="italic font-normal">impacts</span>
 </h1>
 <div class="hero-roles flex flex-wrap justify-center gap-x-3 font-body text-[11px] text-on-surface-variant opacity-100 uppercase tracking-widest whitespace-normal font-bold">
