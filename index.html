@@ -112,7 +112,7 @@
 </head>
 <body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
 <!-- Top Navigation -->
-<nav class="fixed top-0 w-full z-50 bg-[#fbfbe2]/80 dark:bg-[#1A1A1A]/80 backdrop-blur-xl border-b border-outline-variant/10">
+<nav id="main-nav" class="fixed top-0 w-full z-50 transition-all duration-500 border-b border-transparent">
 <div class="flex justify-between items-center px-8 py-6 max-w-screen-2xl mx-auto">
 <a class="font-['Libre_Caslon_Text'] text-2xl font-bold tracking-tighter text-[#1A1A1A] dark:text-[#F5F5DC]" href="/">pling's portfolio</a>
 <div class="hidden md:flex items-center gap-10 font-['Libre_Caslon_Text'] text-base tracking-tight">
@@ -375,5 +375,17 @@ Long term? I'm not optimizing for a title. I believe in my ability to <strong>co
     }, { threshold: 0.12 });
 
     document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+
+    // Nav scroll behaviour
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 40) {
+            nav.classList.add('bg-[#fbfbe2]/80', 'backdrop-blur-xl', 'border-outline-variant/10');
+            nav.classList.remove('border-transparent');
+        } else {
+            nav.classList.remove('bg-[#fbfbe2]/80', 'backdrop-blur-xl', 'border-outline-variant/10');
+            nav.classList.add('border-transparent');
+        }
+    }, { passive: true });
 </script>
 </body></html>
