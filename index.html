@@ -137,11 +137,11 @@
 </section>
 <!-- Preview Tiles -->
 <section class="max-w-screen-2xl mx-auto px-8 py-32">
-<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-<!-- Builder Card -->
-<a class="group relative bg-surface-container-highest rounded-2xl overflow-hidden aspect-[4/5] hover:bg-[#1A1A1A] transition-all duration-700" href="work.html">
+<div class="flex flex-col md:flex-row gap-8">
+<!-- Builder Card — half width, portrait -->
+<a class="group relative bg-surface-container-highest rounded-2xl overflow-hidden md:w-1/2 aspect-[4/5] hover:bg-[#1A1A1A] transition-all duration-700" href="work.html">
 <div class="absolute inset-0 opacity-40 group-hover:opacity-20 transition-opacity">
-<img alt="Builder" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdR_E5bFlZnvytFo4ENXGZWo-2gKbzJ1xoy3Vr_KHiDzLaHOJgok6ZxMuHKWbEaxHNpAnKR9Dzgun9VdVFzddoNbEFN0SOOJ2jpveMzoIPZ02yx0uJnPJu2vhIoWyaFy5j-zV7g86ya4bP8qsgmj0dVC-bPUszEuDfqQ794DV5yd4cOc3FJQpvCUx6r2b8TRskTLndXfsmKQDVUdQNnXXC4HGnBS2tFcV9c7eZQBgVwKHyrf5FLVCT6D0Tuq1l20PxTs6ASclfeZw"/>
+<img alt="Builder" class="w-full h-full object-cover" src="images/builder.jpg"/>
 </div>
 <div class="relative h-full p-10 flex flex-col justify-end">
 <span class="font-label text-xs tracking-widest uppercase text-primary group-hover:text-surface-container-low transition-colors mb-2 block">What I did as an</span>
@@ -149,10 +149,12 @@
 <div class="h-px w-0 group-hover:w-full bg-primary/30 group-hover:bg-surface/30 transition-all duration-700"></div>
 </div>
 </a>
+<!-- Right column — Learner + Storyteller stacked, half width, same height as Builder -->
+<div class="md:w-1/2 flex flex-col gap-8" style="aspect-ratio:4/5">
 <!-- Learner Card -->
-<a class="group relative bg-surface-container-highest rounded-2xl overflow-hidden aspect-[4/5] hover:bg-[#1A1A1A] transition-all duration-700" href="#learner">
+<a class="group relative bg-surface-container-highest rounded-2xl overflow-hidden flex-1 min-h-0 hover:bg-[#1A1A1A] transition-all duration-700" href="#learner">
 <div class="absolute inset-0 opacity-40 group-hover:opacity-20 transition-opacity">
-<img alt="Learner" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRC-Nq6WINwLnVFExJYa-9Nuh0gc2bkbEo05GekixPygP5tH659bwYlDxxOuNfuxW7lMnVOvI1kZhrpfuKrjpoNAOfGs893dkh0P7V9Arqg78gVeegMcA4GYgqB3zK9_8FP_rlXGGMOl-pKXraHJxQYIPhcIOSBJ0zS7e2on2fjZ3f3VJnx3fQPaBNNu1NUeIPPmK9GCkPHSqlqy6d985blcxNGqrlNVFq4CK4Ed5EWgPQNZt120arZmazP3i7zPBkq7JO37PvetU"/>
+<img alt="Learner" class="w-full h-full object-cover" src="images/learner.png"/>
 </div>
 <div class="relative h-full p-10 flex flex-col justify-end">
 <span class="font-label text-xs tracking-widest uppercase text-primary group-hover:text-surface-container-low transition-colors mb-2 block">What I did as an</span>
@@ -161,9 +163,9 @@
 </div>
 </a>
 <!-- Storyteller Card -->
-<a class="group relative bg-surface-container-highest rounded-2xl overflow-hidden aspect-[4/5] hover:bg-[#1A1A1A] transition-all duration-700" href="#storyteller">
+<a class="group relative bg-surface-container-highest rounded-2xl overflow-hidden flex-1 min-h-0 hover:bg-[#1A1A1A] transition-all duration-700" href="#storyteller">
 <div class="absolute inset-0 opacity-40 group-hover:opacity-20 transition-opacity">
-<img alt="Storyteller" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0rQUJG3V4pX7iWeTUc4i7XQ_3kZGagrMr6tzG4Y0EKFNHANeTl_5Uux7REKD2Ujd9NkJ7UBVUt1_v4sGsKZamki6NlKkyv_73snyOg3qYAUTXt_-yyDB62XWFxU4WAwDPN8NrVumWi3gZEMNJDTpuKknW73ESPsiw27QgyG0AnAkyTMVZ-HxWthkAEerY5fl6ZfgcutZSEXO5GmE2fQExkIhK7kTw4jo0rueVpFtEwTIqZKj-Rs8CGeTrFjQB5I7CgUfK5yJRzL8"/>
+<img alt="Storyteller" class="w-full h-full object-cover" src="images/storyteller.jpg"/>
 </div>
 <div class="relative h-full p-10 flex flex-col justify-end">
 <span class="font-label text-xs tracking-widest uppercase text-primary group-hover:text-surface-container-low transition-colors mb-2 block">What I did as an</span>
@@ -171,6 +173,7 @@
 <div class="h-px w-0 group-hover:w-full bg-primary/30 group-hover:bg-surface/30 transition-all duration-700"></div>
 </div>
 </a>
+</div>
 </div>
 </section>
 <!-- About Section -->
