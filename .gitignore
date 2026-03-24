@@ -1,0 +1,6 @@
+*.bin
+claude-501/
+com.apple.launchd*/
+powerlog/
+zeb_def_ipc*
+landing.html

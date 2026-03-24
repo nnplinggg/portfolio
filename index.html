@@ -79,21 +79,7 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
         }
-        .scroll-indicator::after {
-            content: '';
-            width: 1px;
-            height: 60px;
-            background: currentColor;
-            display: block;
-            margin: 10px auto;
-            animation: scroll-line 2s ease-in-out infinite;
-        }
-        @keyframes scroll-line {
-            0% { transform: scaleY(0); transform-origin: top; }
-            50% { transform: scaleY(1); transform-origin: top; }
-            50.1% { transform: scaleY(1); transform-origin: bottom; }
-            100% { transform: scaleY(0); transform-origin: bottom; }
-        }
+        
     </style>
 </head>
 <body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
@@ -103,7 +89,7 @@
 <a class="font-['Libre_Caslon_Text'] text-2xl font-bold tracking-tighter text-[#1A1A1A] dark:text-[#F5F5DC]" href="/">pling's portfolio</a>
 <div class="hidden md:flex items-center gap-10 font-['Libre_Caslon_Text'] text-base tracking-tight">
 <a class="text-[#1A1A1A]/60 dark:text-[#F5F5DC]/60 hover:text-[#1A1A1A] dark:hover:text-[#F5F5DC] transition-colors" href="#about">About</a>
-<a class="text-[#1A1A1A]/60 dark:text-[#F5F5DC]/60 hover:text-[#1A1A1A] dark:hover:text-[#F5F5DC] transition-colors" href="#builder">A Builder</a>
+<a class="text-[#1A1A1A]/60 dark:text-[#F5F5DC]/60 hover:text-[#1A1A1A] dark:hover:text-[#F5F5DC] transition-colors" href="work.html">A Builder</a>
 <a class="text-[#1A1A1A]/60 dark:text-[#F5F5DC]/60 hover:text-[#1A1A1A] dark:hover:text-[#F5F5DC] transition-colors" href="#storyteller">A Storyteller</a>
 <a class="text-[#1A1A1A]/60 dark:text-[#F5F5DC]/60 hover:text-[#1A1A1A] dark:hover:text-[#F5F5DC] transition-colors" href="#learner">A Learner</a>
 </div>
@@ -127,17 +113,16 @@
 <h1 class="font-headline text-5xl md:text-8xl leading-[1.1] text-primary-container tracking-tighter">
                 a builder obsessed with <span class="italic font-normal">stories</span> and <span class="italic font-normal">impacts</span>
 </h1>
-<div class="flex flex-nowrap justify-center gap-x-3 font-body text-[11px] text-on-surface-variant opacity-80 uppercase tracking-widest whitespace-nowrap">
-<span>project manager</span>
-<span class="text-primary/30">·</span>
-<span>product manager</span>
-<span class="text-primary/30">·</span>
-<span>photographer</span>
-<span class="text-primary/30">·</span>
-<span>storyteller</span>
-<span class="text-primary/30">·</span>
-<span>business strategist</span>
-</div>
+<div class="flex flex-wrap justify-center gap-x-3 font-body text-[11px] text-on-surface-variant opacity-100 uppercase tracking-widest whitespace-normal">
+    <span>project manager</span>
+    <span class="text-primary/30">·</span>
+    <span>product manager</span>
+    <span class="text-primary/30">·</span>
+    <span>photographer</span>
+    <span class="text-primary/30">·</span>
+    <span>storyteller</span>
+    <span class="text-primary/30">·</span>
+    <span>business strategist</span>
 </div>
 <!-- Identity Strip & Scroll Indicator -->
 <div class="absolute bottom-12 w-full px-12 flex flex-col items-center gap-8 z-10">
@@ -150,8 +135,6 @@
 <span class="w-1 h-1 rounded-full bg-outline-variant"></span>
 <span>Viet Nam</span>
 </div>
-<div class="scroll-indicator text-primary/40 flex flex-col items-center">
-<span class="text-[10px] uppercase tracking-widest mb-2 font-bold">Scroll</span>
 </div>
 </div>
 </section>
@@ -159,12 +142,12 @@
 <section class="max-w-screen-2xl mx-auto px-8 py-32">
 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 <!-- Builder Card -->
-<a class="group relative bg-surface-container-highest rounded-2xl overflow-hidden aspect-[4/5] hover:bg-[#1A1A1A] transition-all duration-700" href="#builder">
+<a class="group relative bg-surface-container-highest rounded-2xl overflow-hidden aspect-[4/5] hover:bg-[#1A1A1A] transition-all duration-700" href="work.html">
 <div class="absolute inset-0 opacity-40 group-hover:opacity-20 transition-opacity">
 <img alt="Builder" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdR_E5bFlZnvytFo4ENXGZWo-2gKbzJ1xoy3Vr_KHiDzLaHOJgok6ZxMuHKWbEaxHNpAnKR9Dzgun9VdVFzddoNbEFN0SOOJ2jpveMzoIPZ02yx0uJnPJu2vhIoWyaFy5j-zV7g86ya4bP8qsgmj0dVC-bPUszEuDfqQ794DV5yd4cOc3FJQpvCUx6r2b8TRskTLndXfsmKQDVUdQNnXXC4HGnBS2tFcV9c7eZQBgVwKHyrf5FLVCT6D0Tuq1l20PxTs6ASclfeZw"/>
 </div>
 <div class="relative h-full p-10 flex flex-col justify-end">
-<span class="font-label text-xs tracking-widest uppercase text-primary group-hover:text-surface-container-low transition-colors mb-2 block">Archive 01</span>
+<span class="font-label text-xs tracking-widest uppercase text-primary group-hover:text-surface-container-low transition-colors mb-2 block">What I did as an</span>
 <h3 class="font-headline text-4xl text-primary-container group-hover:text-surface transition-colors mb-4">Builder</h3>
 <div class="h-px w-0 group-hover:w-full bg-primary/30 group-hover:bg-surface/30 transition-all duration-700"></div>
 </div>
@@ -175,7 +158,7 @@
 <img alt="Learner" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRC-Nq6WINwLnVFExJYa-9Nuh0gc2bkbEo05GekixPygP5tH659bwYlDxxOuNfuxW7lMnVOvI1kZhrpfuKrjpoNAOfGs893dkh0P7V9Arqg78gVeegMcA4GYgqB3zK9_8FP_rlXGGMOl-pKXraHJxQYIPhcIOSBJ0zS7e2on2fjZ3f3VJnx3fQPaBNNu1NUeIPPmK9GCkPHSqlqy6d985blcxNGqrlNVFq4CK4Ed5EWgPQNZt120arZmazP3i7zPBkq7JO37PvetU"/>
 </div>
 <div class="relative h-full p-10 flex flex-col justify-end">
-<span class="font-label text-xs tracking-widest uppercase text-primary group-hover:text-surface-container-low transition-colors mb-2 block">Archive 02</span>
+<span class="font-label text-xs tracking-widest uppercase text-primary group-hover:text-surface-container-low transition-colors mb-2 block">What I did as an</span>
 <h3 class="font-headline text-4xl text-primary-container group-hover:text-surface transition-colors mb-4">Learner</h3>
 <div class="h-px w-0 group-hover:w-full bg-primary/30 group-hover:bg-surface/30 transition-all duration-700"></div>
 </div>
@@ -186,7 +169,7 @@
 <img alt="Storyteller" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0rQUJG3V4pX7iWeTUc4i7XQ_3kZGagrMr6tzG4Y0EKFNHANeTl_5Uux7REKD2Ujd9NkJ7UBVUt1_v4sGsKZamki6NlKkyv_73snyOg3qYAUTXt_-yyDB62XWFxU4WAwDPN8NrVumWi3gZEMNJDTpuKknW73ESPsiw27QgyG0AnAkyTMVZ-HxWthkAEerY5fl6ZfgcutZSEXO5GmE2fQExkIhK7kTw4jo0rueVpFtEwTIqZKj-Rs8CGeTrFjQB5I7CgUfK5yJRzL8"/>
 </div>
 <div class="relative h-full p-10 flex flex-col justify-end">
-<span class="font-label text-xs tracking-widest uppercase text-primary group-hover:text-surface-container-low transition-colors mb-2 block">Archive 03</span>
+<span class="font-label text-xs tracking-widest uppercase text-primary group-hover:text-surface-container-low transition-colors mb-2 block">What I did as an</span>
 <h3 class="font-headline text-4xl text-primary-container group-hover:text-surface transition-colors mb-4">Storyteller</h3>
 <div class="h-px w-0 group-hover:w-full bg-primary/30 group-hover:bg-surface/30 transition-all duration-700"></div>
 </div>
@@ -217,44 +200,69 @@
 <div class="max-w-3xl text-center space-y-8 mb-24">
 <h2 class="font-headline text-5xl text-primary tracking-tight">Hi, I'm Linh.</h2>
 <div class="h-px w-24 bg-primary/20 mx-auto"></div>
-<p class="font-body text-xl text-on-surface-variant leading-relaxed text-left md:text-center">
-                    Hi, I'm Linh — born on Christmas, from Ha Long, Quang Ninh Province, Vietnam. I'm a builder obsessed with stories and impacts. Currently, I'm navigating complex systems through Computational Science and Business at Minerva University while bridging global perspectives between San Francisco and Vietnam.
-                </p>
+<p class="font-body text-xl text-on-surface-variant leading-relaxed text-left md:text-center whitespace-pre-line">
+Hi, I'm Linh — born on Christmas, from Ha Long, Quang Ninh Province, Vietnam.
+I grew up building cardboard houses for stray cats and running imaginary classes for Teddy and Barbie. Somewhere between those sketchy Math formula and a fantasy about delivering books to every child on earth with Santa Claus, I figured out what I actually wanted to do with my life.
+I want to be a builder, one that bridges the distance between people and what they deserve access to.
+I don't separate strategy from people. Every system — a product, a program, a community — succeeds or fails based on how well it understands real human pain. That belief took me from founding youth programs in my province, to doing gap analysis for neurodivergent teen artists in San Francisco, to building AI agent for early-stage founders or teacher allocation optimization tool, and many more.
+I'm currently at Minerva University, rotating through 4 continents in 4 years, studying CS and Business, and trying to stay as close to real people as possible while I learn to build bigger systems.
+Long term? I'm not optimizing for a title. I believe in my ability to connect humans with data, technology, and stories — and eventually, maybe, go back to host that Barbie class for kids in the mountains.
+</p>
 </div>
 <!-- 'Currently' List -->
 <div class="w-full max-w-5xl space-y-12">
 <h4 class="font-label text-xs tracking-[0.4em] uppercase font-bold text-primary/60 text-center">Currently</h4>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div class="p-8 rounded-2xl bg-surface border border-outline-variant/10 shadow-sm flex items-start gap-6">
-<span class="material-symbols-outlined text-primary text-3xl">work</span>
-<div class="space-y-1">
-<p class="font-body font-bold text-lg text-on-surface">Product Management Associate</p>
-<p class="font-label text-sm text-on-surface-variant/70">MLV</p>
-<p class="font-body text-xs text-on-surface-variant/50 pt-1 italic">empowering young start-up founders across Asia</p>
-</div>
-</div>
-<div class="p-8 rounded-2xl bg-surface border border-outline-variant/10 shadow-sm flex items-start gap-6">
-<span class="material-symbols-outlined text-primary text-3xl">diversity_3</span>
-<div class="space-y-1">
-<p class="font-body font-bold text-lg text-on-surface">Product Research Student Consultant Lead</p>
-<p class="font-label text-sm text-on-surface-variant/70">Creativity Explored</p>
-<p class="font-body text-xs text-on-surface-variant/50 pt-1 italic">empowering San Francisco artists with disabilities</p>
-</div>
-</div>
-<div class="p-8 rounded-2xl bg-surface border border-outline-variant/10 shadow-sm flex items-start gap-6">
-<span class="material-symbols-outlined text-primary text-3xl">school</span>
-<div class="space-y-1">
-<p class="font-body font-bold text-lg text-on-surface">Admission Processor</p>
-<p class="font-label text-sm text-on-surface-variant/70">Minerva University</p>
-</div>
-</div>
-<div class="p-8 rounded-2xl bg-surface border border-outline-variant/10 shadow-sm flex items-start gap-6">
-<span class="material-symbols-outlined text-primary text-3xl">rocket_launch</span>
-<div class="space-y-1">
-<p class="font-body font-bold text-lg text-on-surface">Founder/Advisor</p>
-<p class="font-label text-sm text-on-surface-variant/70">Beezniz</p>
-<p class="font-body text-xs text-on-surface-variant/50 pt-1 italic">Career Orientation and Youth Entrepreneurship Club of Quang Ninh Province</p>
-</div>
+    <!-- MLV -->
+    <div class="p-8 rounded-2xl bg-surface border border-outline-variant/10 shadow-sm flex items-start gap-6">
+        <span class="material-symbols-outlined text-primary text-3xl">work</span>
+        <div class="space-y-1">
+            <p class="font-body font-bold text-lg text-on-surface">Product Management Associate</p>
+            <p class="font-label text-sm text-on-surface-variant/70">MLV - empowering young start-up founders across Asia</p>
+            <p class="font-body text-sm text-on-surface-variant/70">
+                • Lead a Sponsorship and Partnership Task Force that streamlines the company’s fundraising system for a legacy program empowering young start-up founders across Asia.<br>
+                • Conduct UX research and prototyping for Scafold - an AI agent designed for young start-up founders.
+            </p>
+        </div>
+    </div>
+    <!-- Creativity Explored -->
+    <div class="p-8 rounded-2xl bg-surface border border-outline-variant/10 shadow-sm flex items-start gap-6">
+        <span class="material-symbols-outlined text-primary text-3xl">diversity_3</span>
+        <div class="space-y-1">
+            <p class="font-body font-bold text-lg text-on-surface">Product Research Student Consultant</p>
+            <p class="font-label text-sm text-on-surface-variant/70">Creativity Explored - empowering San Francisco artists with disabilities</p>
+            <p class="font-body text-sm text-on-surface-variant/70">
+                • Lead a team of 5 to conduct user research, identifying awareness and attendance drop-offs in disability-affirming youth programs.<br>
+                • Mapped stakeholder journeys across families, educators, and students to identify messaging and access friction.<br>
+                • Co-developed a referral product for an after-school program serving schools and families of neurodivergent teens.
+            </p>
+        </div>
+    </div>
+    <!-- Minerva University -->
+    <div class="p-8 rounded-2xl bg-surface border border-outline-variant/10 shadow-sm flex items-start gap-6">
+        <span class="material-symbols-outlined text-primary text-3xl">school</span>
+        <div class="space-y-1">
+            <p class="font-body font-bold text-lg text-on-surface">Admission Processor</p>
+            <p class="font-label text-sm text-on-surface-variant/70">Minerva University</p>
+            <p class="font-body text-sm text-on-surface-variant/70">
+                • Evaluated a highly diverse applicant pool (190+ countries) across interviews, creative, logical reasoning, and writing challenges.<br>
+                • Conducted Integrity Check and Quality Assurance for applications to ensure system alignment.
+            </p>
+        </div>
+    </div>
+    <!-- Beezniz -->
+    <div class="p-8 rounded-2xl bg-surface border border-outline-variant/10 shadow-sm flex items-start gap-6">
+        <span class="material-symbols-outlined text-primary text-3xl">rocket_launch</span>
+        <div class="space-y-1">
+            <p class="font-body font-bold text-lg text-on-surface">Founder/Advisor</p>
+            <p class="font-label text-sm text-on-surface-variant/70">Beezniz - Career Orientation and Youth Entrepreneurship Club of Quang Ninh Province</p>
+            <p class="font-body text-sm text-on-surface-variant/70">
+                • Founded and scaled Quang Ninh’s first officially recognized youth entrepreneurship club, growing to 50+ members/year with institutional backing from Vietnam Youth Federation and Ha Long City Investment and Startup Club.<br>
+                • Led a 50+ member team to deliver entrepreneurial and career orientation programs through interactive classes and regional-scale events.<br>
+                • Built a knowledge-sharing series that attracted 5,000+ Facebook followers.
+            </p>
+        </div>
+    </div>
 </div>
 </div>
 </div>
@@ -282,7 +290,7 @@
 </a>
 </div>
 <div class="flex justify-center">
-<a class="bg-primary text-on-primary px-12 py-4 rounded-full font-label text-sm font-semibold tracking-widest uppercase hover:scale-[1.05] transition-transform duration-300 shadow-2xl shadow-primary/20 flex items-center gap-3" href="https://drive.google.com/your-resume-link">
+<a class="bg-primary text-on-primary px-12 py-4 rounded-full font-label text-sm font-semibold tracking-widest uppercase hover:scale-[1.05] transition-transform duration-300 shadow-2xl shadow-primary/20 flex items-center gap-3" href="https://drive.google.com/file/d/1CKjHTrA7Z5VA_i5fzCCVCxe6MjszrN0n/view?usp=sharing">
 <span class="material-symbols-outlined text-base">download</span>
                     Download Full Resume
                 </a>
@@ -296,7 +304,7 @@
 <div class="max-w-xs">
 <span class="font-['Libre_Caslon_Text'] text-xl mb-4 block text-primary dark:text-[#F5F5DC]">pling's portfolio</span>
 <p class="font-['Montserrat'] text-[10px] tracking-widest uppercase text-on-surface-variant/70 leading-relaxed">
-                © 2025 pling's portfolio. Built for the intersection of human and system.
+                © pling's portfolio..
             </p>
 </div>
 <div class="flex flex-wrap gap-12">
@@ -304,7 +312,7 @@
 <p class="font-['Montserrat'] text-xs font-bold tracking-[0.3em] uppercase text-primary">Explore</p>
 <div class="flex flex-col gap-2 font-['Montserrat'] text-xs tracking-widest uppercase text-on-surface-variant">
 <a class="hover:text-primary transition-all" href="#about">About</a>
-<a class="hover:text-primary transition-all" href="#builder">Work</a>
+<a class="hover:text-primary transition-all" href="work.html">Work</a>
 <a class="hover:text-primary transition-all" href="#storyteller">Stories</a>
 </div>
 </div>
