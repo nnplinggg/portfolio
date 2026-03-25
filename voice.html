@@ -194,6 +194,17 @@
     color: #1d4626;
   }
 
+  /* ── Stacked/offset image layouts ── */
+  .img-stack {
+    position: relative;
+  }
+  .img-stack img {
+    border-radius: 0.75rem;
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
   /* ── Nav scroll behavior ── */
   .nav-scrolled {
     background: rgba(247,247,227,0.92) !important;
@@ -313,10 +324,14 @@
     <div class="max-w-screen-xl mx-auto px-8 py-20">
       <div class="flex flex-col md:flex-row items-stretch gap-0">
 
-        <!-- Image column -->
-        <div data-reveal="left" class="md:w-5/12 flex flex-col gap-4" style="transition-delay:0s">
-          <div class="img-ph w-full rounded-xl" style="aspect-ratio:4/3;">
-            <span>debate competition photo or podium moment</span>
+        <!-- Image column — debate: large top + two offset below -->
+        <div data-reveal="left" class="md:w-5/12 img-stack" style="transition-delay:0s">
+          <!-- img1: full width top -->
+          <img src="images/storyteller/debate/img1.jpg" alt="Debate competition" style="width:100%; border-radius:0.75rem; display:block;"/>
+          <!-- img2 + img3: side by side, img3 shifted up to overlap slightly -->
+          <div class="flex gap-3 mt-3 items-end">
+            <img src="images/storyteller/debate/img2.jpg" alt="Debate stage" style="width:52%; border-radius:0.75rem;"/>
+            <img src="images/storyteller/debate/img3.png" alt="NSDC Runner-up Certificate" style="width:52%; border-radius:0.75rem; margin-bottom: 1.5rem;"/>
           </div>
         </div>
 
@@ -393,11 +408,13 @@
         <!-- Vertical rule -->
         <div class="story-rule hidden md:block"></div>
 
-        <!-- Image column -->
-        <div data-reveal="right" class="md:w-5/12 flex flex-col gap-4" style="transition-delay:0.15s">
-          <div class="img-ph w-full rounded-xl" style="aspect-ratio:4/3;">
-            <span>speech or forum photo</span>
+        <!-- Image column — voice: two top side by side + one wide below -->
+        <div data-reveal="right" class="md:w-5/12 img-stack" style="transition-delay:0.15s">
+          <div class="flex gap-3 mb-3 items-start">
+            <img src="images/storyteller/voice/img1.jpg" alt="Journey of Inspiration Forum" style="width:56%; border-radius:0.75rem; margin-top:1.5rem;"/>
+            <img src="images/storyteller/voice/img2.jpg" alt="Journey of Inspiration Forum" style="width:48%; border-radius:0.75rem;"/>
           </div>
+          <img src="images/storyteller/voice/img3.jpg" alt="Receiving award" style="width:90%; border-radius:0.75rem; margin-left:auto; display:block;"/>
         </div>
 
       </div>
@@ -412,19 +429,11 @@
     <div class="max-w-screen-xl mx-auto px-8 py-20">
       <div class="flex flex-col md:flex-row items-stretch gap-0">
 
-        <!-- Image column — 3 images -->
-        <div data-reveal="left" class="md:w-5/12 flex flex-col gap-4" style="transition-delay:0s">
-          <div class="img-ph w-full rounded-xl" style="aspect-ratio:3/2;">
-            <span>highlight photograph</span>
-          </div>
-          <div class="flex gap-4">
-            <div class="img-ph flex-1 rounded-xl" style="aspect-ratio:1/1;">
-              <span>photo 2</span>
-            </div>
-            <div class="img-ph flex-1 rounded-xl" style="aspect-ratio:1/1;">
-              <span>photo 3</span>
-            </div>
-          </div>
+        <!-- Image column — photography: 3 portrait images side by side, no overlap -->
+        <div data-reveal="left" class="md:w-5/12 flex gap-3 items-end" style="transition-delay:0s">
+          <img src="images/storyteller/photography/img1.png" alt="Documentary photography 1" style="flex:1; width:0; border-radius:0.75rem; display:block;"/>
+          <img src="images/storyteller/photography/img2.png" alt="Documentary photography 2" style="flex:1; width:0; border-radius:0.75rem; display:block; margin-bottom:1.5rem;"/>
+          <img src="images/storyteller/photography/img3.png" alt="Documentary photography 3" style="flex:1; width:0; border-radius:0.75rem; display:block;"/>
         </div>
 
         <!-- Vertical rule -->
