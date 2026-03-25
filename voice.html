@@ -177,6 +177,11 @@
     text-transform: uppercase;
   }
 
+  /* ── Essay paragraph orphan prevention ── */
+  article p {
+    text-wrap: pretty;
+  }
+
   /* ── Opening essay drop cap ── */
   .essay-dropcap::first-letter {
     font-family: 'Libre Caslon Text', serif;
@@ -249,7 +254,7 @@
        SECTION 1 — OPENING ESSAY
   ════════════════════════════════════════════════ -->
   <section class="py-20 px-6">
-    <article class="max-w-[680px] mx-auto">
+    <article class="max-w-[720px] mx-auto">
 
       <p data-reveal class="essay-dropcap font-body text-[1.0625rem] leading-[1.85] text-on-surface mb-8">
         I came to storytelling through two very different lenses — a camera and a courtroom argument.
