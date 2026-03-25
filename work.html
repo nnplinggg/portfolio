@@ -158,13 +158,96 @@
     color: #1b1d0e;
   }
 
-  /* Card hover */
+  /* Card hover (legacy) */
   .project-card {
     transition: box-shadow 0.3s ease, transform 0.3s ease;
   }
-  .project-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 16px 40px rgba(29, 70, 38, 0.10);
+
+  /* Flip Card */
+  .flip-card {
+    perspective: 1200px;
+    height: 480px;
+    cursor: default;
+  }
+  .flip-card.wide {
+    height: 520px;
+  }
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.65s cubic-bezier(0.23, 1, 0.32, 1);
+    transform-style: preserve-3d;
+  }
+  .flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+  .flip-card-front,
+  .flip-card-back {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 1rem;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    overflow: hidden;
+  }
+  .flip-card-front {
+    background: #efefd7;
+    border: 1px solid rgba(193, 201, 190, 0.2);
+  }
+  .flip-card-back {
+    transform: rotateY(180deg);
+    background: #1d4626;
+    border: 1px solid rgba(191, 238, 193, 0.12);
+    overflow-y: auto;
+  }
+  .flip-hint {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #424941;
+    opacity: 0.35;
+  }
+  .img-placeholder {
+    background: linear-gradient(135deg, #e4e4cc 0%, #d0d1b8 100%);
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #b5b9a8;
+  }
+  .bullet-item-back {
+    display: flex;
+    align-items: flex-start;
+  }
+  .bullet-item-back::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #a4d2a6;
+    opacity: 0.7;
+    margin-right: 10px;
+    flex-shrink: 0;
+    margin-top: 7px;
+  }
+  .tag-pill-back {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 600;
+    background: rgba(255,255,255,0.07);
+    color: rgba(191,238,193,0.7);
+    border: 1px solid rgba(191,238,193,0.18);
   }
 
   /* Bullet dot */
@@ -320,233 +403,416 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6" id="product-cards">
 
       <!-- Card: TeachMap -->
-      <article class="project-card card-animate bg-surface-container rounded-2xl p-8 border border-outline-variant/20 flex flex-col gap-6">
-        <div class="flex items-start justify-between gap-4 flex-wrap">
-          <div class="flex flex-col gap-2">
-            <span class="type-badge type-badge-project">
-              <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1,'wght' 400">trophy</span>
-              Project · Berkeley SodaHack · March 2026
-            </span>
-            <h3 class="font-headline text-2xl text-on-surface leading-tight tracking-tight">TeachMap</h3>
-            <p class="font-label text-xs text-on-surface-variant/70 tracking-wide">Teacher Allocation Optimizer</p>
-          </div>
-        </div>
-        <div class="divider"></div>
-        <p class="font-body text-sm text-on-surface-variant leading-relaxed">
-          Teacher distribution across Vietnam's 51 mountainous provinces is manual, inequitable, and opaque. Working with backend developers, we translated this government planning failure into a <span class="text-primary font-medium">Min-Cost Max-Flow optimization problem</span> with equity-weighted fairness constraints — and delivered a functional website for this optimization engine.
-        </p>
-        <ul class="space-y-2">
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Led problem and gap analysis, scoped to itinerant teacher pool (5–15% of provincial workforce)</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Designed 3 production use cases for district education officers: annual allocation, mid-year emergency reallocation, equity audit/reporting</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Architected CSV data schemas; generated synthetic datasets for Ha Giang and Lai Chau via Python</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Designed 3-panel Figma interface with custom design system</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Authored evidence-based problem document for government, NGO, and hackathon audiences (MOET, UNICEF Vietnam, World Bank)</span></li>
-        </ul>
-        <div class="flex flex-wrap gap-1.5 pt-2">
-          <span class="tag-pill">gap analysis</span>
+      <div class="flip-card card-animate">
+        <div class="flip-card-inner">
+
+          <!-- Front -->
+          <div class="flip-card-front">
+            <div class="flex items-start justify-between gap-2">
+              <span class="type-badge type-badge-project">
+                <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1,'wght' 400">trophy</span>
+                Project · Berkeley SodaHack · March 2026
+              </span>
+              <span class="flip-hint mt-1">hover ↻</span>
+            </div>
+            <div>
+              <h3 class="font-headline text-2xl text-on-surface leading-tight tracking-tight">TeachMap</h3>
+              <p class="font-label text-xs text-on-surface-variant/70 tracking-wide mt-0.5">Teacher Allocation Optimizer</p>
+            </div>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="tag-pill">gap analysis</span>
           <span class="tag-pill">edtech</span>
           <span class="tag-pill">systems design</span>
           <span class="tag-pill">civictech</span>
           <span class="tag-pill">Python</span>
           <span class="tag-pill">Figma</span>
           <span class="tag-pill">social impact</span>
-          <span class="tag-pill">government policy accessibility</span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 flex-1" style="min-height:160px">
+              <img class="w-full h-full object-cover rounded-xl" src="images/projects/teachmap/img1.png" alt=""/>
+          <img class="w-full h-full object-cover rounded-xl" src="images/projects/teachmap/img2.png" alt=""/>
+          <img class="w-full h-full object-cover rounded-xl" src="images/projects/teachmap/img3.png" alt=""/>
+          <img class="w-full h-full object-cover rounded-xl" src="images/projects/teachmap/img4.png" alt=""/>
+            </div>
+          </div>
+
+          <!-- Back -->
+          <div class="flip-card-back">
+            <p class="font-body text-sm text-white/80 leading-relaxed">Teacher distribution across Vietnam's 51 mountainous provinces is manual, inequitable, and opaque. Working with backend developers, we translated this government planning failure into a <span class="text-[#a4d2a6] font-medium">Min-Cost Max-Flow optimization problem</span> with equity-weighted fairness constraints — and delivered a functional website for this optimization engine.</p>
+            <ul class="space-y-2">
+              <li class="bullet-item-back font-body text-sm text-white/75"><span>Led problem and gap analysis, scoped to itinerant teacher pool (5–15% of provincial workforce)</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Designed 3 production use cases for district education officers: annual allocation, mid-year emergency reallocation, equity audit/reporting</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Architected CSV data schemas; generated synthetic datasets for Ha Giang and Lai Chau via Python</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Designed 3-panel Figma interface with custom design system</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Authored evidence-based problem document for government, NGO, and hackathon audiences (MOET, UNICEF Vietnam, World Bank)</span></li>
+            </ul>
+            <div class="flex flex-wrap gap-1.5 mt-auto pt-3 border-t border-white/10">
+              <span class="tag-pill-back">gap analysis</span>
+          <span class="tag-pill-back">edtech</span>
+          <span class="tag-pill-back">systems design</span>
+          <span class="tag-pill-back">civictech</span>
+          <span class="tag-pill-back">Python</span>
+          <span class="tag-pill-back">Figma</span>
+          <span class="tag-pill-back">social impact</span>
+            </div>
+            <a href="#" class="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/18 text-white rounded-full px-6 py-2.5 font-label text-xs font-semibold tracking-widest uppercase transition-colors border border-white/15 cursor-default" onclick="return false">
+              View Details <span class="opacity-40 font-normal normal-case tracking-normal text-[10px]">(coming soon)</span>
+            </a>
+          </div>
+
         </div>
-      </article>
+      </div>
 
       <!-- Card: XanhInsights -->
-      <article class="project-card card-animate bg-surface-container rounded-2xl p-8 border border-outline-variant/20 flex flex-col gap-6">
-        <div class="flex items-start justify-between gap-4 flex-wrap">
-          <div class="flex flex-col gap-2">
-            <span class="type-badge type-badge-project">
-              <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1,'wght' 400">satellite_alt</span>
-              Project · NASA Space Apps Challenge · Oct 2025
-            </span>
-            <h3 class="font-headline text-2xl text-on-surface leading-tight tracking-tight">XanhInsights</h3>
-            <p class="font-label text-xs text-on-surface-variant/70 tracking-wide">Urban Planner Dashboard</p>
-          </div>
-        </div>
-        <div class="divider"></div>
-        <p class="font-body text-sm text-on-surface-variant leading-relaxed">
-          Existing climate tools were built for scientists, not decision-makers. XanhInsights translates <span class="text-primary font-medium">NASA satellite data</span> into an actionable dashboard for urban planners making green infrastructure investments.
-        </p>
-        <ul class="space-y-2">
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Defined problem, product strategy, feature system and led team of 5 to develop a functional system and prototype</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Collaborated with backend developers (C++, Python, JavaScript)</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Integrated NASA datasets: NDVI (vegetation health), LST (land surface temperature), AOD (air quality)</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Led UX/UI in Figma, centering planner workflows not scientist workflows</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Owned the storytelling, user flow and strategy recommendation layer</span></li>
-        </ul>
-        <div class="flex flex-wrap gap-1.5 pt-2">
-          <span class="tag-pill">product management</span>
+      <div class="flip-card card-animate">
+        <div class="flip-card-inner">
+
+          <!-- Front -->
+          <div class="flip-card-front">
+            <div class="flex items-start justify-between gap-2">
+              <span class="type-badge type-badge-project">
+                <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1,'wght' 400">satellite_alt</span>
+                Project · NASA Space Apps Challenge · Oct 2025
+              </span>
+              <span class="flip-hint mt-1">hover ↻</span>
+            </div>
+            <div>
+              <h3 class="font-headline text-2xl text-on-surface leading-tight tracking-tight">XanhInsights</h3>
+              <p class="font-label text-xs text-on-surface-variant/70 tracking-wide mt-0.5">Urban Planner Dashboard</p>
+            </div>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="tag-pill">product management</span>
           <span class="tag-pill">UX design</span>
           <span class="tag-pill">data visualization</span>
           <span class="tag-pill">climate tech</span>
           <span class="tag-pill">cross-functional leadership</span>
           <span class="tag-pill">Figma</span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 flex-1" style="min-height:160px">
+              <img class="w-full h-full object-cover rounded-xl" src="images/projects/xanhinsights/img1.png" alt=""/>
+          <img class="w-full h-full object-cover rounded-xl" src="images/projects/xanhinsights/img2.png" alt=""/>
+          <img class="w-full h-full object-cover rounded-xl" src="images/projects/xanhinsights/img3.png" alt=""/>
+          <img class="w-full h-full object-cover rounded-xl" src="images/projects/xanhinsights/img4.png" alt=""/>
+            </div>
+          </div>
+
+          <!-- Back -->
+          <div class="flip-card-back">
+            <p class="font-body text-sm text-white/80 leading-relaxed">Existing climate tools were built for scientists, not decision-makers. XanhInsights translates <span class="text-[#a4d2a6] font-medium">NASA satellite data</span> into an actionable dashboard for urban planners making green infrastructure investments.</p>
+            <ul class="space-y-2">
+              <li class="bullet-item-back font-body text-sm text-white/75"><span>Defined problem, product strategy, feature system and led team of 5 to develop a functional system and prototype</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Collaborated with backend developers (C++, Python, JavaScript)</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Integrated NASA datasets: NDVI (vegetation health), LST (land surface temperature), AOD (air quality)</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Led UX/UI in Figma, centering planner workflows not scientist workflows</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Owned the storytelling, user flow and strategy recommendation layer</span></li>
+            </ul>
+            <div class="flex flex-wrap gap-1.5 mt-auto pt-3 border-t border-white/10">
+              <span class="tag-pill-back">product management</span>
+          <span class="tag-pill-back">UX design</span>
+          <span class="tag-pill-back">data visualization</span>
+          <span class="tag-pill-back">climate tech</span>
+          <span class="tag-pill-back">cross-functional leadership</span>
+          <span class="tag-pill-back">Figma</span>
+            </div>
+            <a href="#" class="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/18 text-white rounded-full px-6 py-2.5 font-label text-xs font-semibold tracking-widest uppercase transition-colors border border-white/15 cursor-default" onclick="return false">
+              View Details <span class="opacity-40 font-normal normal-case tracking-normal text-[10px]">(coming soon)</span>
+            </a>
+          </div>
+
         </div>
-      </article>
+      </div>
 
       <!-- Card: Creativity Explored -->
-      <article class="project-card card-animate bg-surface-container rounded-2xl p-8 border border-outline-variant/20 flex flex-col gap-6">
-        <div class="flex items-start justify-between gap-4 flex-wrap">
-          <div class="flex flex-col gap-2">
-            <span class="type-badge type-badge-internship">
-              <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1,'wght' 400">diversity_3</span>
-              Internship · Team Manager · Aug 2025 – Present
-            </span>
-            <h3 class="font-headline text-2xl text-on-surface leading-tight tracking-tight">Creativity Explored</h3>
-            <p class="font-label text-xs text-on-surface-variant/70 tracking-wide">Referral Product for Disability-Affirming Youth Art Program</p>
-          </div>
-        </div>
-        <div class="divider"></div>
-        <p class="font-body text-sm text-on-surface-variant leading-relaxed">
-          A San Francisco nonprofit serving <span class="text-primary font-medium">neurodivergent teen artists</span> was losing families before they arrived. I led the research to find out why — and built a product to fix the gap.
-        </p>
-        <ul class="space-y-2">
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Led team of 5 student researchers to conduct user research, identifying awareness and attendance drop-offs</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Ran stakeholder journey mapping across 3 groups: families, educators, neurodivergent teen students</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Identified friction per group: messaging gaps (families), referral gaps (educators), access gaps (students)</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Synthesized findings into unified friction map</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Co-developed a referral product as a distribution channel for schools and parents</span></li>
-        </ul>
-        <div class="flex flex-wrap gap-1.5 pt-2">
-          <span class="tag-pill">gap analysis</span>
+      <div class="flip-card card-animate">
+        <div class="flip-card-inner">
+
+          <!-- Front -->
+          <div class="flip-card-front">
+            <div class="flex items-start justify-between gap-2">
+              <span class="type-badge type-badge-internship">
+                <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1,'wght' 400">diversity_3</span>
+                Internship · Team Manager · Aug 2025 – Present
+              </span>
+              <span class="flip-hint mt-1">hover ↻</span>
+            </div>
+            <div>
+              <h3 class="font-headline text-2xl text-on-surface leading-tight tracking-tight">Creativity Explored</h3>
+              <p class="font-label text-xs text-on-surface-variant/70 tracking-wide mt-0.5">Referral Product for Disability-Affirming Youth Art Program</p>
+            </div>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="tag-pill">gap analysis</span>
           <span class="tag-pill">UX research</span>
           <span class="tag-pill">accessibility</span>
           <span class="tag-pill">nonprofit</span>
           <span class="tag-pill">stakeholder mapping</span>
           <span class="tag-pill">product strategy</span>
           <span class="tag-pill">disability-affirming design</span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 flex-1" style="min-height:160px">
+              <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">diversity_3</span></div>
+          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">diversity_3</span></div>
+          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">diversity_3</span></div>
+          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">diversity_3</span></div>
+            </div>
+          </div>
+
+          <!-- Back -->
+          <div class="flip-card-back">
+            <p class="font-body text-sm text-white/80 leading-relaxed">A San Francisco nonprofit serving <span class="text-[#a4d2a6] font-medium">neurodivergent teen artists</span> was losing families before they arrived. I led the research to find out why — and built a product to fix the gap.</p>
+            <ul class="space-y-2">
+              <li class="bullet-item-back font-body text-sm text-white/75"><span>Led team of 5 student researchers to conduct user research, identifying awareness and attendance drop-offs</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Ran stakeholder journey mapping across 3 groups: families, educators, neurodivergent teen students</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Identified friction per group: messaging gaps (families), referral gaps (educators), access gaps (students)</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Synthesized findings into unified friction map</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Co-developed a referral product as a distribution channel for schools and parents</span></li>
+            </ul>
+            <div class="flex flex-wrap gap-1.5 mt-auto pt-3 border-t border-white/10">
+              <span class="tag-pill-back">gap analysis</span>
+          <span class="tag-pill-back">UX research</span>
+          <span class="tag-pill-back">accessibility</span>
+          <span class="tag-pill-back">nonprofit</span>
+          <span class="tag-pill-back">stakeholder mapping</span>
+          <span class="tag-pill-back">product strategy</span>
+          <span class="tag-pill-back">disability-affirming design</span>
+            </div>
+            <a href="#" class="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/18 text-white rounded-full px-6 py-2.5 font-label text-xs font-semibold tracking-widest uppercase transition-colors border border-white/15 cursor-default" onclick="return false">
+              View Details <span class="opacity-40 font-normal normal-case tracking-normal text-[10px]">(coming soon)</span>
+            </a>
+          </div>
+
         </div>
-      </article>
+      </div>
 
       <!-- Card: Bossense -->
-      <article class="project-card card-animate bg-surface-container rounded-2xl p-8 border border-outline-variant/20 flex flex-col gap-6">
-        <div class="flex items-start justify-between gap-4 flex-wrap">
-          <div class="flex flex-col gap-2">
-            <span class="type-badge type-badge-competition">
-              <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1,'wght' 400">smart_toy</span>
-              Product · PM Course Final Project · Dec 2025
-            </span>
-            <h3 class="font-headline text-2xl text-on-surface leading-tight tracking-tight">Bossense</h3>
-            <p class="font-label text-xs text-on-surface-variant/70 tracking-wide">AI Workplace Communication Assistant</p>
-          </div>
-        </div>
-        <div class="divider"></div>
-        <p class="font-body text-sm text-on-surface-variant leading-relaxed">
-          Managers communicate ambiguously, and freshers absorb the cost. Bossense <span class="text-primary font-medium">parses manager messages</span> to extract tasks, deadlines, and urgency — then generates context-aware reply suggestions.
-        </p>
-        <ul class="space-y-2">
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Conducted 5+ user interviews, synthesized job steps and user journey maps</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Produced problem statements from pattern analysis</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Scoped MVP prioritization by frequency and pain severity</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Designed full AI prompt flow: intent detection, response generation, fallback handling</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Produced complete docs: ORD, activity diagram, Figma wireframe</span></li>
-        </ul>
-        <div class="flex flex-wrap gap-1.5 pt-2">
-          <span class="tag-pill">product management</span>
+      <div class="flip-card card-animate">
+        <div class="flip-card-inner">
+
+          <!-- Front -->
+          <div class="flip-card-front">
+            <div class="flex items-start justify-between gap-2">
+              <span class="type-badge type-badge-competition">
+                <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1,'wght' 400">smart_toy</span>
+                Product · PM Course Final Project · Dec 2025
+              </span>
+              <span class="flip-hint mt-1">hover ↻</span>
+            </div>
+            <div>
+              <h3 class="font-headline text-2xl text-on-surface leading-tight tracking-tight">Bossense</h3>
+              <p class="font-label text-xs text-on-surface-variant/70 tracking-wide mt-0.5">AI Workplace Communication Assistant</p>
+            </div>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="tag-pill">product management</span>
           <span class="tag-pill">AI/ML</span>
           <span class="tag-pill">user research</span>
           <span class="tag-pill">UX design</span>
           <span class="tag-pill">MVP scoping</span>
           <span class="tag-pill">prompt engineering</span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 flex-1" style="min-height:160px">
+              <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">smart_toy</span></div>
+          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">smart_toy</span></div>
+          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">smart_toy</span></div>
+          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">smart_toy</span></div>
+            </div>
+          </div>
+
+          <!-- Back -->
+          <div class="flip-card-back">
+            <p class="font-body text-sm text-white/80 leading-relaxed">Managers communicate ambiguously, and freshers absorb the cost. Bossense <span class="text-[#a4d2a6] font-medium">parses manager messages</span> to extract tasks, deadlines, and urgency — then generates context-aware reply suggestions.</p>
+            <ul class="space-y-2">
+              <li class="bullet-item-back font-body text-sm text-white/75"><span>Conducted 5+ user interviews, synthesized job steps and user journey maps</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Produced problem statements from pattern analysis</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Scoped MVP prioritization by frequency and pain severity</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Designed full AI prompt flow: intent detection, response generation, fallback handling</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Produced complete docs: ORD, activity diagram, Figma wireframe</span></li>
+            </ul>
+            <div class="flex flex-wrap gap-1.5 mt-auto pt-3 border-t border-white/10">
+              <span class="tag-pill-back">product management</span>
+          <span class="tag-pill-back">AI/ML</span>
+          <span class="tag-pill-back">user research</span>
+          <span class="tag-pill-back">UX design</span>
+          <span class="tag-pill-back">MVP scoping</span>
+          <span class="tag-pill-back">prompt engineering</span>
+            </div>
+            <a href="#" class="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/18 text-white rounded-full px-6 py-2.5 font-label text-xs font-semibold tracking-widest uppercase transition-colors border border-white/15 cursor-default" onclick="return false">
+              View Details <span class="opacity-40 font-normal normal-case tracking-normal text-[10px]">(coming soon)</span>
+            </a>
+          </div>
+
         </div>
-      </article>
+      </div>
 
       <!-- Card: Navigo -->
-      <article class="project-card card-animate bg-surface-container rounded-2xl p-8 border border-outline-variant/20 flex flex-col gap-6">
-        <div class="flex items-start justify-between gap-4 flex-wrap">
-          <div class="flex flex-col gap-2">
-            <span class="type-badge type-badge-founded">
-              <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1,'wght' 400">emoji_events</span>
-              Start-up Competition · 1st Prize, Quang Ninh Province · Dec 2024
-            </span>
-            <h3 class="font-headline text-2xl text-on-surface leading-tight tracking-tight">Navigo</h3>
-            <p class="font-label text-xs text-on-surface-variant/70 tracking-wide">AI Career Orientation Platform</p>
-          </div>
-        </div>
-        <div class="divider"></div>
-        <p class="font-body text-sm text-on-surface-variant leading-relaxed">
-          Vietnamese high schoolers navigate major career decisions with almost no structured guidance. Navigo <span class="text-primary font-medium">personalizes career pathways</span> by interests, skills, and live labor market demand.
-        </p>
-        <ul class="space-y-2">
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Market research + 10+ student interviews → mapped failure points in existing guidance systems</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Designed platform architecture: AI assessments + recommendation logic + experiential learning pathways</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Produced full PRD and pitch deck</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Led product strategy and storytelling → First Prize</span></li>
-        </ul>
-        <div class="flex flex-wrap gap-1.5 pt-2">
-          <span class="tag-pill">product strategy</span>
+      <div class="flip-card card-animate">
+        <div class="flip-card-inner">
+
+          <!-- Front -->
+          <div class="flip-card-front">
+            <div class="flex items-start justify-between gap-2">
+              <span class="type-badge type-badge-founded">
+                <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1,'wght' 400">emoji_events</span>
+                Start-up Competition · 1st Prize, Quang Ninh Province · Dec 2024
+              </span>
+              <span class="flip-hint mt-1">hover ↻</span>
+            </div>
+            <div>
+              <h3 class="font-headline text-2xl text-on-surface leading-tight tracking-tight">Navigo</h3>
+              <p class="font-label text-xs text-on-surface-variant/70 tracking-wide mt-0.5">AI Career Orientation Platform</p>
+            </div>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="tag-pill">product strategy</span>
           <span class="tag-pill">education technology</span>
           <span class="tag-pill">AI/ML</span>
           <span class="tag-pill">user research</span>
           <span class="tag-pill">pitching</span>
           <span class="tag-pill">market research</span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 flex-1" style="min-height:160px">
+              <img class="w-full h-full object-cover rounded-xl" src="images/projects/navigo/img1.png" alt=""/>
+          <img class="w-full h-full object-cover rounded-xl" src="images/projects/navigo/img2.png" alt=""/>
+          <img class="w-full h-full object-cover rounded-xl" src="images/projects/navigo/img3.jpg" alt=""/>
+          <img class="w-full h-full object-cover rounded-xl" src="images/projects/navigo/img4.jpg" alt=""/>
+            </div>
+          </div>
+
+          <!-- Back -->
+          <div class="flip-card-back">
+            <p class="font-body text-sm text-white/80 leading-relaxed">Vietnamese high schoolers navigate major career decisions with almost no structured guidance. Navigo <span class="text-[#a4d2a6] font-medium">personalizes career pathways</span> by interests, skills, and live labor market demand.</p>
+            <ul class="space-y-2">
+              <li class="bullet-item-back font-body text-sm text-white/75"><span>Market research + 10+ student interviews → mapped failure points in existing guidance systems</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Designed platform architecture: AI assessments + recommendation logic + experiential learning pathways</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Produced full PRD and pitch deck</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Led product strategy and storytelling → First Prize</span></li>
+            </ul>
+            <div class="flex flex-wrap gap-1.5 mt-auto pt-3 border-t border-white/10">
+              <span class="tag-pill-back">product strategy</span>
+          <span class="tag-pill-back">education technology</span>
+          <span class="tag-pill-back">AI/ML</span>
+          <span class="tag-pill-back">user research</span>
+          <span class="tag-pill-back">pitching</span>
+          <span class="tag-pill-back">market research</span>
+            </div>
+            <a href="#" class="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/18 text-white rounded-full px-6 py-2.5 font-label text-xs font-semibold tracking-widest uppercase transition-colors border border-white/15 cursor-default" onclick="return false">
+              View Details <span class="opacity-40 font-normal normal-case tracking-normal text-[10px]">(coming soon)</span>
+            </a>
+          </div>
+
         </div>
-      </article>
+      </div>
 
       <!-- Card: PepperSmart -->
-      <article class="project-card card-animate bg-surface-container rounded-2xl p-8 border border-outline-variant/20 flex flex-col gap-6">
-        <div class="flex items-start justify-between gap-4 flex-wrap">
-          <div class="flex flex-col gap-2">
-            <span class="type-badge type-badge-competition">
-              <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1,'wght' 400">yard</span>
-              Start-up Competition · Top 20, Bach Khoa Innovation · March 2025
-            </span>
-            <h3 class="font-headline text-2xl text-on-surface leading-tight tracking-tight">PepperSmart</h3>
-            <p class="font-label text-xs text-on-surface-variant/70 tracking-wide">Smart Crop Monitoring System</p>
-          </div>
-        </div>
-        <div class="divider"></div>
-        <p class="font-body text-sm text-on-surface-variant leading-relaxed">
-          Smallholder pepper farmers have no early warning for crop disease. PepperSmart monitors <span class="text-primary font-medium">soil moisture, temperature, and humidity</span> in real time to enable early detection.
-        </p>
-        <ul class="space-y-2">
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Field research with farmers → problem framing and system requirements</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Translated agricultural pain points into feasible IoT architecture</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Coordinated hardware and software development tracks</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Authored technical roadmap</span></li>
-        </ul>
-        <div class="flex flex-wrap gap-1.5 pt-2">
-          <span class="tag-pill">IoT</span>
+      <div class="flip-card card-animate">
+        <div class="flip-card-inner">
+
+          <!-- Front -->
+          <div class="flip-card-front">
+            <div class="flex items-start justify-between gap-2">
+              <span class="type-badge type-badge-competition">
+                <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1,'wght' 400">yard</span>
+                Start-up Competition · Top 20, Bach Khoa Innovation · March 2025
+              </span>
+              <span class="flip-hint mt-1">hover ↻</span>
+            </div>
+            <div>
+              <h3 class="font-headline text-2xl text-on-surface leading-tight tracking-tight">PepperSmart</h3>
+              <p class="font-label text-xs text-on-surface-variant/70 tracking-wide mt-0.5">Smart Crop Monitoring System</p>
+            </div>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="tag-pill">IoT</span>
           <span class="tag-pill">hardware/software</span>
           <span class="tag-pill">agritech</span>
           <span class="tag-pill">product vision</span>
           <span class="tag-pill">field research</span>
           <span class="tag-pill">technical roadmap</span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 flex-1" style="min-height:160px">
+              <img class="w-full h-full object-cover rounded-xl" src="images/projects/peppersmart/img1.png" alt=""/>
+          <img class="w-full h-full object-cover rounded-xl" src="images/projects/peppersmart/img2.png" alt=""/>
+          <img class="w-full h-full object-cover rounded-xl" src="images/projects/peppersmart/img3.png" alt=""/>
+          <img class="w-full h-full object-cover rounded-xl" src="images/projects/peppersmart/img4.png" alt=""/>
+            </div>
+          </div>
+
+          <!-- Back -->
+          <div class="flip-card-back">
+            <p class="font-body text-sm text-white/80 leading-relaxed">Smallholder pepper farmers have no early warning for crop disease. PepperSmart monitors <span class="text-[#a4d2a6] font-medium">soil moisture, temperature, and humidity</span> in real time to enable early detection.</p>
+            <ul class="space-y-2">
+              <li class="bullet-item-back font-body text-sm text-white/75"><span>Field research with farmers → problem framing and system requirements</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Translated agricultural pain points into feasible IoT architecture</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Coordinated hardware and software development tracks</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Authored technical roadmap</span></li>
+            </ul>
+            <div class="flex flex-wrap gap-1.5 mt-auto pt-3 border-t border-white/10">
+              <span class="tag-pill-back">IoT</span>
+          <span class="tag-pill-back">hardware/software</span>
+          <span class="tag-pill-back">agritech</span>
+          <span class="tag-pill-back">product vision</span>
+          <span class="tag-pill-back">field research</span>
+          <span class="tag-pill-back">technical roadmap</span>
+            </div>
+            <a href="#" class="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/18 text-white rounded-full px-6 py-2.5 font-label text-xs font-semibold tracking-widest uppercase transition-colors border border-white/15 cursor-default" onclick="return false">
+              View Details <span class="opacity-40 font-normal normal-case tracking-normal text-[10px]">(coming soon)</span>
+            </a>
+          </div>
+
         </div>
-      </article>
+      </div>
 
       <!-- Card: MLV / Scafold — full width -->
-      <article class="project-card card-animate bg-surface-container rounded-2xl p-8 border border-outline-variant/20 flex flex-col gap-6 lg:col-span-2">
-        <div class="flex items-start justify-between gap-4 flex-wrap">
-          <div class="flex flex-col gap-2">
-            <span class="type-badge type-badge-internship">
-              <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1,'wght' 400">rocket_launch</span>
-              Internship · PM Associate · Jan 2026 – Present
-            </span>
-            <h3 class="font-headline text-2xl text-on-surface leading-tight tracking-tight">MLV / Scafold</h3>
-            <p class="font-label text-xs text-on-surface-variant/70 tracking-wide">AI Agent for Young Founders</p>
-          </div>
-        </div>
-        <div class="divider"></div>
-        <p class="font-body text-sm text-on-surface-variant leading-relaxed max-w-2xl">
-          Scafold is an <span class="text-primary font-medium">AI agent for early-stage founders</span> — structuring information flow, decision-making support, and outreach for people operating without institutional resources.
-        </p>
-        <ul class="space-y-2">
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>UX research and feature strategy for Scafold</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Led a Sponsorship and Partnership Task Force streamlining fundraising systems for a legacy program empowering young founders across Asia</span></li>
-        </ul>
-        <div class="flex flex-wrap gap-1.5 pt-2">
-          <span class="tag-pill">product management</span>
+      <div class="flip-card card-animate wide lg:col-span-2">
+        <div class="flip-card-inner">
+
+          <!-- Front -->
+          <div class="flip-card-front">
+            <div class="flex items-start justify-between gap-2">
+              <span class="type-badge type-badge-internship">
+                <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1,'wght' 400">rocket_launch</span>
+                Internship · PM Associate · Jan 2026 – Present
+              </span>
+              <span class="flip-hint mt-1">hover ↻</span>
+            </div>
+            <div>
+              <h3 class="font-headline text-2xl text-on-surface leading-tight tracking-tight">MLV / Scafold</h3>
+              <p class="font-label text-xs text-on-surface-variant/70 tracking-wide mt-0.5">AI Agent for Young Founders</p>
+            </div>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="tag-pill">product management</span>
           <span class="tag-pill">AI agent</span>
           <span class="tag-pill">UX research</span>
           <span class="tag-pill">startup ecosystem</span>
           <span class="tag-pill">partnerships</span>
           <span class="tag-pill">Asia</span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 flex-1" style="min-height:160px">
+              <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">rocket_launch</span></div>
+          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">rocket_launch</span></div>
+          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">rocket_launch</span></div>
+          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">rocket_launch</span></div>
+            </div>
+          </div>
+
+          <!-- Back -->
+          <div class="flip-card-back">
+            <p class="font-body text-sm text-white/80 leading-relaxed">Scafold is an <span class="text-[#a4d2a6] font-medium">AI agent for early-stage founders</span> — structuring information flow, decision-making support, and outreach for people operating without institutional resources.</p>
+            <ul class="space-y-2">
+              <li class="bullet-item-back font-body text-sm text-white/75"><span>UX research and feature strategy for Scafold</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Led a Sponsorship and Partnership Task Force streamlining fundraising systems for a legacy program empowering young founders across Asia</span></li>
+            </ul>
+            <div class="flex flex-wrap gap-1.5 mt-auto pt-3 border-t border-white/10">
+              <span class="tag-pill-back">product management</span>
+          <span class="tag-pill-back">AI agent</span>
+          <span class="tag-pill-back">UX research</span>
+          <span class="tag-pill-back">startup ecosystem</span>
+          <span class="tag-pill-back">partnerships</span>
+          <span class="tag-pill-back">Asia</span>
+            </div>
+            <a href="#" class="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/18 text-white rounded-full px-6 py-2.5 font-label text-xs font-semibold tracking-widest uppercase transition-colors border border-white/15 cursor-default" onclick="return false">
+              View Details <span class="opacity-40 font-normal normal-case tracking-normal text-[10px]">(coming soon)</span>
+            </a>
+          </div>
+
         </div>
-      </article>
+      </div>
 
     </div>
   </section>
@@ -573,199 +839,347 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6" id="community-cards">
 
       <!-- Card: The Beezniz -->
-      <article class="project-card card-animate bg-surface-container rounded-2xl p-8 border border-outline-variant/20 flex flex-col gap-6 lg:col-span-2">
-        <div class="flex items-start justify-between gap-4 flex-wrap">
-          <div class="flex flex-col gap-2">
-            <span class="type-badge type-badge-founded">
-              <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1,'wght' 400">hub</span>
-              Founded · Aug 2023 – Aug 2025 · now advisor
-            </span>
-            <h3 class="font-headline text-2xl text-on-surface leading-tight tracking-tight">The Beezniz</h3>
-            <p class="font-label text-xs text-on-surface-variant/70 tracking-wide">Career Orientation and Youth Entrepreneurship Club of Quang Ninh Province</p>
-          </div>
-        </div>
-        <div class="divider"></div>
-        <p class="font-body text-sm text-on-surface-variant leading-relaxed max-w-2xl">
-          Quang Ninh had no youth entrepreneurship organization. I built the first one — from <span class="text-primary font-medium">cold-messaging government officials</span> to earning official recognition from the Vietnam Youth Federation.
-        </p>
-        <div class="grid md:grid-cols-2 gap-x-8 gap-y-2">
-          <ul class="space-y-2">
-            <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Reached out to government officials, Youth Union administrators, and business leaders until they agreed to support a student-led initiative</span></li>
-            <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Earned official recognition from Vietnam Youth Federation as the first and only student entrepreneurship club in the province</span></li>
-            <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Secured mentorship from Ha Long City Investment and Startup Club</span></li>
-          </ul>
-          <ul class="space-y-2">
-            <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Grew to 50+ active members/year, 5,000+ Facebook followers</span></li>
-            <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Designed curriculum from scratch, ran pilot workshops, iterated on format</span></li>
-            <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Connected students with 40+ local businesses</span></li>
-            <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Transitioned to advisor after presidency term to ensure continuity</span></li>
-          </ul>
-        </div>
-        <div class="flex flex-wrap gap-1.5 pt-2">
-          <span class="tag-pill">leadership</span>
+      <div class="flip-card card-animate wide lg:col-span-2">
+        <div class="flip-card-inner">
+
+          <!-- Front -->
+          <div class="flip-card-front">
+            <div class="flex items-start justify-between gap-2">
+              <span class="type-badge type-badge-founded">
+                <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1,'wght' 400">hub</span>
+                Founded · Aug 2023 – Aug 2025 · now advisor
+              </span>
+              <span class="flip-hint mt-1">hover ↻</span>
+            </div>
+            <div>
+              <h3 class="font-headline text-2xl text-on-surface leading-tight tracking-tight">The Beezniz</h3>
+              <p class="font-label text-xs text-on-surface-variant/70 tracking-wide mt-0.5">Career Orientation and Youth Entrepreneurship Club of Quang Ninh Province</p>
+            </div>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="tag-pill">leadership</span>
           <span class="tag-pill">community building</span>
           <span class="tag-pill">entrepreneurship education</span>
           <span class="tag-pill">institutional relations</span>
           <span class="tag-pill">program design</span>
           <span class="tag-pill">stakeholder management</span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 flex-1" style="min-height:160px">
+              <img class="w-full h-full object-cover rounded-xl" src="images/projects/beezniz/img1.jpg" alt=""/>
+          <img class="w-full h-full object-cover rounded-xl" src="images/projects/beezniz/img2.jpg" alt=""/>
+          <img class="w-full h-full object-cover rounded-xl" src="images/projects/beezniz/img3.jpg" alt=""/>
+          <img class="w-full h-full object-cover rounded-xl" src="images/projects/beezniz/img4.jpg" alt=""/>
+            </div>
+          </div>
+
+          <!-- Back -->
+          <div class="flip-card-back">
+            <p class="font-body text-sm text-white/80 leading-relaxed">Quang Ninh had no youth entrepreneurship organization. I built the first one — from <span class="text-[#a4d2a6] font-medium">cold-messaging government officials</span> to earning official recognition from the Vietnam Youth Federation.</p>
+            <ul class="space-y-2">
+              <li class="bullet-item-back font-body text-sm text-white/75"><span>Reached out to government officials, Youth Union administrators, and business leaders until they agreed to support a student-led initiative</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Earned official recognition from Vietnam Youth Federation as the first and only student entrepreneurship club in the province</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Secured mentorship from Ha Long City Investment and Startup Club</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Grew to 50+ active members/year, 5,000+ Facebook followers</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Designed curriculum from scratch, ran pilot workshops, iterated on format</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Connected students with 40+ local businesses</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Transitioned to advisor after presidency term to ensure continuity</span></li>
+            </ul>
+            <div class="flex flex-wrap gap-1.5 mt-auto pt-3 border-t border-white/10">
+              <span class="tag-pill-back">leadership</span>
+          <span class="tag-pill-back">community building</span>
+          <span class="tag-pill-back">entrepreneurship education</span>
+          <span class="tag-pill-back">institutional relations</span>
+          <span class="tag-pill-back">program design</span>
+          <span class="tag-pill-back">stakeholder management</span>
+            </div>
+            <a href="#" class="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/18 text-white rounded-full px-6 py-2.5 font-label text-xs font-semibold tracking-widest uppercase transition-colors border border-white/15 cursor-default" onclick="return false">
+              View Details <span class="opacity-40 font-normal normal-case tracking-normal text-[10px]">(coming soon)</span>
+            </a>
+          </div>
+
         </div>
-      </article>
+      </div>
 
       <!-- Card: BeezCamp -->
-      <article class="project-card card-animate bg-surface-container rounded-2xl p-8 border border-outline-variant/20 flex flex-col gap-6">
-        <div class="flex items-start justify-between gap-4 flex-wrap">
-          <div class="flex flex-col gap-2">
-            <span class="type-badge type-badge-founded">
-              <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1,'wght' 400">sunny</span>
-              Initiated · June 2024 – Aug 2024
-            </span>
-            <h3 class="font-headline text-2xl text-on-surface leading-tight tracking-tight">BeezCamp</h3>
-            <p class="font-label text-xs text-on-surface-variant/70 tracking-wide">Youth Entrepreneurship Summer Camp</p>
-          </div>
-        </div>
-        <div class="divider"></div>
-        <p class="font-body text-sm text-on-surface-variant leading-relaxed">
-          The province had never had a student-led academic entrepreneurship camp. I built one <span class="text-primary font-medium">end-to-end</span> — from learning outcomes to fundraising to day-of execution.
-        </p>
-        <ul class="space-y-2">
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Designed full learning experience: objectives, curriculum, case content, competition format</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>6 intensive workshops over 3 days, 30 core participants, 50+ observers</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Secured ~25M VND in funding through stakeholder negotiation, managed sponsorship and partnerships</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Managed all operations, logistics, vendor relationships</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Connected provincial youth with universities and real businesses</span></li>
-        </ul>
-        <div class="flex flex-wrap gap-1.5 pt-2">
-          <span class="tag-pill">event operations</span>
+      <div class="flip-card card-animate">
+        <div class="flip-card-inner">
+
+          <!-- Front -->
+          <div class="flip-card-front">
+            <div class="flex items-start justify-between gap-2">
+              <span class="type-badge type-badge-founded">
+                <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1,'wght' 400">sunny</span>
+                Initiated · June 2024 – Aug 2024
+              </span>
+              <span class="flip-hint mt-1">hover ↻</span>
+            </div>
+            <div>
+              <h3 class="font-headline text-2xl text-on-surface leading-tight tracking-tight">BeezCamp</h3>
+              <p class="font-label text-xs text-on-surface-variant/70 tracking-wide mt-0.5">Youth Entrepreneurship Summer Camp</p>
+            </div>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="tag-pill">event operations</span>
           <span class="tag-pill">curriculum design</span>
           <span class="tag-pill">fundraising</span>
           <span class="tag-pill">leadership</span>
           <span class="tag-pill">community building</span>
           <span class="tag-pill">end-to-end execution</span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 flex-1" style="min-height:160px">
+              <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">sunny</span></div>
+          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">sunny</span></div>
+          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">sunny</span></div>
+          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">sunny</span></div>
+            </div>
+          </div>
+
+          <!-- Back -->
+          <div class="flip-card-back">
+            <p class="font-body text-sm text-white/80 leading-relaxed">The province had never had a student-led academic entrepreneurship camp. I built one <span class="text-[#a4d2a6] font-medium">end-to-end</span> — from learning outcomes to fundraising to day-of execution.</p>
+            <ul class="space-y-2">
+              <li class="bullet-item-back font-body text-sm text-white/75"><span>Designed full learning experience: objectives, curriculum, case content, competition format</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>6 intensive workshops over 3 days, 30 core participants, 50+ observers</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Secured ~25M VND in funding through stakeholder negotiation, managed sponsorship and partnerships</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Managed all operations, logistics, vendor relationships</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Connected provincial youth with universities and real businesses</span></li>
+            </ul>
+            <div class="flex flex-wrap gap-1.5 mt-auto pt-3 border-t border-white/10">
+              <span class="tag-pill-back">event operations</span>
+          <span class="tag-pill-back">curriculum design</span>
+          <span class="tag-pill-back">fundraising</span>
+          <span class="tag-pill-back">leadership</span>
+          <span class="tag-pill-back">community building</span>
+          <span class="tag-pill-back">end-to-end execution</span>
+            </div>
+            <a href="#" class="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/18 text-white rounded-full px-6 py-2.5 font-label text-xs font-semibold tracking-widest uppercase transition-colors border border-white/15 cursor-default" onclick="return false">
+              View Details <span class="opacity-40 font-normal normal-case tracking-normal text-[10px]">(coming soon)</span>
+            </a>
+          </div>
+
         </div>
-      </article>
+      </div>
 
       <!-- Card: HS14 -->
-      <article class="project-card card-animate bg-surface-container rounded-2xl p-8 border border-outline-variant/20 flex flex-col gap-6">
-        <div class="flex items-start justify-between gap-4 flex-wrap">
-          <div class="flex flex-col gap-2">
-            <span class="type-badge type-badge-founded">
-              <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1,'wght' 400">groups</span>
-              Co-founded · May 2023 – Aug 2025
-            </span>
-            <h3 class="font-headline text-2xl text-on-surface leading-tight tracking-tight">HS14</h3>
-            <p class="font-label text-xs text-on-surface-variant/70 tracking-wide">Quang Ninh Province Students' Sharing Community</p>
-          </div>
-        </div>
-        <div class="divider"></div>
-        <p class="font-body text-sm text-on-surface-variant leading-relaxed">
-          Students in Quang Ninh had no centralized, province-specific peer knowledge network. <span class="text-primary font-medium">HS14 filled that gap</span> — and still does.
-        </p>
-        <ul class="space-y-2">
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Grew Facebook community to 5,000+ members</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Designed discussion hubs with local speakers: 80+ attendees, 15+ schools</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Ran Exploring Day: 20 top students across 13 subjects gave free mentorship to others</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Created mentorship access for students in remote areas who had no other route</span></li>
-        </ul>
-        <div class="flex flex-wrap gap-1.5 pt-2">
-          <span class="tag-pill">community building</span>
+      <div class="flip-card card-animate">
+        <div class="flip-card-inner">
+
+          <!-- Front -->
+          <div class="flip-card-front">
+            <div class="flex items-start justify-between gap-2">
+              <span class="type-badge type-badge-founded">
+                <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1,'wght' 400">groups</span>
+                Co-founded · May 2023 – Aug 2025
+              </span>
+              <span class="flip-hint mt-1">hover ↻</span>
+            </div>
+            <div>
+              <h3 class="font-headline text-2xl text-on-surface leading-tight tracking-tight">HS14</h3>
+              <p class="font-label text-xs text-on-surface-variant/70 tracking-wide mt-0.5">Quang Ninh Province Students' Sharing Community</p>
+            </div>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="tag-pill">community building</span>
           <span class="tag-pill">education access</span>
           <span class="tag-pill">content strategy</span>
           <span class="tag-pill">peer mentorship</span>
           <span class="tag-pill">social impact</span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 flex-1" style="min-height:160px">
+              <img class="w-full h-full object-cover rounded-xl" src="images/projects/hs14/img1.jpg" alt=""/>
+          <img class="w-full h-full object-cover rounded-xl" src="images/projects/hs14/img2.jpg" alt=""/>
+          <img class="w-full h-full object-cover rounded-xl" src="images/projects/hs14/img3.jpg" alt=""/>
+          <img class="w-full h-full object-cover rounded-xl" src="images/projects/hs14/img4.jpg" alt=""/>
+            </div>
+          </div>
+
+          <!-- Back -->
+          <div class="flip-card-back">
+            <p class="font-body text-sm text-white/80 leading-relaxed">Students in Quang Ninh had no centralized, province-specific peer knowledge network. <span class="text-[#a4d2a6] font-medium">HS14 filled that gap</span> — and still does.</p>
+            <ul class="space-y-2">
+              <li class="bullet-item-back font-body text-sm text-white/75"><span>Grew Facebook community to 5,000+ members</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Designed discussion hubs with local speakers: 80+ attendees, 15+ schools</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Ran Exploring Day: 20 top students across 13 subjects gave free mentorship to others</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Created mentorship access for students in remote areas who had no other route</span></li>
+            </ul>
+            <div class="flex flex-wrap gap-1.5 mt-auto pt-3 border-t border-white/10">
+              <span class="tag-pill-back">community building</span>
+          <span class="tag-pill-back">education access</span>
+          <span class="tag-pill-back">content strategy</span>
+          <span class="tag-pill-back">peer mentorship</span>
+          <span class="tag-pill-back">social impact</span>
+            </div>
+            <a href="#" class="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/18 text-white rounded-full px-6 py-2.5 font-label text-xs font-semibold tracking-widest uppercase transition-colors border border-white/15 cursor-default" onclick="return false">
+              View Details <span class="opacity-40 font-normal normal-case tracking-normal text-[10px]">(coming soon)</span>
+            </a>
+          </div>
+
         </div>
-      </article>
+      </div>
 
       <!-- Card: Dreampie -->
-      <article class="project-card card-animate bg-surface-container rounded-2xl p-8 border border-outline-variant/20 flex flex-col gap-6">
-        <div class="flex items-start justify-between gap-4 flex-wrap">
-          <div class="flex flex-col gap-2">
-            <span class="type-badge type-badge-founded">
-              <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1,'wght' 400">favorite</span>
-              Founded · June 2023 – Nov 2023 · advisor next seasons
-            </span>
-            <h3 class="font-headline text-2xl text-on-surface leading-tight tracking-tight">Dreampie</h3>
-            <p class="font-label text-xs text-on-surface-variant/70 tracking-wide">Charity Fundraising Project</p>
-          </div>
-        </div>
-        <div class="divider"></div>
-        <p class="font-body text-sm text-on-surface-variant leading-relaxed">
-          My first non-profit startup where I led end-to-end operations, then donated the proceeds to construct a <span class="text-primary font-medium">boarding school in remote Lao Cai</span>.
-        </p>
-        <ul class="space-y-2">
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Founded the first student-led fundraising project officially supported by the school's Youth Union</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Managed full operations: business planning, pricing, production, communications, finance</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Led 30+ collaborators; 600+ purchases → raised 10M VND for Phi Nhu Boarding School, Lao Cai</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Season 2 (without me) expanded to support children in Gaza</span></li>
-        </ul>
-        <div class="flex flex-wrap gap-1.5 pt-2">
-          <span class="tag-pill">social entrepreneurship</span>
+      <div class="flip-card card-animate">
+        <div class="flip-card-inner">
+
+          <!-- Front -->
+          <div class="flip-card-front">
+            <div class="flex items-start justify-between gap-2">
+              <span class="type-badge type-badge-founded">
+                <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1,'wght' 400">favorite</span>
+                Founded · June 2023 – Nov 2023 · advisor next seasons
+              </span>
+              <span class="flip-hint mt-1">hover ↻</span>
+            </div>
+            <div>
+              <h3 class="font-headline text-2xl text-on-surface leading-tight tracking-tight">Dreampie</h3>
+              <p class="font-label text-xs text-on-surface-variant/70 tracking-wide mt-0.5">Charity Fundraising Project</p>
+            </div>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="tag-pill">social entrepreneurship</span>
           <span class="tag-pill">fundraising</span>
           <span class="tag-pill">operations</span>
           <span class="tag-pill">leadership</span>
           <span class="tag-pill">community impact</span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 flex-1" style="min-height:160px">
+              <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">favorite</span></div>
+          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">favorite</span></div>
+          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">favorite</span></div>
+          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">favorite</span></div>
+            </div>
+          </div>
+
+          <!-- Back -->
+          <div class="flip-card-back">
+            <p class="font-body text-sm text-white/80 leading-relaxed">My first non-profit startup where I led end-to-end operations, then donated the proceeds to construct a <span class="text-[#a4d2a6] font-medium">boarding school in remote Lao Cai</span>.</p>
+            <ul class="space-y-2">
+              <li class="bullet-item-back font-body text-sm text-white/75"><span>Founded the first student-led fundraising project officially supported by the school's Youth Union</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Managed full operations: business planning, pricing, production, communications, finance</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Led 30+ collaborators; 600+ purchases → raised 10M VND for Phi Nhu Boarding School, Lao Cai</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Season 2 (without me) expanded to support children in Gaza</span></li>
+            </ul>
+            <div class="flex flex-wrap gap-1.5 mt-auto pt-3 border-t border-white/10">
+              <span class="tag-pill-back">social entrepreneurship</span>
+          <span class="tag-pill-back">fundraising</span>
+          <span class="tag-pill-back">operations</span>
+          <span class="tag-pill-back">leadership</span>
+          <span class="tag-pill-back">community impact</span>
+            </div>
+            <a href="#" class="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/18 text-white rounded-full px-6 py-2.5 font-label text-xs font-semibold tracking-widest uppercase transition-colors border border-white/15 cursor-default" onclick="return false">
+              View Details <span class="opacity-40 font-normal normal-case tracking-normal text-[10px]">(coming soon)</span>
+            </a>
+          </div>
+
         </div>
-      </article>
+      </div>
 
       <!-- Card: Fireflies -->
-      <article class="project-card card-animate bg-surface-container rounded-2xl p-8 border border-outline-variant/20 flex flex-col gap-6">
-        <div class="flex items-start justify-between gap-4 flex-wrap">
-          <div class="flex flex-col gap-2">
-            <span class="type-badge type-badge-competition">
-              <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1,'wght' 400">volunteer_activism</span>
-              Board Member · May 2022 – Aug 2023
-            </span>
-            <h3 class="font-headline text-2xl text-on-surface leading-tight tracking-tight">Fireflies Volunteer Group</h3>
-            <p class="font-label text-xs text-on-surface-variant/70 tracking-wide">Children's Welfare & Community Service</p>
-          </div>
-        </div>
-        <div class="divider"></div>
-        <p class="font-body text-sm text-on-surface-variant leading-relaxed">
-          My first structured experience <span class="text-primary font-medium">organizing for children in need</span> — reaching the most remote corners of Quang Ninh.
-        </p>
-        <ul class="space-y-2">
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Directed volunteer events for 50+ volunteers across Quang Ninh Province</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Led 10+ charity trips to remote areas: Binh Lieu, Ba Che, Ha Giang, Sa Pa</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Provided 900+ packs of warm clothing, books, and supplies to ethnic minority children</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Ran a fundraising prom attracting 600+ attendants</span></li>
-        </ul>
-        <div class="flex flex-wrap gap-1.5 pt-2">
-          <span class="tag-pill">volunteerism</span>
+      <div class="flip-card card-animate">
+        <div class="flip-card-inner">
+
+          <!-- Front -->
+          <div class="flip-card-front">
+            <div class="flex items-start justify-between gap-2">
+              <span class="type-badge type-badge-competition">
+                <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1,'wght' 400">volunteer_activism</span>
+                Board Member · May 2022 – Aug 2023
+              </span>
+              <span class="flip-hint mt-1">hover ↻</span>
+            </div>
+            <div>
+              <h3 class="font-headline text-2xl text-on-surface leading-tight tracking-tight">Fireflies Volunteer Group</h3>
+              <p class="font-label text-xs text-on-surface-variant/70 tracking-wide mt-0.5">Children's Welfare & Community Service</p>
+            </div>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="tag-pill">volunteerism</span>
           <span class="tag-pill">event management</span>
           <span class="tag-pill">community service</span>
           <span class="tag-pill">leadership</span>
           <span class="tag-pill">children's welfare</span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 flex-1" style="min-height:160px">
+              <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">volunteer_activism</span></div>
+          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">volunteer_activism</span></div>
+          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">volunteer_activism</span></div>
+          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">volunteer_activism</span></div>
+            </div>
+          </div>
+
+          <!-- Back -->
+          <div class="flip-card-back">
+            <p class="font-body text-sm text-white/80 leading-relaxed">My first structured experience <span class="text-[#a4d2a6] font-medium">organizing for children in need</span> — reaching the most remote corners of Quang Ninh.</p>
+            <ul class="space-y-2">
+              <li class="bullet-item-back font-body text-sm text-white/75"><span>Directed volunteer events for 50+ volunteers across Quang Ninh Province</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Led 10+ charity trips to remote areas: Binh Lieu, Ba Che, Ha Giang, Sa Pa</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Provided 900+ packs of warm clothing, books, and supplies to ethnic minority children</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Ran a fundraising prom attracting 600+ attendants</span></li>
+            </ul>
+            <div class="flex flex-wrap gap-1.5 mt-auto pt-3 border-t border-white/10">
+              <span class="tag-pill-back">volunteerism</span>
+          <span class="tag-pill-back">event management</span>
+          <span class="tag-pill-back">community service</span>
+          <span class="tag-pill-back">leadership</span>
+          <span class="tag-pill-back">children's welfare</span>
+            </div>
+            <a href="#" class="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/18 text-white rounded-full px-6 py-2.5 font-label text-xs font-semibold tracking-widest uppercase transition-colors border border-white/15 cursor-default" onclick="return false">
+              View Details <span class="opacity-40 font-normal normal-case tracking-normal text-[10px]">(coming soon)</span>
+            </a>
+          </div>
+
         </div>
-      </article>
+      </div>
 
       <!-- Card: The Pizan Project -->
-      <article class="project-card card-animate bg-surface-container rounded-2xl p-8 border border-outline-variant/20 flex flex-col gap-6">
-        <div class="flex items-start justify-between gap-4 flex-wrap">
-          <div class="flex flex-col gap-2">
-            <span class="type-badge type-badge-competition">
-              <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1,'wght' 400">female</span>
-              Leadership Role · Apr 2023 – Aug 2023
-            </span>
-            <h3 class="font-headline text-2xl text-on-surface leading-tight tracking-tight">The Pizan Project</h3>
-            <p class="font-label text-xs text-on-surface-variant/70 tracking-wide">Gender Equality Initiative</p>
-          </div>
-        </div>
-        <div class="divider"></div>
-        <p class="font-body text-sm text-on-surface-variant leading-relaxed">
-          A gender equality initiative with <span class="text-primary font-medium">10,000+ media followers</span>. I led finance and external partnerships.
-        </p>
-        <ul class="space-y-2">
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Cultivated sponsorships and partnerships for gender equality programming</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Organized "Vuc Gioi Han" flagship event</span></li>
-          <li class="bullet-item font-body text-sm text-on-surface-variant"><span>Raised 28M VND for Breast Cancer Network Vietnam</span></li>
-        </ul>
-        <div class="flex flex-wrap gap-1.5 pt-2">
-          <span class="tag-pill">partnerships</span>
+      <div class="flip-card card-animate">
+        <div class="flip-card-inner">
+
+          <!-- Front -->
+          <div class="flip-card-front">
+            <div class="flex items-start justify-between gap-2">
+              <span class="type-badge type-badge-competition">
+                <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1,'wght' 400">female</span>
+                Leadership Role · Apr 2023 – Aug 2023
+              </span>
+              <span class="flip-hint mt-1">hover ↻</span>
+            </div>
+            <div>
+              <h3 class="font-headline text-2xl text-on-surface leading-tight tracking-tight">The Pizan Project</h3>
+              <p class="font-label text-xs text-on-surface-variant/70 tracking-wide mt-0.5">Gender Equality Initiative</p>
+            </div>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="tag-pill">partnerships</span>
           <span class="tag-pill">fundraising</span>
           <span class="tag-pill">gender equity</span>
           <span class="tag-pill">external relations</span>
           <span class="tag-pill">social impact</span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 flex-1" style="min-height:160px">
+              <img class="w-full h-full object-cover rounded-xl" src="images/projects/pizan/img1.png" alt=""/>
+          <img class="w-full h-full object-cover rounded-xl" src="images/projects/pizan/img2.png" alt=""/>
+          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">female</span></div>
+          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">female</span></div>
+            </div>
+          </div>
+
+          <!-- Back -->
+          <div class="flip-card-back">
+            <p class="font-body text-sm text-white/80 leading-relaxed">A gender equality initiative with <span class="text-[#a4d2a6] font-medium">10,000+ media followers</span>. I led finance and external partnerships.</p>
+            <ul class="space-y-2">
+              <li class="bullet-item-back font-body text-sm text-white/75"><span>Cultivated sponsorships and partnerships for gender equality programming</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Organized "Vuc Gioi Han" flagship event</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Raised 28M VND for Breast Cancer Network Vietnam</span></li>
+            </ul>
+            <div class="flex flex-wrap gap-1.5 mt-auto pt-3 border-t border-white/10">
+              <span class="tag-pill-back">partnerships</span>
+          <span class="tag-pill-back">fundraising</span>
+          <span class="tag-pill-back">gender equity</span>
+          <span class="tag-pill-back">external relations</span>
+          <span class="tag-pill-back">social impact</span>
+            </div>
+            <a href="#" class="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/18 text-white rounded-full px-6 py-2.5 font-label text-xs font-semibold tracking-widest uppercase transition-colors border border-white/15 cursor-default" onclick="return false">
+              View Details <span class="opacity-40 font-normal normal-case tracking-normal text-[10px]">(coming soon)</span>
+            </a>
+          </div>
+
         </div>
-      </article>
+      </div>
 
     </div>
   </section>
