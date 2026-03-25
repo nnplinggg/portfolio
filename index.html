@@ -108,6 +108,80 @@
                 0 0 60px rgba(164, 210, 166, 0.6),
                 0 0 100px rgba(164, 210, 166, 0.3);
         }
+
+        /* ── Cursor glow ── */
+        #cursor-glow {
+            pointer-events: none;
+            position: fixed;
+            width: 380px;
+            height: 380px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(164,210,166,0.07) 0%, transparent 68%);
+            transform: translate(-50%, -50%);
+            z-index: 9998;
+            will-change: left, top;
+        }
+
+        /* ── Magnetic cards ── */
+        .magnetic {
+            will-change: transform;
+        }
+
+        /* ── Collage photo parallax layer ── */
+        .collage-layer {
+            will-change: transform;
+        }
+
+        /* ── Contact card shimmer ── */
+        .contact-card {
+            position: relative;
+            overflow: hidden;
+        }
+        .contact-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            left: -80%;
+            width: 50%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.10), transparent);
+            transform: skewX(-18deg);
+            transition: left 0.65s cubic-bezier(0.23, 1, 0.32, 1);
+            pointer-events: none;
+        }
+        .contact-card:hover::after {
+            left: 160%;
+        }
+
+        /* ── Reveal from sides ── */
+        [data-reveal="left"] {
+            opacity: 0;
+            transform: translateX(-28px);
+            transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        [data-reveal="right"] {
+            opacity: 0;
+            transform: translateX(28px);
+            transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        [data-reveal="left"].revealed,
+        [data-reveal="right"].revealed {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* ── Scale-in for currently cards ── */
+        [data-reveal-scale] {
+            opacity: 0;
+            transform: scale(0.96) translateY(14px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        [data-reveal-scale].revealed {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
     </style>
 </head>
 <body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
@@ -130,7 +204,7 @@
 <!-- Hero Section -->
 <section class="relative h-screen flex flex-col justify-center items-center px-6 overflow-hidden">
 <div class="absolute inset-0 z-0">
-<img alt="Atmospheric creative workspace" class="w-full h-full object-cover opacity-50" src="images/landing.png"/>
+<img alt="Atmospheric creative workspace" class="w-full h-full object-cover opacity-50 hero-bg-img" src="images/landing.png"/>
 <div class="absolute inset-0 bg-gradient-to-b from-surface/10 via-transparent via-40% to-surface"></div>
 </div>
 <div class="relative z-10 max-w-5xl text-center space-y-8">
@@ -167,7 +241,7 @@
 <section class="max-w-5xl mx-auto px-16 py-24">
 <div class="flex flex-col md:flex-row gap-8">
 <!-- Builder Card — half width, portrait -->
-<a data-reveal class="group relative bg-surface-container-highest rounded-2xl overflow-hidden md:w-2/3 aspect-[4/5] hover:bg-[#1A1A1A] transition-all duration-700" href="work.html">
+<a data-reveal class="group relative bg-surface-container-highest rounded-2xl overflow-hidden md:w-2/3 aspect-[4/5] hover:bg-[#1A1A1A] transition-all duration-700 magnetic" href="work.html">
 <div class="absolute inset-0 opacity-40 group-hover:opacity-20 transition-opacity">
 <img alt="Builder" class="w-full h-full object-cover" src="images/builder.jpg"/>
 </div>
@@ -181,7 +255,7 @@
 <!-- Right column — Learner + Storyteller stacked, half width, same height as Builder -->
 <div data-reveal class="md:w-1/3 flex flex-col gap-8" style="aspect-ratio:4/5; transition-delay:0.15s">
 <!-- Learner Card -->
-<a class="group relative bg-surface-container-highest rounded-2xl overflow-hidden flex-1 min-h-0 hover:bg-[#1A1A1A] transition-all duration-700" href="#learner">
+<a class="group relative bg-surface-container-highest rounded-2xl overflow-hidden flex-1 min-h-0 hover:bg-[#1A1A1A] transition-all duration-700 magnetic" href="#learner">
 <div class="absolute inset-0 opacity-40 group-hover:opacity-20 transition-opacity">
 <img alt="Learner" class="w-full h-full object-cover" src="images/learner.png"/>
 </div>
@@ -193,7 +267,7 @@
 </div>
 </a>
 <!-- Storyteller Card -->
-<a class="group relative bg-surface-container-highest rounded-2xl overflow-hidden flex-1 min-h-0 hover:bg-[#1A1A1A] transition-all duration-700" href="#storyteller">
+<a class="group relative bg-surface-container-highest rounded-2xl overflow-hidden flex-1 min-h-0 hover:bg-[#1A1A1A] transition-all duration-700 magnetic" href="#storyteller">
 <div class="absolute inset-0 opacity-40 group-hover:opacity-20 transition-opacity">
 <img alt="Storyteller" class="w-full h-full object-cover" src="images/storyteller.jpg"/>
 </div>
@@ -213,15 +287,9 @@
 <!-- Collage Header -->
 <div data-reveal class="relative w-full max-w-4xl h-[500px] mb-20 flex items-center justify-center">
 <!-- Decorative background photos -->
-<div class="absolute -top-10 -left-10 w-48 h-64 rotate-[-12deg] rounded-lg overflow-hidden shadow-xl z-0 opacity-40">
-<img alt="Personal collage" class="w-full h-full object-cover" src="images/main2.jpg"/>
-</div>
-<div class="absolute top-20 right-[-5%] w-60 h-80 rotate-[8deg] rounded-lg overflow-hidden shadow-xl z-0 opacity-40">
-<img alt="Personal collage" class="w-full h-full object-cover" src="images/main3.jpg"/>
-</div>
-<div class="absolute bottom-[-10%] left-20 w-56 h-40 rotate-[5deg] rounded-lg overflow-hidden shadow-xl z-0 opacity-40">
-<img alt="Personal collage" class="w-full h-full object-cover" src="images/main4.jpg"/>
-</div>
+<div class="absolute -top-10 -left-10 w-48 h-64 rotate-[-12deg] rounded-lg overflow-hidden shadow-xl z-0 opacity-40"><div class="collage-layer w-full h-full" data-rate="0.07"><img alt="Personal collage" class="w-full h-full object-cover" src="images/main2.jpg"/></div></div>
+<div class="absolute top-20 right-[-5%] w-60 h-80 rotate-[8deg] rounded-lg overflow-hidden shadow-xl z-0 opacity-40"><div class="collage-layer w-full h-full" data-rate="-0.05"><img alt="Personal collage" class="w-full h-full object-cover scale-110" src="images/main3.jpg"/></div></div>
+<div class="absolute bottom-[-10%] left-20 w-56 h-40 rotate-[5deg] rounded-lg overflow-hidden shadow-xl z-0 opacity-40"><div class="collage-layer w-full h-full" data-rate="0.04"><img alt="Personal collage" class="w-full h-full object-cover scale-110" src="images/main4.jpg"/></div></div>
 <!-- Main Portrait -->
 <div class="relative z-10 w-72 md:w-80 aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border-8 border-surface">
 <img alt="Linh Nguyen Portrait" class="w-full h-full object-cover" src="images/main.jpg"/>
@@ -250,7 +318,7 @@ Long term? I'm not optimizing for a title. I believe in my ability to connect us
 <h4 class="font-label text-xs tracking-[0.4em] uppercase font-bold text-primary/60 text-center">Currently</h4>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <!-- MLV -->
-    <div data-reveal class="p-8 rounded-2xl bg-surface border border-outline-variant/10 shadow-sm flex items-start gap-6" style="transition-delay:0s">
+    <div data-reveal-scale class="p-8 rounded-2xl bg-surface border border-outline-variant/10 shadow-sm flex items-start gap-6" style="transition-delay:0s">
         <span class="material-symbols-outlined text-primary text-3xl">work</span>
         <div class="space-y-1">
             <p class="font-body font-bold text-lg text-on-surface">Product Management Associate</p>
@@ -263,7 +331,7 @@ Long term? I'm not optimizing for a title. I believe in my ability to connect us
         </div>
     </div>
     <!-- Creativity Explored -->
-    <div data-reveal class="p-8 rounded-2xl bg-surface border border-outline-variant/10 shadow-sm flex items-start gap-6" style="transition-delay:0.1s">
+    <div data-reveal-scale class="p-8 rounded-2xl bg-surface border border-outline-variant/10 shadow-sm flex items-start gap-6" style="transition-delay:0.1s">
         <span class="material-symbols-outlined text-primary text-3xl">diversity_3</span>
         <div class="space-y-1">
             <p class="font-body font-bold text-lg text-on-surface">Product Research Student Consultant</p>
@@ -278,7 +346,7 @@ Long term? I'm not optimizing for a title. I believe in my ability to connect us
         </div>
     </div>
     <!-- Minerva University -->
-    <div data-reveal class="p-8 rounded-2xl bg-surface border border-outline-variant/10 shadow-sm flex items-start gap-6" style="transition-delay:0.2s">
+    <div data-reveal-scale class="p-8 rounded-2xl bg-surface border border-outline-variant/10 shadow-sm flex items-start gap-6" style="transition-delay:0.2s">
         <span class="material-symbols-outlined text-primary text-3xl">school</span>
         <div class="space-y-1">
             <p class="font-body font-bold text-lg text-on-surface">Admission Processor</p>
@@ -292,7 +360,7 @@ Long term? I'm not optimizing for a title. I believe in my ability to connect us
         </div>
     </div>
     <!-- Beezniz -->
-    <div data-reveal class="p-8 rounded-2xl bg-surface border border-outline-variant/10 shadow-sm flex items-start gap-6" style="transition-delay:0.3s">
+    <div data-reveal-scale class="p-8 rounded-2xl bg-surface border border-outline-variant/10 shadow-sm flex items-start gap-6" style="transition-delay:0.3s">
         <span class="material-symbols-outlined text-primary text-3xl">rocket_launch</span>
         <div class="space-y-1">
             <p class="font-body font-bold text-lg text-on-surface">Founder/Advisor</p>
@@ -314,10 +382,10 @@ Long term? I'm not optimizing for a title. I believe in my ability to connect us
 <!-- Technical Stack Section -->
 <section class="bg-surface-container py-32 border-t border-outline-variant/10">
 <div class="max-w-5xl mx-auto px-8 space-y-16">
-    <div data-reveal class="text-center">
+    <div data-reveal="left" class="text-center">
         <h4 class="font-label text-xs tracking-[0.4em] uppercase font-bold text-primary/60">Technical Stack</h4>
     </div>
-    <div data-reveal class="grid grid-cols-1 md:grid-cols-2 gap-10" style="transition-delay:0.1s">
+    <div data-reveal="right" class="grid grid-cols-1 md:grid-cols-2 gap-10" style="transition-delay:0.1s">
 
         <!-- Product -->
         <div class="space-y-4">
@@ -377,20 +445,20 @@ Long term? I'm not optimizing for a title. I believe in my ability to connect us
 <!-- Contact Section -->
 <section class="py-40 bg-surface border-t border-outline-variant/10" id="contact">
 <div class="max-w-4xl mx-auto px-8 text-center space-y-16">
-<div data-reveal class="space-y-4">
+<div data-reveal="left" class="space-y-4">
 <h2 class="font-headline text-6xl text-primary-container">Let's chat!</h2>
 <p class="font-body text-on-surface-variant uppercase tracking-widest text-sm">I'm always happy to connect, share and learn.</p>
 </div>
 <div class="grid md:grid-cols-3 gap-6 text-left">
-<a class="group p-6 rounded-xl bg-surface-container-high hover:bg-primary transition-all duration-500" href="mailto:linhphuongng.work@gmail.com">
+<a class="group contact-card p-6 rounded-xl bg-surface-container-high hover:bg-primary transition-all duration-500" href="mailto:linhphuongng.work@gmail.com">
 <p class="font-label text-[10px] tracking-[0.2em] uppercase text-primary/60 group-hover:text-surface/60 mb-2 transition-colors">Email</p>
 <p class="font-body text-sm text-on-surface group-hover:text-surface transition-colors font-medium truncate">linhphuongng.work@gmail.com</p>
 </a>
-<a class="group p-6 rounded-xl bg-surface-container-high hover:bg-primary transition-all duration-500" href="tel:+16282466995">
+<a class="group contact-card p-6 rounded-xl bg-surface-container-high hover:bg-primary transition-all duration-500" href="tel:+16282466995">
 <p class="font-label text-[10px] tracking-[0.2em] uppercase text-primary/60 group-hover:text-surface/60 mb-2 transition-colors">Phone</p>
 <p class="font-body text-sm text-on-surface group-hover:text-surface transition-colors font-medium">(+1) 628-246-6995</p>
 </a>
-<a class="group p-6 rounded-xl bg-surface-container-high hover:bg-primary transition-all duration-500" href="https://linkedin.com/in/phuong-linh-nguyen-" target="_blank">
+<a class="group contact-card p-6 rounded-xl bg-surface-container-high hover:bg-primary transition-all duration-500" href="https://linkedin.com/in/phuong-linh-nguyen-" target="_blank">
 <p class="font-label text-[10px] tracking-[0.2em] uppercase text-primary/60 group-hover:text-surface/60 mb-2 transition-colors">LinkedIn</p>
 <p class="font-body text-sm text-on-surface group-hover:text-surface transition-colors font-medium">phuong-linh-nguyen-</p>
 </a>
@@ -434,18 +502,19 @@ Long term? I'm not optimizing for a title. I believe in my ability to connect us
 </div>
 </footer>
 <script>
-    const observer = new IntersectionObserver((entries) => {
+    // ── Scroll reveal (supports data-reveal, data-reveal="left/right", data-reveal-scale) ──
+    const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('revealed');
-                observer.unobserve(entry.target);
+                revealObserver.unobserve(entry.target);
             }
         });
     }, { threshold: 0.12 });
 
-    document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+    document.querySelectorAll('[data-reveal], [data-reveal-scale]').forEach(el => revealObserver.observe(el));
 
-    // Nav scroll behaviour
+    // ── Nav scroll behaviour ──
     const nav = document.getElementById('main-nav');
     window.addEventListener('scroll', () => {
         if (window.scrollY > 40) {
@@ -456,5 +525,62 @@ Long term? I'm not optimizing for a title. I believe in my ability to connect us
             nav.classList.add('border-transparent');
         }
     }, { passive: true });
+
+    // ── Cursor glow ──
+    const glowEl = document.createElement('div');
+    glowEl.id = 'cursor-glow';
+    document.body.appendChild(glowEl);
+    let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+    let glowX = mouseX, glowY = mouseY;
+    document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
+    (function animateCursor() {
+        glowX += (mouseX - glowX) * 0.08;
+        glowY += (mouseY - glowY) * 0.08;
+        glowEl.style.left = glowX + 'px';
+        glowEl.style.top  = glowY + 'px';
+        requestAnimationFrame(animateCursor);
+    })();
+
+    // ── Hero image parallax ──
+    const heroBg = document.querySelector('.hero-bg-img');
+    if (heroBg) {
+        window.addEventListener('scroll', () => {
+            heroBg.style.transform = `translateY(${window.scrollY * 0.32}px) scale(1.05)`;
+        }, { passive: true });
+        heroBg.style.transform = 'translateY(0) scale(1.05)';
+    }
+
+    // ── Collage photo parallax ──
+    const collageLayers = document.querySelectorAll('.collage-layer');
+    const collageSection = document.querySelector('#about');
+    if (collageLayers.length && collageSection) {
+        window.addEventListener('scroll', () => {
+            const rect = collageSection.getBoundingClientRect();
+            const progress = (window.innerHeight * 0.5 - rect.top) / rect.height;
+            collageLayers.forEach(layer => {
+                const rate = parseFloat(layer.dataset.rate) || 0.05;
+                layer.style.transform = `translateY(${progress * rate * 200}px)`;
+            });
+        }, { passive: true });
+    }
+
+    // ── Magnetic cards ──
+    document.querySelectorAll('.magnetic').forEach(card => {
+        card.addEventListener('mousemove', e => {
+            const r = card.getBoundingClientRect();
+            const dx = (e.clientX - r.left - r.width  / 2) / r.width;
+            const dy = (e.clientY - r.top  - r.height / 2) / r.height;
+            const strength = 10;
+            card.style.transform = `translate(${dx * strength}px, ${dy * strength}px)`;
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transition = 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)';
+            card.style.transform = '';
+            setTimeout(() => card.style.transition = '', 600);
+        });
+        card.addEventListener('mouseenter', () => {
+            card.style.transition = 'transform 0.15s ease-out';
+        });
+    });
 </script>
 </body></html>
