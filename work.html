@@ -213,6 +213,16 @@
     color: #404040;
     opacity: 0.35;
   }
+  /* 16:9 image grid for product builder cards */
+  #product-cards .flip-card-front .grid {
+    flex: none;
+  }
+  #product-cards .flip-card-front .grid img {
+    aspect-ratio: 16 / 9;
+    height: auto;
+    width: 100%;
+  }
+
   .img-placeholder {
     background: linear-gradient(135deg, #dcdcbc 0%, #d0d1b8 100%);
     border-radius: 0.75rem;
