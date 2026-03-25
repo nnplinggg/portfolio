@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>pling — the storyteller</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "surface-container-low": "#f1f1da",
+          "secondary-fixed": "#e2e2d5",
+          "surface-bright": "#f7f7e3",
+          "secondary-fixed-dim": "#c3c3b8",
+          "on-secondary-fixed-variant": "#424240",
+          "on-secondary": "#ffffff",
+          "surface-container-highest": "#dcdcbc",
+          "on-error": "#ffffff",
+          "on-tertiary-container": "#ffb6c8",
+          "primary": "#1d4626",
+          "inverse-primary": "#a4d2a6",
+          "on-tertiary-fixed": "#370b1b",
+          "outline-variant": "#bdbdb2",
+          "on-primary": "#ffffff",
+          "inverse-surface": "#2d2d22",
+          "primary-container": "#355e3b",
+          "surface-dim": "#d5d5b8",
+          "on-secondary-fixed": "#1b1b18",
+          "error": "#ba1a1a",
+          "primary-fixed-dim": "#a4d2a6",
+          "on-tertiary-fixed-variant": "#6b3646",
+          "secondary-container": "#ddddd0",
+          "surface-container-high": "#e4e4ca",
+          "on-primary-fixed-variant": "#274f2e",
+          "outline": "#6b6b60",
+          "surface-variant": "#dcdcbc",
+          "surface-tint": "#3e6844",
+          "primary-fixed": "#bfeec1",
+          "on-primary-fixed": "#002109",
+          "on-error-container": "#93000a",
+          "tertiary-container": "#7c4454",
+          "surface": "#f7f7e3",
+          "error-container": "#ffdad6",
+          "background": "#f7f7e3",
+          "on-surface-variant": "#404040",
+          "on-surface": "#191910",
+          "tertiary-fixed-dim": "#fcb2c5",
+          "secondary": "#5a5a55",
+          "on-tertiary": "#ffffff",
+          "on-background": "#191910",
+          "inverse-on-surface": "#f0f0e0",
+          "tertiary-fixed": "#ffd9e1",
+          "on-primary-container": "#a8d6a9",
+          "surface-container-lowest": "#ffffff",
+          "on-secondary-container": "#5d5d58",
+          "tertiary": "#612d3d",
+          "surface-container": "#eaeade"
+        },
+        fontFamily: {
+          "headline": ["Libre Caslon Text"],
+          "body": ["Montserrat"],
+          "label": ["Nunito Sans"]
+        },
+        borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+      },
+    },
+  }
+</script>
+<style>
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+  .glass-nav {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  /* ── Scroll reveal ── */
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  [data-reveal].revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  [data-reveal="left"] {
+    opacity: 0;
+    transform: translateX(-32px);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  [data-reveal="right"] {
+    opacity: 0;
+    transform: translateX(32px);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  [data-reveal="left"].revealed,
+  [data-reveal="right"].revealed {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* ── Hero ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-kicker { animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.1s both; }
+  .hero-title  { animation: fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.25s both; }
+  .hero-sub    { animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.45s both; }
+
+  /* ── Thin rule divider in alternating blocks ── */
+  .story-rule {
+    width: 1px;
+    background: #bdbdb2;
+    flex-shrink: 0;
+    align-self: stretch;
+    margin: 0 3rem;
+  }
+
+  /* ── Gallery image hover ── */
+  .gallery-img {
+    overflow: hidden;
+    border-radius: 0.75rem;
+  }
+  .gallery-img img {
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .gallery-img:hover img {
+    transform: scale(1.04);
+  }
+
+  /* ── Milestone list ── */
+  .milestone-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #bdbdb260;
+  }
+  .milestone-item:last-child { border-bottom: none; }
+  .milestone-year {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #1d4626;
+    min-width: 3.5rem;
+    padding-top: 2px;
+  }
+
+  /* ── Image placeholder ── */
+  .img-ph {
+    background: #e4e4ca;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6b6b60;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ── Opening essay drop cap ── */
+  .essay-dropcap::first-letter {
+    font-family: 'Libre Caslon Text', serif;
+    font-size: 5rem;
+    font-weight: 700;
+    line-height: 0.8;
+    float: left;
+    margin-right: 0.12em;
+    margin-top: 0.08em;
+    color: #1d4626;
+  }
+
+  /* ── Nav scroll behavior ── */
+  .nav-scrolled {
+    background: rgba(247,247,227,0.92) !important;
+    border-bottom-color: rgba(189,189,178,0.4) !important;
+  }
+
+  /* ── Photo essay quote overlay style ── */
+  .quote-pull {
+    border-left: 3px solid #1d4626;
+    padding-left: 1.5rem;
+  }
+</style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+
+<!-- Navigation -->
+<nav id="main-nav" class="fixed top-0 w-full z-50 transition-all duration-500 border-b border-transparent">
+  <div class="flex justify-between items-center px-8 py-6 max-w-screen-2xl mx-auto">
+    <a class="font-headline text-2xl font-bold tracking-tighter text-on-surface" href="/">pling's portfolio</a>
+    <div class="hidden md:flex items-center gap-10 font-headline text-base tracking-tight">
+      <a class="text-on-surface/50 hover:text-on-surface transition-colors" href="/#about">About</a>
+      <a class="text-on-surface/50 hover:text-on-surface transition-colors" href="work.html">A Builder</a>
+      <a class="text-on-surface font-bold border-b border-primary pb-0.5" href="voice.html">A Storyteller</a>
+      <a class="text-on-surface/50 hover:text-on-surface transition-colors" href="#learner">A Learner</a>
+    </div>
+    <button class="bg-primary text-on-primary px-8 py-2.5 rounded-full font-label text-sm font-semibold tracking-widest uppercase hover:scale-[1.02] active:scale-95 transition-all duration-300">
+      Resume
+    </button>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ════════════════════════════════════════════════
+       HERO
+  ════════════════════════════════════════════════ -->
+  <section class="relative pt-40 pb-20 px-6 overflow-hidden">
+    <!-- faint bg texture -->
+    <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(29,70,38,0.06) 0%, transparent 70%);"></div>
+    <div class="max-w-4xl mx-auto text-center relative z-10">
+      <p class="hero-kicker font-label text-xs tracking-[0.3em] uppercase text-primary font-semibold mb-6">Page 4 of 4 &nbsp;·&nbsp; The Storyteller</p>
+      <h1 class="hero-title font-headline text-6xl md:text-8xl leading-[1.05] tracking-tighter text-on-surface mb-8">
+        I came to stories<br/><span class="italic font-normal text-primary-container">through two lenses</span>
+      </h1>
+      <p class="hero-sub font-body text-base text-on-surface-variant max-w-xl mx-auto leading-relaxed">
+        A camera. A courtroom argument. Both taught me the same thing — slow down, listen, then speak with intention.
+      </p>
+    </div>
+    <!-- decorative rule -->
+    <div class="flex items-center gap-4 max-w-4xl mx-auto mt-16">
+      <div class="flex-1 h-px bg-outline-variant/40"></div>
+      <span class="font-label text-[10px] tracking-[0.3em] uppercase text-outline">voice · lens · argument</span>
+      <div class="flex-1 h-px bg-outline-variant/40"></div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════
+       SECTION 1 — OPENING ESSAY
+  ════════════════════════════════════════════════ -->
+  <section class="py-20 px-6">
+    <article class="max-w-[680px] mx-auto">
+
+      <p data-reveal class="essay-dropcap font-body text-[1.0625rem] leading-[1.85] text-on-surface mb-8">
+        I came to storytelling through two very different lenses — a camera and a courtroom argument.
+      </p>
+
+      <p data-reveal class="font-body text-[1.0625rem] leading-[1.85] text-on-surface mb-8" style="transition-delay:0.1s">
+        Before I learned to manage products, I learned to <em>see</em>. As a documentary photographer in the mountains of northern Vietnam, I trained myself to sit with a moment before reaching for the shutter — to feel what a place held before trying to capture it. That instinct, to slow down and listen before you speak, is the same one I bring to research, to user interviews, to every conversation where someone is trying to be understood.
+      </p>
+
+      <p data-reveal class="font-body text-[1.0625rem] leading-[1.85] text-on-surface mb-8" style="transition-delay:0.2s">
+        The courtroom came later. As a competitive debater for six years, then a national coach, I learned that a story only lands when you know your audience. <strong>Persuasion isn't decoration — it is the delivery system for truth.</strong> If you can't make people <em>feel</em> why something matters, the idea dies in the room.
+      </p>
+
+      <p data-reveal class="font-body text-[1.0625rem] leading-[1.85] text-on-surface mb-8" style="transition-delay:0.3s">
+        These two threads — <em>seeing</em> and <em>arguing</em> — are what make me a storyteller. I don't write for writing's sake. I write because clarity is a form of care, and because the people I work for deserve to be heard.
+      </p>
+
+      <!-- pull quote -->
+      <div data-reveal class="quote-pull mt-14 mb-4" style="transition-delay:0.4s">
+        <p class="font-headline text-2xl italic text-primary-container leading-snug">
+          "Clarity is a form of care."
+        </p>
+      </div>
+
+    </article>
+  </section>
+
+  <!-- thin full-width rule -->
+  <div class="max-w-screen-xl mx-auto px-8">
+    <div class="h-px bg-outline-variant/40"></div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════
+       SECTION 2 — ALTERNATING BLOCKS
+  ════════════════════════════════════════════════ -->
+  <section class="py-4">
+
+    <!-- ── Block 1: Debate & Advocacy  (img LEFT / text RIGHT) ── -->
+    <div class="max-w-screen-xl mx-auto px-8 py-20">
+      <div class="flex flex-col md:flex-row items-stretch gap-0">
+
+        <!-- Image column -->
+        <div data-reveal="left" class="md:w-5/12 flex flex-col gap-4" style="transition-delay:0s">
+          <div class="img-ph w-full" style="height:340px;">
+            <span>photo — debate stage</span>
+          </div>
+          <div class="flex gap-4">
+            <div class="img-ph flex-1" style="height:180px;">
+              <span>coaching</span>
+            </div>
+            <div class="img-ph flex-1" style="height:180px;">
+              <span>tournament</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Vertical rule -->
+        <div class="story-rule hidden md:block"></div>
+
+        <!-- Text column -->
+        <div data-reveal="right" class="md:flex-1 flex flex-col justify-center py-4" style="transition-delay:0.15s">
+          <p class="font-label text-xs tracking-[0.25em] uppercase text-primary font-semibold mb-3">01 &nbsp;/&nbsp; Debate &amp; Advocacy</p>
+          <h2 class="font-headline text-4xl md:text-5xl leading-tight text-on-surface mb-6">
+            Six years arguing<br/><span class="italic font-normal text-primary-container">for what's right</span>
+          </h2>
+          <p class="font-body text-sm leading-relaxed text-on-surface-variant mb-8 max-w-md">
+            Competitive debate taught me that rigorous thinking and emotional resonance aren't opposites — the best arguments need both. After competing nationally, I moved to the other side of the podium and spent two years coaching the next generation.
+          </p>
+
+          <!-- Milestones -->
+          <div class="space-y-0">
+            <div class="milestone-item">
+              <span class="milestone-year">2018–24</span>
+              <p class="font-body text-xs text-on-surface leading-relaxed">Competitive debater across national & international circuits in British Parliamentary and World Schools formats</p>
+            </div>
+            <div class="milestone-item">
+              <span class="milestone-year">2022–24</span>
+              <p class="font-body text-xs text-on-surface leading-relaxed">Head Coach, National Debate Training Program — coached 40+ students, 3 reaching national finals</p>
+            </div>
+            <div class="milestone-item">
+              <span class="milestone-year">2023</span>
+              <p class="font-body text-xs text-on-surface leading-relaxed">Best Speaker award, Vietnam National Debate Championship (British Parliamentary)</p>
+            </div>
+            <div class="milestone-item">
+              <span class="milestone-year">2021</span>
+              <p class="font-body text-xs text-on-surface leading-relaxed">Represented Vietnam at Asian British Parliamentary Debate Championships, Kuala Lumpur</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- thin section divider -->
+    <div class="max-w-screen-xl mx-auto px-8">
+      <div class="h-px bg-outline-variant/30"></div>
+    </div>
+
+    <!-- ── Block 2: Public Voice  (text LEFT / img RIGHT) ── -->
+    <div class="max-w-screen-xl mx-auto px-8 py-20">
+      <div class="flex flex-col md:flex-row items-stretch gap-0">
+
+        <!-- Text column -->
+        <div data-reveal="left" class="md:flex-1 flex flex-col justify-center py-4" style="transition-delay:0s">
+          <p class="font-label text-xs tracking-[0.25em] uppercase text-primary font-semibold mb-3">02 &nbsp;/&nbsp; Public Advocacy &amp; Voice</p>
+          <h2 class="font-headline text-4xl md:text-5xl leading-tight text-on-surface mb-6">
+            Writing as a<br/><span class="italic font-normal text-primary-container">public act</span>
+          </h2>
+          <p class="font-body text-sm leading-relaxed text-on-surface-variant mb-8 max-w-md">
+            Beyond the stage, I've used writing and speaking as tools for social change — from advocating for youth mental health in national forums to building media literacy programs for underserved communities in Vietnam.
+          </p>
+
+          <div class="space-y-0">
+            <div class="milestone-item">
+              <span class="milestone-year">2024</span>
+              <p class="font-body text-xs text-on-surface leading-relaxed">Speaker, TEDx Youth Forum — "The Language Nobody Taught Us": on emotional literacy in Vietnamese education</p>
+            </div>
+            <div class="milestone-item">
+              <span class="milestone-year">2023</span>
+              <p class="font-body text-xs text-on-surface leading-relaxed">Lead writer, advocacy report on youth civic engagement for Vietnam's Ministry of Education consultation</p>
+            </div>
+            <div class="milestone-item">
+              <span class="milestone-year">2022</span>
+              <p class="font-body text-xs text-on-surface leading-relaxed">Founded a weekly newsletter on critical thinking & media literacy, 800+ student subscribers across 6 universities</p>
+            </div>
+            <div class="milestone-item">
+              <span class="milestone-year">2020</span>
+              <p class="font-body text-xs text-on-surface leading-relaxed">Published long-form essay series on digital misinformation for VNExpress Youth Magazine</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Vertical rule -->
+        <div class="story-rule hidden md:block"></div>
+
+        <!-- Image column -->
+        <div data-reveal="right" class="md:w-5/12 flex flex-col gap-4" style="transition-delay:0.15s">
+          <div class="img-ph w-full" style="height:340px;">
+            <span>speaking — forum</span>
+          </div>
+          <div class="flex gap-4">
+            <div class="img-ph flex-1" style="height:180px;">
+              <span>newsletter</span>
+            </div>
+            <div class="img-ph flex-1" style="height:180px;">
+              <span>workshop</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- thin section divider -->
+    <div class="max-w-screen-xl mx-auto px-8">
+      <div class="h-px bg-outline-variant/30"></div>
+    </div>
+
+    <!-- ── Block 3: Souls of Mountains  (img LEFT / text RIGHT) ── -->
+    <div class="max-w-screen-xl mx-auto px-8 py-20">
+      <div class="flex flex-col md:flex-row items-stretch gap-0">
+
+        <!-- Image column — editorial overlap layout -->
+        <div data-reveal="left" class="md:w-5/12 relative" style="min-height:560px; transition-delay:0s">
+          <!-- Large back image -->
+          <div class="img-ph absolute top-0 left-0 right-8" style="height:380px; z-index:1; border-radius: 0.75rem;">
+            <span>souls of mountains — main</span>
+          </div>
+          <!-- Overlapping front image -->
+          <div class="img-ph absolute bottom-0 right-0 left-16" style="height:260px; z-index:2; border-radius: 0.75rem; box-shadow: 0 12px 40px rgba(0,0,0,0.18);">
+            <span>portrait — Ha Giang</span>
+          </div>
+        </div>
+
+        <!-- Vertical rule -->
+        <div class="story-rule hidden md:block" style="margin-left: 4rem; margin-right: 3rem;"></div>
+
+        <!-- Text column -->
+        <div data-reveal="right" class="md:flex-1 flex flex-col justify-center py-4" style="transition-delay:0.15s">
+          <p class="font-label text-xs tracking-[0.25em] uppercase text-primary font-semibold mb-3">03 &nbsp;/&nbsp; Documentary Photography</p>
+          <h2 class="font-headline text-4xl md:text-5xl leading-tight text-on-surface mb-2">
+            The Souls of Mountains
+          </h2>
+          <p class="font-headline text-lg italic font-normal text-primary-container mb-6">Ha Giang, Vietnam · 2022</p>
+          <p class="font-body text-sm leading-relaxed text-on-surface-variant mb-6 max-w-md">
+            A solo documentary project in the remote highlands of Ha Giang. Three weeks, no translator, 400+ frames. I lived alongside Hmong families during their spring harvest — not to capture the exotic, but to find the ordinary: laughter over shared meals, tired hands, children who ran from the camera then came back.
+          </p>
+          <p class="font-body text-sm leading-relaxed text-on-surface-variant mb-8 max-w-md">
+            The project was selected for exhibition at the Vietnam Youth Photography Festival, 2022. A short accompanying essay was published in <em>Nhân Dân</em> Weekend.
+          </p>
+
+          <div class="space-y-0">
+            <div class="milestone-item">
+              <span class="milestone-year">2022</span>
+              <p class="font-body text-xs text-on-surface leading-relaxed">Solo exhibition, Vietnam Youth Photography Festival — "Souls of Mountains" series (12 prints)</p>
+            </div>
+            <div class="milestone-item">
+              <span class="milestone-year">2022</span>
+              <p class="font-body text-xs text-on-surface leading-relaxed">Published photo essay, <em>Nhân Dân</em> Weekend — "What the Mountains Hold" (6,000 words + 18 images)</p>
+            </div>
+            <div class="milestone-item">
+              <span class="milestone-year">2021</span>
+              <p class="font-body text-xs text-on-surface leading-relaxed">Top 10 finalist, National Geographic Student Photo Award (Vietnam)</p>
+            </div>
+          </div>
+
+          <a href="#gallery" class="mt-8 inline-flex items-center gap-2 font-label text-xs tracking-widest uppercase text-primary font-semibold hover:gap-4 transition-all duration-300">
+            See the photographs
+            <span class="material-symbols-outlined text-base">arrow_downward</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- thin full-width rule -->
+  <div class="max-w-screen-xl mx-auto px-8">
+    <div class="h-px bg-outline-variant/40"></div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════
+       SECTION 3 — PHOTOGRAPHY GALLERY
+  ════════════════════════════════════════════════ -->
+  <section id="gallery" class="py-20 px-6" style="background: #f0f0d8;">
+    <div class="max-w-screen-xl mx-auto">
+
+      <!-- Section header -->
+      <div data-reveal class="mb-14 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+        <div>
+          <p class="font-label text-xs tracking-[0.3em] uppercase text-primary font-semibold mb-3">The Souls of Mountains</p>
+          <h2 class="font-headline text-5xl md:text-6xl leading-tight text-on-surface">
+            Ha Giang,<br/><span class="italic font-normal">2022</span>
+          </h2>
+        </div>
+        <p class="font-body text-sm text-on-surface-variant max-w-xs leading-relaxed md:text-right">
+          Documentary photography series. 35mm film &amp; digital. Selected for Vietnam Youth Photography Festival.
+        </p>
+      </div>
+
+      <!-- Gallery grid — 3 columns with varied heights -->
+      <div class="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4">
+
+        <!-- img 1 — tall -->
+        <div data-reveal class="gallery-img break-inside-avoid" style="transition-delay:0s">
+          <div class="img-ph w-full" style="height: 460px;">
+            <span>gallery · 01</span>
+          </div>
+        </div>
+
+        <!-- img 2 — wide/short -->
+        <div data-reveal class="gallery-img break-inside-avoid" style="transition-delay:0.07s">
+          <div class="img-ph w-full" style="height: 280px;">
+            <span>gallery · 02</span>
+          </div>
+        </div>
+
+        <!-- img 3 — medium -->
+        <div data-reveal class="gallery-img break-inside-avoid" style="transition-delay:0.14s">
+          <div class="img-ph w-full" style="height: 360px;">
+            <span>gallery · 03</span>
+          </div>
+        </div>
+
+        <!-- img 4 — tall portrait -->
+        <div data-reveal class="gallery-img break-inside-avoid" style="transition-delay:0.21s">
+          <div class="img-ph w-full" style="height: 520px;">
+            <span>gallery · 04</span>
+          </div>
+        </div>
+
+        <!-- img 5 — short -->
+        <div data-reveal class="gallery-img break-inside-avoid" style="transition-delay:0.28s">
+          <div class="img-ph w-full" style="height: 260px;">
+            <span>gallery · 05</span>
+          </div>
+        </div>
+
+        <!-- img 6 — medium -->
+        <div data-reveal class="gallery-img break-inside-avoid" style="transition-delay:0.35s">
+          <div class="img-ph w-full" style="height: 380px;">
+            <span>gallery · 06</span>
+          </div>
+        </div>
+
+        <!-- img 7 — wide -->
+        <div data-reveal class="gallery-img break-inside-avoid" style="transition-delay:0.42s">
+          <div class="img-ph w-full" style="height: 300px;">
+            <span>gallery · 07</span>
+          </div>
+        </div>
+
+        <!-- img 8 — tall -->
+        <div data-reveal class="gallery-img break-inside-avoid" style="transition-delay:0.49s">
+          <div class="img-ph w-full" style="height: 440px;">
+            <span>gallery · 08</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- gallery caption -->
+      <p data-reveal class="mt-10 font-label text-xs text-on-surface-variant/60 tracking-widest uppercase text-center" style="transition-delay:0.1s">
+        Images will be loaded when photos are uploaded &nbsp;·&nbsp; Souls of Mountains series, Ha Giang 2022
+      </p>
+
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════
+       FOOTER / CONTACT
+  ════════════════════════════════════════════════ -->
+  <section class="py-24 px-6">
+    <div class="max-w-2xl mx-auto text-center">
+      <div data-reveal>
+        <p class="font-label text-xs tracking-[0.3em] uppercase text-primary font-semibold mb-4">Let's connect</p>
+        <h2 class="font-headline text-5xl leading-tight text-on-surface mb-6">
+          Want to talk<br/><span class="italic font-normal text-primary-container">stories?</span>
+        </h2>
+        <p class="font-body text-sm text-on-surface-variant leading-relaxed mb-10 max-w-md mx-auto">
+          Whether it's a collab, a project, or just a good conversation about writing, photography, or debate — I'm always up for it.
+        </p>
+        <a href="mailto:linhphuongng.work@gmail.com" class="inline-flex items-center gap-3 bg-primary text-on-primary px-10 py-3.5 rounded-full font-label text-sm font-semibold tracking-widest uppercase hover:scale-[1.02] active:scale-95 transition-all duration-300 shadow-lg shadow-primary/20">
+          Let's chat
+          <span class="material-symbols-outlined text-base">arrow_outward</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ════════════════════════════════════════════════
+     SCRIPTS
+════════════════════════════════════════════════ -->
+<script>
+  // Nav scroll
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 40) nav.classList.add('nav-scrolled', 'glass-nav');
+    else nav.classList.remove('nav-scrolled', 'glass-nav');
+  }, { passive: true });
+
+  // Scroll reveal
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('[data-reveal], [data-reveal="left"], [data-reveal="right"]').forEach(el => {
+    revealObserver.observe(el);
+  });
+</script>
+
+</body>
+</html>
