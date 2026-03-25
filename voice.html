@@ -425,43 +425,39 @@
       <div class="h-px bg-outline-variant/30"></div>
     </div>
 
-    <!-- ── Block 3: Documentary Photography  (img LEFT / text RIGHT) ── -->
+    <!-- ── Block 3: Documentary Photography  (text TOP / images BELOW) ── -->
     <div class="max-w-screen-xl mx-auto px-8 py-20">
-      <div class="flex flex-col md:flex-row items-stretch gap-0">
 
-        <!-- Image column — photography: staggered vertical, alternating left/right -->
-        <div data-reveal="left" class="md:w-7/12 flex flex-col gap-6" style="transition-delay:0s">
-          <img src="images/storyteller/photography/img1.png" alt="Documentary photography 1" style="width:68%; border-radius:0.75rem; display:block; margin-left:0;"/>
-          <img src="images/storyteller/photography/img2.png" alt="Documentary photography 2" style="width:68%; border-radius:0.75rem; display:block; margin-left:auto;"/>
-          <img src="images/storyteller/photography/img3.png" alt="Documentary photography 3" style="width:68%; border-radius:0.75rem; display:block; margin-left:0;"/>
-        </div>
-
-        <!-- Vertical rule -->
-        <div class="story-rule hidden md:block"></div>
-
-        <!-- Text column -->
-        <div data-reveal="right" class="md:w-5/12 flex flex-col justify-center py-4" style="transition-delay:0.15s">
+      <!-- Text row -->
+      <div data-reveal class="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14">
+        <div>
           <p class="font-label text-xs tracking-[0.25em] uppercase text-primary font-semibold mb-4">03 &nbsp;/&nbsp; Documentary Photography</p>
           <h2 class="font-headline text-4xl md:text-5xl leading-tight text-on-surface mb-6">
             The Souls of<br/><span class="italic font-normal text-primary-container">Mountains</span>
           </h2>
-          <p class="font-body text-sm leading-relaxed text-on-surface-variant mb-8 max-w-md">
+          <p class="font-body text-sm leading-relaxed text-on-surface-variant max-w-lg">
             Photography trained me a habit of observation before interpretation — the same discipline that now shapes how I conduct user research and stakeholder mapping. The camera taught me to look before I decide what I see.
           </p>
-
-          <div class="space-y-4 max-w-md">
-            <div>
-              <p class="font-label text-[11px] font-semibold text-primary tracking-wide mb-1.5">Locations</p>
-              <p class="font-body text-xs leading-relaxed text-on-surface">Mountainous areas across Vietnam · Ba Che · Binh Lieu · Ha Giang · Sa Pa</p>
-            </div>
-            <div>
-              <p class="font-label text-[11px] font-semibold text-primary tracking-wide mb-1.5">Documenting topic</p>
-              <p class="font-body text-xs leading-relaxed text-on-surface">Children. Community life. Resilience in resource-constrained environments.</p>
-            </div>
+        </div>
+        <div class="space-y-3 md:text-right shrink-0">
+          <div>
+            <p class="font-label text-[11px] font-semibold text-primary tracking-wide mb-1">Locations</p>
+            <p class="font-body text-xs leading-relaxed text-on-surface">Mountainous areas across Vietnam<br/>Ba Che · Binh Lieu · Ha Giang · Sa Pa</p>
+          </div>
+          <div>
+            <p class="font-label text-[11px] font-semibold text-primary tracking-wide mb-1">Documenting topic</p>
+            <p class="font-body text-xs leading-relaxed text-on-surface">Children. Community life.<br/>Resilience in resource-constrained environments.</p>
           </div>
         </div>
-
       </div>
+
+      <!-- Images row — staggered vertical alignment -->
+      <div data-reveal class="flex gap-6 items-end" style="transition-delay:0.15s">
+        <img src="images/storyteller/photography/img1.png" alt="Documentary photography 1" style="flex:1; width:0; border-radius:0.75rem; display:block;"/>
+        <img src="images/storyteller/photography/img2.png" alt="Documentary photography 2" style="flex:1; width:0; border-radius:0.75rem; display:block; margin-bottom:3rem;"/>
+        <img src="images/storyteller/photography/img3.png" alt="Documentary photography 3" style="flex:1; width:0; border-radius:0.75rem; display:block;"/>
+      </div>
+
     </div>
 
   </section>
