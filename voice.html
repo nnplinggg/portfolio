@@ -216,7 +216,7 @@
     <div class="hidden md:flex items-center gap-10 font-['Libre_Caslon_Text'] text-base tracking-tight">
       <a class="text-on-surface/50 hover:text-on-surface transition-colors" href="index.html#about">About</a>
       <a class="text-on-surface/50 hover:text-on-surface transition-colors" href="work.html">A Builder</a>
-      <a class="text-on-surface font-bold border-b border-primary pb-0.5" href="voice.html">A Storyteller</a>
+      <a class="text-on-surface border-b border-primary pb-0.5" href="voice.html">A Storyteller</a>
       <a class="text-on-surface/50 hover:text-on-surface transition-colors" href="#learner">A Learner</a>
     </div>
     <button class="bg-primary text-on-primary px-8 py-2.5 rounded-full font-label text-sm font-semibold tracking-widest uppercase hover:scale-[1.02] active:scale-95 transition-all duration-300">
@@ -228,58 +228,41 @@
 <main>
 
   <!-- ════════════════════════════════════════════════
-       HERO
+       OPENING — two-column intro
   ════════════════════════════════════════════════ -->
   <section class="relative pt-40 pb-20 px-6 overflow-hidden">
-    <!-- faint bg texture -->
     <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(29,70,38,0.06) 0%, transparent 70%);"></div>
-    <div class="max-w-4xl mx-auto text-center relative z-10">
-      <p class="hero-kicker font-label text-xs tracking-[0.3em] uppercase text-primary font-semibold mb-6">Page 4 of 4 &nbsp;·&nbsp; The Storyteller</p>
-      <h1 class="hero-title font-headline text-6xl md:text-8xl leading-[1.05] tracking-tighter text-on-surface mb-8">
-        I came to stories<br/><span class="italic font-normal text-primary-container">through two lenses</span>
-      </h1>
-      <p class="hero-sub font-body text-base text-on-surface-variant max-w-xl mx-auto leading-relaxed">
-        A camera. A courtroom argument. Both taught me the same thing — slow down, listen, then speak with intention.
-      </p>
-    </div>
-    <!-- decorative rule -->
-    <div class="flex items-center gap-4 max-w-4xl mx-auto mt-16">
-      <div class="flex-1 h-px bg-outline-variant/40"></div>
-      <span class="font-label text-[10px] tracking-[0.3em] uppercase text-outline">voice · lens · argument</span>
-      <div class="flex-1 h-px bg-outline-variant/40"></div>
-    </div>
-  </section>
+    <div class="max-w-screen-xl mx-auto relative z-10">
+      <div class="flex flex-col md:flex-row items-center gap-16">
 
-  <!-- ════════════════════════════════════════════════
-       SECTION 1 — OPENING ESSAY
-  ════════════════════════════════════════════════ -->
-  <section class="py-20 px-6">
-    <article class="max-w-[720px] mx-auto">
+        <!-- Text side -->
+        <div class="md:flex-1">
+          <h1 class="hero-title font-headline text-6xl md:text-7xl leading-[1.05] tracking-tighter text-on-surface mb-8">
+            i came to stories<br/><span class="italic font-normal text-primary-container">through two lense</span>
+          </h1>
+          <p class="hero-sub font-body text-base text-on-surface-variant leading-relaxed max-w-md">
+            A photographer's lens and a public speaker's lense.<br/>Both taught me to slow down, appreciate, notice, then speak with intention.
+          </p>
+          <!-- decorative rule -->
+          <div class="flex items-center gap-4 mt-12">
+            <div class="flex-1 h-px bg-outline-variant/40"></div>
+            <span class="font-label text-[10px] tracking-[0.3em] uppercase text-outline">my story</span>
+            <div class="flex-1 h-px bg-outline-variant/40"></div>
+          </div>
+        </div>
 
-      <p data-reveal class="essay-dropcap font-body text-[1.0625rem] leading-[1.85] text-on-surface mb-8">
-        I came to storytelling through two very different lenses — a camera and a courtroom argument.
-      </p>
+        <!-- Image side — landscape + 3:4 portrait stacked -->
+        <div data-reveal="right" class="md:w-5/12 flex flex-col gap-4">
+          <div class="img-ph w-full rounded-xl" style="aspect-ratio:16/9;">
+            <span>landscape placeholder</span>
+          </div>
+          <div class="img-ph w-full rounded-xl" style="aspect-ratio:3/4;">
+            <span>portrait 3:4 placeholder</span>
+          </div>
+        </div>
 
-      <p data-reveal class="font-body text-[1.0625rem] leading-[1.85] text-on-surface mb-8" style="transition-delay:0.1s">
-        Before I learned to manage products, I learned to <em>see</em>. As a documentary photographer in the mountains of northern Vietnam, I trained myself to sit with a moment before reaching for the shutter — to feel what a place held before trying to capture it. That instinct, to slow down and listen before you speak, is the same one I bring to research, to user interviews, to every conversation where someone is trying to be understood.
-      </p>
-
-      <p data-reveal class="font-body text-[1.0625rem] leading-[1.85] text-on-surface mb-8" style="transition-delay:0.2s">
-        The courtroom came later. As a competitive debater for six years, then a national coach, I learned that a story only lands when you know your audience. <strong>Persuasion isn't decoration — it is the delivery system for truth.</strong> If you can't make people <em>feel</em> why something matters, the idea dies in the room.
-      </p>
-
-      <p data-reveal class="font-body text-[1.0625rem] leading-[1.85] text-on-surface mb-8" style="transition-delay:0.3s">
-        These two threads — <em>seeing</em> and <em>arguing</em> — are what make me a storyteller. I don't write for writing's sake. I write because clarity is a form of care, and because the people I work for deserve to be heard.
-      </p>
-
-      <!-- pull quote -->
-      <div data-reveal class="quote-pull mt-14 mb-4" style="transition-delay:0.4s">
-        <p class="font-headline text-2xl italic text-primary-container leading-snug">
-          "Clarity is a form of care."
-        </p>
       </div>
-
-    </article>
+    </div>
   </section>
 
   <!-- thin full-width rule -->
@@ -476,94 +459,6 @@
   <div class="max-w-screen-xl mx-auto px-8">
     <div class="h-px bg-outline-variant/40"></div>
   </div>
-
-  <!-- ════════════════════════════════════════════════
-       SECTION 3 — PHOTOGRAPHY GALLERY
-  ════════════════════════════════════════════════ -->
-  <section id="gallery" class="py-20 px-6" style="background: #f0f0d8;">
-    <div class="max-w-screen-xl mx-auto">
-
-      <!-- Section header -->
-      <div data-reveal class="mb-14 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-        <div>
-          <p class="font-label text-xs tracking-[0.3em] uppercase text-primary font-semibold mb-3">The Souls of Mountains</p>
-          <h2 class="font-headline text-5xl md:text-6xl leading-tight text-on-surface">
-            Ha Giang,<br/><span class="italic font-normal">2022</span>
-          </h2>
-        </div>
-        <p class="font-body text-sm text-on-surface-variant max-w-xs leading-relaxed md:text-right">
-          Documentary photography series. 35mm film &amp; digital. Selected for Vietnam Youth Photography Festival.
-        </p>
-      </div>
-
-      <!-- Gallery grid — 3 columns with varied heights -->
-      <div class="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4">
-
-        <!-- img 1 — tall -->
-        <div data-reveal class="gallery-img break-inside-avoid" style="transition-delay:0s">
-          <div class="img-ph w-full" style="height: 460px;">
-            <span>gallery · 01</span>
-          </div>
-        </div>
-
-        <!-- img 2 — wide/short -->
-        <div data-reveal class="gallery-img break-inside-avoid" style="transition-delay:0.07s">
-          <div class="img-ph w-full" style="height: 280px;">
-            <span>gallery · 02</span>
-          </div>
-        </div>
-
-        <!-- img 3 — medium -->
-        <div data-reveal class="gallery-img break-inside-avoid" style="transition-delay:0.14s">
-          <div class="img-ph w-full" style="height: 360px;">
-            <span>gallery · 03</span>
-          </div>
-        </div>
-
-        <!-- img 4 — tall portrait -->
-        <div data-reveal class="gallery-img break-inside-avoid" style="transition-delay:0.21s">
-          <div class="img-ph w-full" style="height: 520px;">
-            <span>gallery · 04</span>
-          </div>
-        </div>
-
-        <!-- img 5 — short -->
-        <div data-reveal class="gallery-img break-inside-avoid" style="transition-delay:0.28s">
-          <div class="img-ph w-full" style="height: 260px;">
-            <span>gallery · 05</span>
-          </div>
-        </div>
-
-        <!-- img 6 — medium -->
-        <div data-reveal class="gallery-img break-inside-avoid" style="transition-delay:0.35s">
-          <div class="img-ph w-full" style="height: 380px;">
-            <span>gallery · 06</span>
-          </div>
-        </div>
-
-        <!-- img 7 — wide -->
-        <div data-reveal class="gallery-img break-inside-avoid" style="transition-delay:0.42s">
-          <div class="img-ph w-full" style="height: 300px;">
-            <span>gallery · 07</span>
-          </div>
-        </div>
-
-        <!-- img 8 — tall -->
-        <div data-reveal class="gallery-img break-inside-avoid" style="transition-delay:0.49s">
-          <div class="img-ph w-full" style="height: 440px;">
-            <span>gallery · 08</span>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- gallery caption -->
-      <p data-reveal class="mt-10 font-label text-xs text-on-surface-variant/60 tracking-widest uppercase text-center" style="transition-delay:0.1s">
-        Images will be loaded when photos are uploaded &nbsp;·&nbsp; Souls of Mountains series, Ha Giang 2022
-      </p>
-
-    </div>
-  </section>
 
   <!-- ════════════════════════════════════════════════
        FOOTER / CONTACT
