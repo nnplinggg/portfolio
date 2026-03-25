@@ -170,7 +170,7 @@
     cursor: default;
   }
   .flip-card.wide {
-    height: 560px;
+    height: 620px;
   }
   .flip-card-inner {
     position: relative;
@@ -219,7 +219,7 @@
     flex: none;
   }
   #product-cards .flip-card-front .grid img,
-  #community-cards .flip-card-front .grid img:not([style*="grid-row"]) {
+  #community-cards .flip-card-front .grid:not(.pizan-grid) img:not([style*="grid-row"]) {
     aspect-ratio: 16 / 9;
     height: auto;
     width: 100%;
@@ -1130,11 +1130,9 @@
           <span class="tag-pill">external relations</span>
           <span class="tag-pill">social impact</span>
             </div>
-            <div class="grid grid-cols-2 gap-2 flex-1" style="min-height:160px">
-              <img class="w-full h-full object-cover rounded-xl" src="images/projects/pizan/img1.png" alt=""/>
-          <img class="w-full h-full object-cover rounded-xl" src="images/projects/pizan/img2.png" alt=""/>
-          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">female</span></div>
-          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">female</span></div>
+            <div class="grid grid-cols-2 gap-2 pizan-grid">
+              <img class="w-full object-cover rounded-xl" style="aspect-ratio:9/16" src="images/projects/pizan/img1.png" alt=""/>
+              <img class="w-full object-cover rounded-xl" style="aspect-ratio:9/16" src="images/projects/pizan/img2.png" alt=""/>
             </div>
           </div>
 
