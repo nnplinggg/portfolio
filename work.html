@@ -166,16 +166,12 @@
   /* Flip Card */
   .flip-card {
     perspective: 1200px;
-    height: 580px;
     cursor: default;
   }
-  .flip-card.wide {
-    height: 620px;
-  }
   .flip-card-inner {
-    position: relative;
+    display: grid;
+    grid-template-areas: "stack";
     width: 100%;
-    height: 100%;
     transition: transform 0.65s cubic-bezier(0.23, 1, 0.32, 1);
     transform-style: preserve-3d;
   }
@@ -184,8 +180,7 @@
   }
   .flip-card-front,
   .flip-card-back {
-    position: absolute;
-    inset: 0;
+    grid-area: stack;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
     border-radius: 1rem;
