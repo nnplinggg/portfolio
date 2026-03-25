@@ -13,53 +13,53 @@
     theme: {
       extend: {
         colors: {
-          "surface-container-low": "#f5f5dc",
-          "secondary-fixed": "#e5e2e1",
-          "surface-bright": "#fbfbe2",
-          "secondary-fixed-dim": "#c8c6c5",
-          "on-secondary-fixed-variant": "#474746",
+          "surface-container-low": "#f1f1da",
+          "secondary-fixed": "#e2e2d5",
+          "surface-bright": "#f7f7e3",
+          "secondary-fixed-dim": "#c3c3b8",
+          "on-secondary-fixed-variant": "#424240",
           "on-secondary": "#ffffff",
-          "surface-container-highest": "#e4e4cc",
+          "surface-container-highest": "#dcdcbc",
           "on-error": "#ffffff",
           "on-tertiary-container": "#ffb6c8",
           "primary": "#1d4626",
           "inverse-primary": "#a4d2a6",
           "on-tertiary-fixed": "#370b1b",
-          "outline-variant": "#c1c9be",
+          "outline-variant": "#bdbdb2",
           "on-primary": "#ffffff",
-          "inverse-surface": "#303221",
+          "inverse-surface": "#2d2d22",
           "primary-container": "#355e3b",
-          "surface-dim": "#dbdcc3",
-          "on-secondary-fixed": "#1c1b1b",
+          "surface-dim": "#d5d5b8",
+          "on-secondary-fixed": "#1b1b18",
           "error": "#ba1a1a",
           "primary-fixed-dim": "#a4d2a6",
           "on-tertiary-fixed-variant": "#6b3646",
-          "secondary-container": "#e2dfde",
-          "surface-container-high": "#eaead1",
+          "secondary-container": "#ddddd0",
+          "surface-container-high": "#e4e4ca",
           "on-primary-fixed-variant": "#274f2e",
-          "outline": "#727970",
-          "surface-variant": "#e4e4cc",
+          "outline": "#6b6b60",
+          "surface-variant": "#dcdcbc",
           "surface-tint": "#3e6844",
           "primary-fixed": "#bfeec1",
           "on-primary-fixed": "#002109",
           "on-error-container": "#93000a",
           "tertiary-container": "#7c4454",
-          "surface": "#fbfbe2",
+          "surface": "#f7f7e3",
           "error-container": "#ffdad6",
-          "background": "#fbfbe2",
-          "on-surface-variant": "#424941",
-          "on-surface": "#1b1d0e",
+          "background": "#f7f7e3",
+          "on-surface-variant": "#404040",
+          "on-surface": "#191910",
           "tertiary-fixed-dim": "#fcb2c5",
-          "secondary": "#5f5e5e",
+          "secondary": "#5a5a55",
           "on-tertiary": "#ffffff",
-          "on-background": "#1b1d0e",
-          "inverse-on-surface": "#f2f2d9",
+          "on-background": "#191910",
+          "inverse-on-surface": "#f0f0e0",
           "tertiary-fixed": "#ffd9e1",
           "on-primary-container": "#a8d6a9",
           "surface-container-lowest": "#ffffff",
-          "on-secondary-container": "#636262",
+          "on-secondary-container": "#5d5d58",
           "tertiary": "#612d3d",
-          "surface-container": "#efefd7"
+          "surface-container": "#eaeade"
         },
         fontFamily: {
           "headline": ["Libre Caslon Text"],
@@ -124,9 +124,9 @@
     letter-spacing: 0.06em;
     font-family: 'Nunito Sans', sans-serif;
     font-weight: 600;
-    background: #efefd7;
-    color: #424941;
-    border: 1px solid #c1c9be40;
+    background: #eaeade;
+    color: #404040;
+    border: 1px solid #bdbdb240;
     transition: background 0.2s, color 0.2s;
   }
   .tag-pill:hover {
@@ -140,7 +140,7 @@
     padding: 12px 32px;
     font-family: 'Libre Caslon Text', serif;
     font-size: 1rem;
-    color: #424941;
+    color: #404040;
     border-bottom: 2px solid transparent;
     transition: color 0.3s, border-color 0.3s;
     cursor: pointer;
@@ -155,7 +155,7 @@
     border-bottom-color: #1d4626;
   }
   .tab-btn:hover:not(.active) {
-    color: #1b1d0e;
+    color: #191910;
   }
 
   /* Card hover (legacy) */
@@ -196,7 +196,7 @@
     overflow: hidden;
   }
   .flip-card-front {
-    background: #efefd7;
+    background: #eaeade;
     border: 1px solid rgba(193, 201, 190, 0.2);
   }
   .flip-card-back {
@@ -210,11 +210,11 @@
     font-size: 9px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: #424941;
+    color: #404040;
     opacity: 0.35;
   }
   .img-placeholder {
-    background: linear-gradient(135deg, #e4e4cc 0%, #d0d1b8 100%);
+    background: linear-gradient(135deg, #dcdcbc 0%, #d0d1b8 100%);
     border-radius: 0.75rem;
     display: flex;
     align-items: center;
@@ -292,9 +292,9 @@
     border: 1px solid #ffd9e160;
   }
   .type-badge-competition {
-    background: #e2dfde50;
-    color: #474746;
-    border: 1px solid #c8c6c560;
+    background: #ddddd050;
+    color: #424240;
+    border: 1px solid #c3c3b860;
   }
   .type-badge-founded {
     background: #355e3b20;
@@ -321,14 +321,15 @@
 <body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
 
 <!-- Top Navigation -->
-<nav class="fixed top-0 w-full z-50 bg-[#fbfbe2]/80 backdrop-blur-xl border-b border-outline-variant/10">
+<nav class="fixed top-0 w-full z-50 bg-[#f7f7e3]/80 backdrop-blur-xl border-b border-outline-variant/10">
   <div class="flex justify-between items-center px-8 py-6 max-w-screen-2xl mx-auto">
     <a class="font-['Libre_Caslon_Text'] text-2xl font-bold tracking-tighter text-[#1A1A1A]" href="index.html">pling's portfolio</a>
     <div class="hidden md:flex items-center gap-10 font-['Libre_Caslon_Text'] text-base tracking-tight">
       <a class="text-[#1A1A1A]/60 hover:text-[#1A1A1A] transition-colors" href="index.html#about">About</a>
       <a class="text-[#1A1A1A] border-b border-primary/40 pb-0.5" href="work.html">A Builder</a>
       <a class="text-[#1A1A1A]/60 hover:text-[#1A1A1A] transition-colors" href="voice.html">A Storyteller</a>
-      <a class="text-[#1A1A1A]/60 hover:text-[#1A1A1A] transition-colors" href="index.html#learner">A Learner</a>    </div>
+      <a class="text-[#1A1A1A]/60 hover:text-[#1A1A1A] transition-colors" href="index.html#learner">A Learner</a>
+    </div>
     <a href="https://drive.google.com/file/d/1CKjHTrA7Z5VA_i5fzCCVCxe6MjszrN0n/view?usp=sharing" class="bg-primary text-on-primary px-8 py-2.5 rounded-full font-label text-sm font-semibold tracking-widest uppercase hover:scale-[1.02] active:scale-95 transition-all duration-300">
       Resume
     </a>
@@ -439,11 +440,11 @@
           <div class="flip-card-back">
             <p class="font-body text-sm text-white/80 leading-relaxed">Teacher distribution across Vietnam's 51 mountainous provinces is manual, inequitable, and opaque. Working with backend developers, we translated this government planning failure into a <span class="text-[#a4d2a6] font-medium">Min-Cost Max-Flow optimization problem</span> with equity-weighted fairness constraints — and delivered a functional website for this optimization engine.</p>
             <ul class="space-y-2">
-            <li class="bullet-item-back font-body text-sm text-white/75"><span>Led problem and gap analysis, scoped to itinerant teacher pool (5–15% of provincial workforce)</span></li>
-            <li class="bullet-item-back font-body text-sm text-white/75"><span>Authored evidence-based problem document for government, NGO, and hackathon audiences (MOET, UNICEF Vietnam, World Bank)</span></li>
+              <li class="bullet-item-back font-body text-sm text-white/75"><span>Led problem and gap analysis, scoped to itinerant teacher pool (5–15% of provincial workforce)</span></li>
             <li class="bullet-item-back font-body text-sm text-white/75"><span>Prioritized and designed 3 use cases for district education officers: annual allocation, mid-year emergency reallocation, equity audit/reporting</span></li>
             <li class="bullet-item-back font-body text-sm text-white/75"><span>Architected CSV data schemas; generated synthetic datasets for Ha Giang and Lai Chau via Python</span></li>
-
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Designed 3-panel Figma interface with custom design system</span></li>
+            <li class="bullet-item-back font-body text-sm text-white/75"><span>Authored evidence-based problem document for government, NGO, and hackathon audiences (MOET, UNICEF Vietnam, World Bank)</span></li>
             </ul>
             <div class="flex flex-wrap gap-1.5 mt-auto pt-3 border-t border-white/10">
               <span class="tag-pill-back">gap analysis</span>
@@ -548,10 +549,10 @@
           <span class="tag-pill">disability-affirming design</span>
             </div>
             <div class="grid grid-cols-2 gap-2 flex-1" style="min-height:160px">
-              <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">diversity_3</span></div>
-          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">diversity_3</span></div>
-          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">diversity_3</span></div>
-          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">diversity_3</span></div>
+              <img class="w-full h-full object-cover rounded-xl" src="images/projects/creativity-explored/img1.png" alt=""/>
+          <img class="w-full h-full object-cover rounded-xl" src="images/projects/creativity-explored/img2.png" alt=""/>
+          <img class="w-full h-full object-cover rounded-xl" src="images/projects/creativity-explored/img3.png" alt=""/>
+          <img class="w-full h-full object-cover rounded-xl" src="images/projects/creativity-explored/img4.png" alt=""/>
             </div>
           </div>
 
@@ -608,10 +609,10 @@
           <span class="tag-pill">prompt engineering</span>
             </div>
             <div class="grid grid-cols-2 gap-2 flex-1" style="min-height:160px">
-              <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">smart_toy</span></div>
-          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">smart_toy</span></div>
-          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">smart_toy</span></div>
-          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">smart_toy</span></div>
+              <img class="w-full h-full object-cover rounded-xl" src="images/projects/bossense/img1.png" alt=""/>
+          <img class="w-full h-full object-cover rounded-xl" src="images/projects/bossense/img2.png" alt=""/>
+          <img class="w-full h-full object-cover rounded-xl" src="images/projects/bossense/img3.png" alt=""/>
+          <img class="w-full h-full object-cover rounded-xl" src="images/projects/bossense/img4.png" alt=""/>
             </div>
           </div>
 
@@ -757,39 +758,6 @@
         </div>
       </div>
 
-      <!-- Card: MLV / Scafold — full width -->
-      <div class="flip-card card-animate wide lg:col-span-2">
-        <div class="flip-card-inner">
-
-          <!-- Front -->
-          <div class="flip-card-front">
-            <div class="flex items-start justify-between gap-2">
-              <span class="type-badge type-badge-internship">
-                <span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:'FILL' 1,'wght' 400">rocket_launch</span>
-                Internship · PM Associate · Jan 2026 – Present
-              </span>
-              <span class="flip-hint mt-1">hover ↻</span>
-            </div>
-            <div>
-              <h3 class="font-headline text-2xl text-on-surface leading-tight tracking-tight">MLV / Scafold</h3>
-              <p class="font-label text-xs text-on-surface-variant/70 tracking-wide mt-0.5">AI Agent for Young Founders</p>
-            </div>
-            <div class="flex flex-wrap gap-1.5">
-              <span class="tag-pill">product management</span>
-          <span class="tag-pill">AI agent</span>
-          <span class="tag-pill">UX research</span>
-          <span class="tag-pill">startup ecosystem</span>
-          <span class="tag-pill">partnerships</span>
-          <span class="tag-pill">Asia</span>
-            </div>
-            <div class="grid grid-cols-2 gap-2 flex-1" style="min-height:160px">
-              <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">rocket_launch</span></div>
-          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">rocket_launch</span></div>
-          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">rocket_launch</span></div>
-          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">rocket_launch</span></div>
-            </div>
-          </div>
-
           <!-- Back -->
           <div class="flip-card-back">
             <p class="font-body text-sm text-white/80 leading-relaxed">Scafold is an <span class="text-[#a4d2a6] font-medium">AI agent for early-stage founders</span> — structuring information flow, decision-making support, and outreach for people operating without institutional resources.</p>
@@ -862,17 +830,18 @@
           <span class="tag-pill">program design</span>
           <span class="tag-pill">stakeholder management</span>
             </div>
-            <div class="grid grid-cols-2 gap-2 flex-1" style="min-height:160px">
+            <div class="flex-1 grid gap-2" style="min-height:180px; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1fr 1fr;">
+              <img class="w-full h-full object-cover rounded-xl" src="images/projects/beezniz/portrait.jpg" alt="" style="grid-row: span 2;"/>
               <img class="w-full h-full object-cover rounded-xl" src="images/projects/beezniz/img1.jpg" alt=""/>
-          <img class="w-full h-full object-cover rounded-xl" src="images/projects/beezniz/img2.jpg" alt=""/>
-          <img class="w-full h-full object-cover rounded-xl" src="images/projects/beezniz/img3.jpg" alt=""/>
-          <img class="w-full h-full object-cover rounded-xl" src="images/projects/beezniz/img4.jpg" alt=""/>
+              <img class="w-full h-full object-cover rounded-xl" src="images/projects/beezniz/img2.jpg" alt=""/>
+              <img class="w-full h-full object-cover rounded-xl" src="images/projects/beezniz/img3.jpg" alt=""/>
+              <img class="w-full h-full object-cover rounded-xl" src="images/projects/beezniz/img4.jpg" alt=""/>
             </div>
           </div>
 
           <!-- Back -->
           <div class="flip-card-back">
-            <p class="font-body text-sm text-white/80 leading-relaxed">I built the first Career Orientation and Youth Entrepreneurship community in my province to empower local youth in this ever-changing job market — from <span class="text-[#a4d2a6] font-medium">cold-messaging government officials</span> to earning official recognition from the Vietnam Youth Federation.</p>
+            <p class="font-body text-sm text-white/80 leading-relaxed">Quang Ninh had no youth entrepreneurship organization. I built the first one — from <span class="text-[#a4d2a6] font-medium">cold-messaging government officials</span> to earning official recognition from the Vietnam Youth Federation.</p>
             <ul class="space-y-2">
               <li class="bullet-item-back font-body text-sm text-white/75"><span>Reached out to government officials, Youth Union administrators, and business leaders until they agreed to support a student-led initiative</span></li>
             <li class="bullet-item-back font-body text-sm text-white/75"><span>Earned official recognition from Vietnam Youth Federation as the first and only student entrepreneurship club in the province</span></li>
@@ -924,10 +893,10 @@
           <span class="tag-pill">end-to-end execution</span>
             </div>
             <div class="grid grid-cols-2 gap-2 flex-1" style="min-height:160px">
-              <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">sunny</span></div>
-          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">sunny</span></div>
-          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">sunny</span></div>
-          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">sunny</span></div>
+              <img class="w-full h-full object-cover rounded-xl" src="images/projects/beezcamp/img1.jpg" alt=""/>
+          <img class="w-full h-full object-cover rounded-xl" src="images/projects/beezcamp/img2.jpg" alt=""/>
+          <img class="w-full h-full object-cover rounded-xl" src="images/projects/beezcamp/img3.jpg" alt=""/>
+          <img class="w-full h-full object-cover rounded-xl" src="images/projects/beezcamp/img4.jpg" alt=""/>
             </div>
           </div>
 
@@ -1038,10 +1007,10 @@
           <span class="tag-pill">community impact</span>
             </div>
             <div class="grid grid-cols-2 gap-2 flex-1" style="min-height:160px">
-              <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">favorite</span></div>
-          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">favorite</span></div>
-          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">favorite</span></div>
-          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">favorite</span></div>
+              <img class="w-full h-full object-cover rounded-xl" src="images/projects/dreampie/img1.jpg" alt=""/>
+          <img class="w-full h-full object-cover rounded-xl" src="images/projects/dreampie/img2.jpg" alt=""/>
+          <img class="w-full h-full object-cover rounded-xl" src="images/projects/dreampie/img3.jpg" alt=""/>
+          <img class="w-full h-full object-cover rounded-xl" src="images/projects/dreampie/img4.jpg" alt=""/>
             </div>
           </div>
 
@@ -1094,10 +1063,10 @@
           <span class="tag-pill">children's welfare</span>
             </div>
             <div class="grid grid-cols-2 gap-2 flex-1" style="min-height:160px">
-              <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">volunteer_activism</span></div>
-          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">volunteer_activism</span></div>
-          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">volunteer_activism</span></div>
-          <div class="img-placeholder w-full h-full"><span class="material-symbols-outlined" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300">volunteer_activism</span></div>
+              <img class="w-full h-full object-cover rounded-xl" src="images/projects/fireflies/img1.png" alt=""/>
+          <img class="w-full h-full object-cover rounded-xl" src="images/projects/fireflies/img2.png" alt=""/>
+          <img class="w-full h-full object-cover rounded-xl" src="images/projects/fireflies/img3.png" alt=""/>
+          <img class="w-full h-full object-cover rounded-xl" src="images/projects/fireflies/img4.png" alt=""/>
             </div>
           </div>
 
@@ -1189,7 +1158,7 @@
   <div class="max-w-screen-2xl mx-auto px-8 flex flex-col md:flex-row items-center justify-between gap-8">
     <div>
       <p class="font-label text-[10px] tracking-[0.25em] uppercase text-primary/60 mb-2">Want to build together?</p>
-      <h3 class="font-headline text-3xl text-on-surface tracking-tight">Let's talk shop.</h3>
+      <h3 class="font-headline text-3xl text-on-surface tracking-tight">Let's chat.</h3>
     </div>
     <div class="flex flex-wrap gap-4">
       <a href="mailto:linhphuongng.work@gmail.com" class="group flex items-center gap-2 bg-surface border border-outline-variant/30 px-6 py-3 rounded-full font-label text-xs tracking-widest uppercase hover:bg-primary hover:text-on-primary hover:border-primary transition-all duration-300 text-on-surface-variant">
