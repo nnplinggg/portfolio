@@ -166,11 +166,11 @@
   /* Flip Card */
   .flip-card {
     perspective: 1200px;
-    height: 580px;
+    height: 520px;
     cursor: default;
   }
   .flip-card.wide {
-    height: 620px;
+    height: 560px;
   }
   .flip-card-inner {
     position: relative;
@@ -213,11 +213,13 @@
     color: #404040;
     opacity: 0.35;
   }
-  /* 16:9 image grid for product builder cards */
-  #product-cards .flip-card-front .grid {
+  /* 16:9 image grid — product + community builder (except Beezniz portrait) */
+  #product-cards .flip-card-front .grid,
+  #community-cards .flip-card-front .grid {
     flex: none;
   }
-  #product-cards .flip-card-front .grid img {
+  #product-cards .flip-card-front .grid img,
+  #community-cards .flip-card-front .grid img:not([style*="grid-row"]) {
     aspect-ratio: 16 / 9;
     height: auto;
     width: 100%;
