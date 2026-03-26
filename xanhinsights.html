@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>XANHinsights — Case Study</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-container-low": "#f1f1da",
+            "secondary-fixed": "#e2e2d5",
+            "surface-bright": "#f7f7e3",
+            "secondary-fixed-dim": "#c3c3b8",
+            "on-secondary-fixed-variant": "#424240",
+            "on-secondary": "#ffffff",
+            "surface-container-highest": "#dcdcbc",
+            "on-error": "#ffffff",
+            "on-tertiary-container": "#ffb6c8",
+            "primary": "#1d4626",
+            "inverse-primary": "#a4d2a6",
+            "on-tertiary-fixed": "#370b1b",
+            "outline-variant": "#bdbdb2",
+            "on-primary": "#ffffff",
+            "inverse-surface": "#2d2d22",
+            "primary-container": "#355e3b",
+            "surface-dim": "#d5d5b8",
+            "on-secondary-fixed": "#1b1b18",
+            "error": "#ba1a1a",
+            "primary-fixed-dim": "#a4d2a6",
+            "on-tertiary-fixed-variant": "#6b3646",
+            "secondary-container": "#ddddd0",
+            "surface-container-high": "#e4e4ca",
+            "on-primary-fixed-variant": "#274f2e",
+            "outline": "#6b6b60",
+            "surface-variant": "#dcdcbc",
+            "surface-tint": "#3e6844",
+            "primary-fixed": "#bfeec1",
+            "on-primary-fixed": "#002109",
+            "on-error-container": "#93000a",
+            "tertiary-container": "#7c4454",
+            "surface": "#f7f7e3",
+            "error-container": "#ffdad6",
+            "background": "#f7f7e3",
+            "on-surface-variant": "#404040",
+            "on-surface": "#191910",
+            "tertiary-fixed-dim": "#fcb2c5",
+            "secondary": "#5a5a55",
+            "on-tertiary": "#ffffff",
+            "on-background": "#191910",
+            "inverse-on-surface": "#f0f0e0",
+            "tertiary-fixed": "#ffd9e1",
+            "on-primary-container": "#a8d6a9",
+            "surface-container-lowest": "#ffffff",
+            "on-secondary-container": "#5d5d58",
+            "tertiary": "#612d3d",
+            "surface-container": "#eaeade"
+          },
+          fontFamily: {
+            "headline": ["Libre Caslon Text", "serif"],
+            "body": ["Montserrat", "sans-serif"],
+            "label": ["Nunito Sans", "sans-serif"],
+          },
+          borderRadius: {
+            DEFAULT: "0.5rem",
+            lg: "1rem",
+            xl: "1.5rem",
+            full: "9999px",
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    * { box-sizing: border-box; }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    body {
+      background: #f7f7e3;
+      color: #191910;
+      font-family: "Montserrat", sans-serif;
+    }
+
+    .tag-pill {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      font-family: "Nunito Sans", sans-serif;
+      font-weight: 600;
+      background: #eaeade;
+      color: #404040;
+      border: 1px solid rgba(189,189,178,0.25);
+    }
+
+    .tag-pill-green {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      font-family: "Nunito Sans", sans-serif;
+      font-weight: 600;
+      background: rgba(191,238,193,0.15);
+      color: #1d4626;
+      border: 1px solid rgba(191,238,193,0.5);
+    }
+
+    /* Hero */
+    .hero-bg {
+      background: #1d4626;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(164,210,166,0.12) 0%, transparent 70%),
+                  radial-gradient(ellipse 40% 60% at 10% 80%, rgba(53,94,59,0.4) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .dot-grid {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(164,210,166,0.08) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+    }
+
+    /* Section label */
+    .section-label {
+      font-family: "Nunito Sans", sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(29,70,38,0.5);
+      margin-bottom: 1rem;
+    }
+
+    /* Card base */
+    .card {
+      background: #eaeade;
+      border-radius: 1rem;
+      border: 1px solid rgba(189,189,178,0.3);
+    }
+    .card-dark {
+      background: #1d4626;
+      border-radius: 1rem;
+      color: white;
+    }
+
+    /* Stat block */
+    .stat-number {
+      font-family: "Libre Caslon Text", serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #1d4626;
+      line-height: 1;
+    }
+
+    /* Table */
+    table { width: 100%; border-collapse: collapse; }
+    th {
+      font-family: "Nunito Sans", sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #404040;
+      padding: 10px 16px;
+      text-align: left;
+      background: #e4e4ca;
+      border-bottom: 1px solid rgba(189,189,178,0.4);
+    }
+    td {
+      font-family: "Montserrat", sans-serif;
+      font-size: 12px;
+      color: #404040;
+      padding: 10px 16px;
+      border-bottom: 1px solid rgba(189,189,178,0.2);
+      vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(189,189,178,0.1); }
+
+    /* Step pills */
+    .step-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #1d4626;
+      color: #a4d2a6;
+      font-family: "Nunito Sans", sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .hl { color: #1d4626; font-weight: 600; }
+    .hl-light { color: #a4d2a6; font-weight: 500; }
+
+    /* Sticky nav */
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(247,247,227,0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(189,189,178,0.3);
+    }
+
+    /* Priority badges */
+    .priority-now   { background: rgba(29,70,38,0.1);   color: #1d4626; border: 1px solid rgba(29,70,38,0.2); }
+    .priority-next  { background: rgba(97,45,61,0.08);  color: #612d3d; border: 1px solid rgba(97,45,61,0.2); }
+    .priority-later { background: rgba(189,189,178,0.3); color: #404040; border: 1px solid rgba(189,189,178,0.4); }
+    .priority-badge {
+      display: inline-block;
+      padding: 1px 8px;
+      border-radius: 999px;
+      font-family: "Nunito Sans", sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* Formula box */
+    .formula-box {
+      background: #191910;
+      border-radius: 0.75rem;
+      padding: 1rem 1.25rem;
+      font-family: "Courier New", monospace;
+      font-size: 12px;
+      color: #a4d2a6;
+    }
+
+    /* Quote */
+    blockquote {
+      border-left: 3px solid #a4d2a6;
+      padding-left: 1.25rem;
+      font-family: "Libre Caslon Text", serif;
+      font-style: italic;
+      color: #1d4626;
+    }
+
+    @media (max-width: 768px) {
+      .stat-number { font-size: 1.75rem; }
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+
+<!-- ── NAV ── -->
+<nav class="sticky-nav">
+  <div class="max-w-screen-xl mx-auto px-6 py-3 flex items-center justify-between">
+    <a href="work.html" class="inline-flex items-center gap-2 font-label text-xs tracking-widest uppercase text-on-surface-variant hover:text-primary transition-colors">
+      <span class="material-symbols-outlined text-base">arrow_back</span>
+      Back to Work
+    </a>
+    <div class="flex items-center gap-6">
+      <a href="#problem" class="font-label text-[10px] tracking-widest uppercase text-on-surface-variant/60 hover:text-primary transition-colors hidden md:block">Problem</a>
+      <a href="#solution" class="font-label text-[10px] tracking-widest uppercase text-on-surface-variant/60 hover:text-primary transition-colors hidden md:block">Solution</a>
+      <a href="#process" class="font-label text-[10px] tracking-widest uppercase text-on-surface-variant/60 hover:text-primary transition-colors hidden md:block">Process</a>
+      <a href="#outcome" class="font-label text-[10px] tracking-widest uppercase text-on-surface-variant/60 hover:text-primary transition-colors hidden md:block">Outcome</a>
+      <a href="https://www.figma.com/make/7EPh8E80Ela2YpQTDqVpPt/Environmental-Dashboard-Mockup?fullscreen=1&t=FLAENNW081JrvnuM-1" target="_blank"
+         class="inline-flex items-center gap-1.5 bg-primary text-inverse-primary px-4 py-1.5 rounded-full font-label text-[10px] font-semibold tracking-widest uppercase hover:scale-[1.03] transition-transform">
+        <span class="material-symbols-outlined text-sm">open_in_new</span>
+        Live Prototype
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero-bg py-24 md:py-32">
+  <div class="dot-grid"></div>
+  <div class="relative max-w-screen-xl mx-auto px-6">
+    <div class="max-w-3xl">
+      <div class="flex flex-wrap gap-2 mb-6">
+        <span class="tag-pill" style="background:rgba(191,238,193,0.12);color:#a4d2a6;border-color:rgba(191,238,193,0.25);">NASA Space Apps Challenge</span>
+        <span class="tag-pill" style="background:rgba(191,238,193,0.12);color:#a4d2a6;border-color:rgba(191,238,193,0.25);">Mountain View, CA</span>
+        <span class="tag-pill" style="background:rgba(191,238,193,0.12);color:#a4d2a6;border-color:rgba(191,238,193,0.25);">48-hour sprint · Oct 2025</span>
+      </div>
+      <h1 class="font-headline text-5xl md:text-7xl text-white leading-tight tracking-tight mb-4">
+        XANH<span style="color:#a4d2a6;">insights</span>
+      </h1>
+      <p class="font-body text-base text-white/70 leading-relaxed max-w-2xl mb-8">
+        Every summer, the Bay Area sky turns orange. Heat builds in neighborhoods that already have the least green cover and worst air. City planners know something needs to change — but the data that could tell them exactly where to act first is buried across a dozen complex satellite portals, in formats only satellite scientists can read.
+      </p>
+      <p class="font-body text-sm text-white/50 leading-relaxed max-w-xl">
+        XANHinsights transforms raw NASA Earth observation data into a clear, actionable decision-support dashboard for urban planners.
+      </p>
+    </div>
+
+    <!-- Quick stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16">
+      <div class="card-dark p-5 rounded-xl border border-white/10">
+        <div class="font-headline text-3xl text-inverse-primary font-bold">48h</div>
+        <div class="font-label text-xs text-white/50 tracking-wide mt-1">Build sprint</div>
+      </div>
+      <div class="card-dark p-5 rounded-xl border border-white/10">
+        <div class="font-headline text-3xl text-inverse-primary font-bold">5</div>
+        <div class="font-label text-xs text-white/50 tracking-wide mt-1">Team members</div>
+      </div>
+      <div class="card-dark p-5 rounded-xl border border-white/10">
+        <div class="font-headline text-3xl text-inverse-primary font-bold">6</div>
+        <div class="font-label text-xs text-white/50 tracking-wide mt-1">NASA datasets</div>
+      </div>
+      <div class="card-dark p-5 rounded-xl border border-white/10">
+        <div class="font-headline text-3xl text-inverse-primary font-bold">30h</div>
+        <div class="font-label text-xs text-white/50 tracking-wide mt-1">Data work alone</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTEXT ── -->
+<section class="max-w-screen-xl mx-auto px-6 py-20">
+  <div class="grid md:grid-cols-3 gap-6 reveal">
+
+    <!-- Team -->
+    <div class="card p-6">
+      <div class="section-label">Team</div>
+      <div class="space-y-3">
+        <div>
+          <div class="font-body text-sm font-semibold text-on-surface">Kien Han</div>
+          <div class="font-label text-xs text-on-surface-variant/70">Data science, math, backend, frontend</div>
+        </div>
+        <div>
+          <div class="font-body text-sm font-semibold text-on-surface">Ngan Huong</div>
+          <div class="font-label text-xs text-on-surface-variant/70">Data science, backend, frontend</div>
+        </div>
+        <div>
+          <div class="font-body text-sm font-semibold text-on-surface">Linh Nguyen</div>
+          <div class="font-label text-xs text-on-surface-variant/70">PM — problem, strategy, feature, documentation</div>
+        </div>
+        <div>
+          <div class="font-body text-sm font-semibold text-on-surface">Tinh Ta</div>
+          <div class="font-label text-xs text-on-surface-variant/70">UX/UI — hi-fi wireframes, user flows</div>
+        </div>
+        <div>
+          <div class="font-body text-sm font-semibold text-on-surface">Thien Bui</div>
+          <div class="font-label text-xs text-on-surface-variant/70">Strategy, presentation</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Challenge -->
+    <div class="card p-6">
+      <div class="section-label">Challenge</div>
+      <div class="font-headline text-lg text-on-surface mb-2">Data Pathways to Healthy Cities</div>
+      <div class="font-label text-xs text-on-surface-variant/70 mb-4">Earth Science Division · Open-ended civic technology</div>
+      <div class="section-label mt-4">Core Constraints</div>
+      <ul class="space-y-2">
+        <li class="font-body text-sm text-on-surface-variant flex items-start gap-2"><span class="w-1 h-1 rounded-full bg-primary/50 mt-2 flex-shrink-0"></span>48 hours total</li>
+        <li class="font-body text-sm text-on-surface-variant flex items-start gap-2"><span class="w-1 h-1 rounded-full bg-primary/50 mt-2 flex-shrink-0"></span>Complex satellite data formats</li>
+        <li class="font-body text-sm text-on-surface-variant flex items-start gap-2"><span class="w-1 h-1 rounded-full bg-primary/50 mt-2 flex-shrink-0"></span>No domain expertise in urban planning or satellite science</li>
+        <li class="font-body text-sm text-on-surface-variant flex items-start gap-2"><span class="w-1 h-1 rounded-full bg-primary/50 mt-2 flex-shrink-0"></span>No user research time</li>
+        <li class="font-body text-sm text-on-surface-variant flex items-start gap-2"><span class="w-1 h-1 rounded-full bg-primary/50 mt-2 flex-shrink-0"></span>No iteration cycles</li>
+      </ul>
+    </div>
+
+    <!-- My role -->
+    <div class="card-dark p-6">
+      <div class="section-label" style="color:rgba(164,210,166,0.5)">My Role — PM</div>
+      <div class="space-y-2 mt-2">
+        <div class="font-body text-sm text-white/80 flex items-start gap-2"><span class="w-1 h-1 rounded-full bg-inverse-primary mt-2 flex-shrink-0"></span>Defined the problem framing and product strategy</div>
+        <div class="font-body text-sm text-white/80 flex items-start gap-2"><span class="w-1 h-1 rounded-full bg-inverse-primary mt-2 flex-shrink-0"></span>Built and prioritized the full feature system</div>
+        <div class="font-body text-sm text-white/80 flex items-start gap-2"><span class="w-1 h-1 rounded-full bg-inverse-primary mt-2 flex-shrink-0"></span>Led cross-functional team of 5 for 48 hours</div>
+        <div class="font-body text-sm text-white/80 flex items-start gap-2"><span class="w-1 h-1 rounded-full bg-inverse-primary mt-2 flex-shrink-0"></span>Owned storytelling, user flow, and recommendation layer</div>
+        <div class="font-body text-sm text-white/80 flex items-start gap-2"><span class="w-1 h-1 rounded-full bg-inverse-primary mt-2 flex-shrink-0"></span>Collaborated with backend developers on data-to-product translation</div>
+        <div class="font-body text-sm text-white/80 flex items-start gap-2"><span class="w-1 h-1 rounded-full bg-inverse-primary mt-2 flex-shrink-0"></span>Led UX/UI direction in Figma, centering planner workflows</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROBLEM ── -->
+<section id="problem" class="bg-surface-container py-20">
+  <div class="max-w-screen-xl mx-auto px-6">
+    <div class="section-label reveal">Section B — Problem</div>
+    <h2 class="font-headline text-4xl text-on-surface tracking-tight mb-4 reveal">The gap between data and decision</h2>
+    <blockquote class="mb-12 reveal">
+      "Urban planners cannot efficiently identify which neighborhoods need green intervention most — because heat, air quality, and vegetation data exist in separate, inaccessible, non-synthesized sources."
+    </blockquote>
+
+    <!-- Gap analysis -->
+    <div class="grid md:grid-cols-3 gap-4 mb-16 reveal">
+      <div class="card p-5 border-l-4 border-tertiary">
+        <div class="font-label text-xs font-bold text-tertiary tracking-wide mb-2">Current Pain</div>
+        <div class="font-body text-sm text-on-surface-variant leading-relaxed">Environmental data exists but is fragmented across NASA portals in expert-only formats — planners and students cannot access or synthesize it without GIS expertise.</div>
+      </div>
+      <div class="card p-5 border-l-4 border-outline-variant">
+        <div class="font-label text-xs font-bold text-on-surface-variant/60 tracking-wide mb-2">The Gaps</div>
+        <ul class="space-y-2">
+          <li class="font-body text-xs text-on-surface-variant">"Data exists" ≠ "data is usable" — a translation layer is missing</li>
+          <li class="font-body text-xs text-on-surface-variant">Scientific accuracy ≠ planning-relevant framing (Kelvin vs. risk index)</li>
+          <li class="font-body text-xs text-on-surface-variant">Satellite data shows a picture — it doesn't say what to do next</li>
+        </ul>
+      </div>
+      <div class="card p-5 border-l-4 border-primary">
+        <div class="font-label text-xs font-bold text-primary tracking-wide mb-2">Desired State</div>
+        <ul class="space-y-2">
+          <li class="font-body text-xs text-on-surface-variant">Planner identifies highest-risk zone in under 3 clicks</li>
+          <li class="font-body text-xs text-on-surface-variant">Data synthesis across heat, air, vegetation is instant and visual</li>
+          <li class="font-body text-xs text-on-surface-variant">Dashboard output is directly actionable — not just informational</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Landscape analysis -->
+    <div class="section-label reveal">Landscape Analysis</div>
+    <div class="card overflow-hidden reveal">
+      <table>
+        <thead>
+          <tr>
+            <th>Tool</th>
+            <th>Who it serves</th>
+            <th>What it does</th>
+            <th>Critical gap</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="font-semibold text-on-surface">Google Earth Engine</td>
+            <td>Satellite researchers, data scientists</td>
+            <td>Full-power geospatial analysis platform</td>
+            <td class="text-tertiary">Requires coding expertise. No planning workflow. No recommendations.</td>
+          </tr>
+          <tr>
+            <td class="font-semibold text-on-surface">NASA Worldview / Earthdata</td>
+            <td>Scientists, researchers</td>
+            <td>Raw satellite data visualization and download</td>
+            <td class="text-tertiary">Data portal only. No synthesis. No actionability.</td>
+          </tr>
+          <tr>
+            <td class="font-semibold text-on-surface">EPA EJScreen</td>
+            <td>Policy analysts, EPA staff</td>
+            <td>Environmental justice screening at census level</td>
+            <td class="text-tertiary">US-wide but coarse. No scenario simulation. Not vegetation-focused.</td>
+          </tr>
+          <tr>
+            <td class="font-semibold text-on-surface">ArcGIS / QGIS</td>
+            <td>GIS professionals</td>
+            <td>Full geospatial analysis and mapping</td>
+            <td class="text-tertiary">Paid and expert-only. No built-in multi-indicator priority scoring.</td>
+          </tr>
+          <tr style="background:rgba(29,70,38,0.06)">
+            <td class="font-semibold text-primary">XANHinsights ✦</td>
+            <td>Urban planners, NGOs, students</td>
+            <td>Unified multi-indicator dashboard + priority score + scenario sim</td>
+            <td class="text-primary font-medium">Built specifically for non-expert decision-making. Free. Open NASA data.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ── SOLUTION / TECH ── -->
+<section id="solution" class="py-20">
+  <div class="max-w-screen-xl mx-auto px-6">
+    <div class="section-label reveal">Section A — Solution & Tech</div>
+    <h2 class="font-headline text-4xl text-on-surface tracking-tight mb-12 reveal">How it works</h2>
+
+    <!-- Tech stack -->
+    <div class="grid md:grid-cols-2 gap-6 mb-16">
+      <div class="reveal">
+        <div class="section-label">Tech Stack</div>
+        <div class="card overflow-hidden">
+          <table>
+            <thead><tr><th>Layer</th><th>Tool</th><th>Role</th></tr></thead>
+            <tbody>
+              <tr><td class="font-semibold text-on-surface">Frontend</td><td>React + TypeScript + CSS + Mapbox GL JS</td><td>Interactive map, choropleth layers, district click interactions</td></tr>
+              <tr><td class="font-semibold text-on-surface">Backend</td><td>FastAPI (Python)</td><td>REST APIs, entropy weighting engine, Priority Score computation</td></tr>
+              <tr><td class="font-semibold text-on-surface">Data processing</td><td>Python + Google Earth Engine</td><td>Raster extraction, spatial joins, index normalization, CSV export</td></tr>
+              <tr><td class="font-semibold text-on-surface">UI/UX design</td><td>Figma</td><td>Hi-fi wireframes, component design, prototype</td></tr>
+              <tr><td class="font-semibold text-on-surface">Version control</td><td>GitHub</td><td>Codebase management</td></tr>
+              <tr><td class="font-semibold text-on-surface">Project coord.</td><td>Notion + Google Sheet</td><td>Task tracking, timeline, documentation</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="section-label">Data Sources</div>
+        <div class="card overflow-hidden">
+          <table>
+            <thead><tr><th>Dataset</th><th>Provider</th><th>What it contributes</th></tr></thead>
+            <tbody>
+              <tr><td class="font-semibold text-on-surface">MODIS MCD19A2</td><td>NASA GES DISC</td><td>Aerosol Optical Depth (AOD)</td></tr>
+              <tr><td class="font-semibold text-on-surface">MODIS Land Surface Temp</td><td>NASA Earthdata</td><td>Urban Heat Island (LST)</td></tr>
+              <tr><td class="font-semibold text-on-surface">MODIS NDVI</td><td>NASA Earthdata</td><td>Vegetation coverage index</td></tr>
+              <tr><td class="font-semibold text-on-surface">GPWv4 / SEDAC</td><td>NASA CIESIN</td><td>Population density</td></tr>
+              <tr><td class="font-semibold text-on-surface">Copernicus GHSL</td><td>European Commission</td><td>Built-up area and urban extent</td></tr>
+              <tr><td class="font-semibold text-on-surface">TIGER/Line 2023</td><td>US Census Bureau</td><td>Bay Area neighborhood boundaries</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Analytical engine -->
+    <div class="section-label reveal">Analytical Engine — Built From Scratch</div>
+    <div class="card p-6 mb-6 reveal">
+      <p class="font-body text-sm text-on-surface-variant leading-relaxed mb-6">No off-the-shelf library handles this specific combination. The analytical engine has three components working together to produce a single, statistically defensible Priority Score per district.</p>
+      <div class="grid md:grid-cols-4 gap-4">
+        <div class="text-center">
+          <div class="step-badge mx-auto mb-3">1</div>
+          <div class="font-label text-xs font-bold text-on-surface mb-1">Normalization</div>
+          <div class="formula-box text-center mb-2">X* = (X - min) / (max - min)</div>
+          <div class="font-body text-xs text-on-surface-variant/70">Standardize indicator scales → comparable metrics</div>
+        </div>
+        <div class="text-center">
+          <div class="step-badge mx-auto mb-3">2</div>
+          <div class="font-label text-xs font-bold text-on-surface mb-1">Entropy Weight</div>
+          <div class="formula-box text-center mb-2">w = (1 - e) / Σ(1 - e)</div>
+          <div class="font-body text-xs text-on-surface-variant/70">Higher weight for indicators that vary significantly across districts</div>
+        </div>
+        <div class="text-center">
+          <div class="step-badge mx-auto mb-3">3</div>
+          <div class="font-label text-xs font-bold text-on-surface mb-1">PCA Refinement</div>
+          <div class="formula-box text-center mb-2">w = |loading| / Σ|loading|</div>
+          <div class="font-body text-xs text-on-surface-variant/70">Removes redundancy — heat and air quality co-move</div>
+        </div>
+        <div class="text-center">
+          <div class="step-badge mx-auto mb-3">4</div>
+          <div class="font-label text-xs font-bold text-on-surface mb-1">Fusion</div>
+          <div class="formula-box text-center mb-2">w_final = (w_entropy + w_PCA) / 2</div>
+          <div class="font-body text-xs text-on-surface-variant/70">Robust hybrid weights combining information + structure</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Data-to-product translation -->
+    <div class="section-label reveal">Data-to-Product Translation</div>
+    <div class="card overflow-hidden reveal">
+      <table>
+        <thead><tr><th>Raw Concept</th><th>Product Name</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td class="font-mono text-xs text-on-surface">NDVI (-1 to 1)</td><td class="font-semibold text-primary">Vegetation Index</td><td>Spectral ratio means nothing to a planner</td></tr>
+          <tr><td class="font-mono text-xs text-on-surface">LST in Kelvin</td><td class="font-semibold text-primary">Urban Heat Island (UHI)</td><td>Maps to a concept planners already know</td></tr>
+          <tr><td class="font-mono text-xs text-on-surface">AOD 0–1 proxy</td><td class="font-semibold text-primary">PM2.5 / Air Exposure Index</td><td>The term residents and planners already use</td></tr>
+          <tr><td class="font-mono text-xs text-on-surface">Raw density per km²</td><td class="font-semibold text-primary">Population Exposure</td><td>Frames density as a risk multiplier, not a count</td></tr>
+          <tr><td class="font-mono text-xs text-on-surface">Entropy+PCA composite</td><td class="font-semibold text-primary">Priority Score</td><td>Single number replaces four confusing dimensions</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROCESS ── -->
+<section id="process" class="bg-surface-container py-20">
+  <div class="max-w-screen-xl mx-auto px-6">
+    <div class="section-label reveal">Section C–F — Process</div>
+    <h2 class="font-headline text-4xl text-on-surface tracking-tight mb-4 reveal">Why this was harder than it looks</h2>
+    <p class="font-body text-sm text-on-surface-variant mb-12 max-w-2xl reveal">Our engineering team spent over 30 of 48 hours on data alone. Here is what that actually involved.</p>
+
+    <!-- 8 obstacles -->
+    <div class="grid md:grid-cols-2 gap-4 mb-16">
+      <div class="card p-5 reveal">
+        <div class="flex items-start gap-3">
+          <div class="step-badge flex-shrink-0">01</div>
+          <div>
+            <div class="font-label text-xs font-bold text-on-surface mb-1 tracking-wide">Tiled raster extraction</div>
+            <div class="font-body text-xs text-on-surface-variant leading-relaxed">MODIS NDVI, LST, and AOD don't arrive as clean tables. Each is a georeferenced raster tile with spectral index values per pixel. We extracted tiles one by one, isolated each index in Python, rendered them as color-gradient map layers. The volume alone consumed most of 48 hours.</div>
+          </div>
+        </div>
+      </div>
+      <div class="card p-5 reveal">
+        <div class="flex items-start gap-3">
+          <div class="step-badge flex-shrink-0">02</div>
+          <div>
+            <div class="font-label text-xs font-bold text-on-surface mb-1 tracking-wide">Stitching two incompatible map systems</div>
+            <div class="font-body text-xs text-on-surface-variant leading-relaxed">Bay Area boundaries came from TIGER/Line census data — a different coordinate system and resolution than the NASA raster grid. Aligning required cropping each raster to each neighborhood boundary, computing per-neighborhood index averages, exporting a unified CSV. The hardest technical step in the entire pipeline.</div>
+          </div>
+        </div>
+      </div>
+      <div class="card p-5 reveal">
+        <div class="flex items-start gap-3">
+          <div class="step-badge flex-shrink-0">03</div>
+          <div>
+            <div class="font-label text-xs font-bold text-on-surface mb-1 tracking-wide">Temporal complexity</div>
+            <div class="font-body text-xs text-on-surface-variant leading-relaxed">LST is recorded hourly. NDVI and AOD are monthly composites. Producing a coherent per-district metric across all three required a 12-month averaging approach reconciling fundamentally different time resolutions. File sizes created processing bottlenecks on standard laptops throughout the build.</div>
+          </div>
+        </div>
+      </div>
+      <div class="card p-5 reveal">
+        <div class="flex items-start gap-3">
+          <div class="step-badge flex-shrink-0">04</div>
+          <div>
+            <div class="font-label text-xs font-bold text-on-surface mb-1 tracking-wide">Building Priority Score with no existing library</div>
+            <div class="font-body text-xs text-on-surface-variant leading-relaxed">The hybrid Entropy + PCA weighting formula was written from the ground up. No off-the-shelf library handles this combination. Entropy assigns higher influence to indicators that vary across districts; PCA removes redundancy between correlated ones. The result: one statistically defensible score per district.</div>
+          </div>
+        </div>
+      </div>
+      <div class="card p-5 reveal">
+        <div class="flex items-start gap-3">
+          <div class="step-badge flex-shrink-0">05</div>
+          <div>
+            <div class="font-label text-xs font-bold text-on-surface mb-1 tracking-wide">Choosing proxy indicators without domain expertise</div>
+            <div class="font-body text-xs text-on-surface-variant leading-relaxed">NDVI, LST, and AOD are not self-evidently the right variables. AOD approximates PM2.5 imperfectly. LST measures surface temperature, not the air temperature residents experience. Each indicator choice was a judgment call made from NASA documentation — under time pressure, with no way to validate against real-world planning practice.</div>
+          </div>
+        </div>
+      </div>
+      <div class="card p-5 reveal">
+        <div class="flex items-start gap-3">
+          <div class="step-badge flex-shrink-0">06</div>
+          <div>
+            <div class="font-label text-xs font-bold text-on-surface mb-1 tracking-wide">Translating data into what users understand</div>
+            <div class="font-body text-xs text-on-surface-variant leading-relaxed">Raw outputs were scientifically correct but unusable: LST in Kelvin, NDVI as a decimal, AOD as an optical depth coefficient. We had to decide what each indicator should be called, at what level of abstraction, and how to display it without losing meaning. That translation work produced the Heat Exposure Index, Vegetation Index, and Air Exposure Index naming.</div>
+          </div>
+        </div>
+      </div>
+      <div class="card p-5 reveal">
+        <div class="flex items-start gap-3">
+          <div class="step-badge flex-shrink-0">07</div>
+          <div>
+            <div class="font-label text-xs font-bold text-on-surface mb-1 tracking-wide">Deterministic recommendations — a deliberate choice</div>
+            <div class="font-body text-xs text-on-surface-variant leading-relaxed">Intervention recommendations are rule-based, not AI-generated. Each district's score across four components triggers a specific recommendation set. In a planning context, explainable outputs traceable to specific data signals are far more trustworthy than opaque model suggestions. Determinism was a feature, not a limitation.</div>
+          </div>
+        </div>
+      </div>
+      <div class="card p-5 reveal">
+        <div class="flex items-start gap-3">
+          <div class="step-badge flex-shrink-0">08</div>
+          <div>
+            <div class="font-label text-xs font-bold text-on-surface mb-1 tracking-wide">Design and pipeline out of sync</div>
+            <div class="font-body text-xs text-on-surface-variant leading-relaxed">Hi-fi wireframes were built while the data pipeline was still unfinished. The UI needed real district metrics — but for most of the build phase, that data didn't exist. We unblocked design by building on assumptions and mocked values so both tracks ran in parallel, then reconciled when real data came in.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- User persona -->
+    <div class="section-label reveal">User Persona & JTBD</div>
+    <div class="card-dark p-6 mb-6 reveal">
+      <blockquote class="border-l-2 pl-4 mb-6" style="border-color:#a4d2a6;color:#a4d2a6;font-family:'Libre Caslon Text',serif;font-style:italic;">
+        "When I encounter a neighborhood environmental problem and need to act on it, help me quickly understand which areas need intervention most — and give me credible evidence and a clear path forward."
+      </blockquote>
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="rounded-xl p-4" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1)">
+          <div class="font-label text-xs tracking-wide mb-3" style="color:rgba(164,210,166,0.5)">Primary Persona</div>
+          <div class="font-body text-sm font-semibold text-white mb-1">Urban planner / city official</div>
+          <div class="font-body text-xs text-white/60 mb-3">Prepares neighborhood-level environmental proposals and budget justifications</div>
+          <div class="space-y-1">
+            <div class="font-label text-[10px] tracking-wide text-white/40">CONSTRAINT</div>
+            <div class="font-body text-xs text-white/70">No GIS expertise. Needs data that's fast to access, non-expert to interpret, and credible enough to present to city council</div>
+          </div>
+        </div>
+        <div class="rounded-xl p-4" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1)">
+          <div class="font-label text-xs tracking-wide mb-3" style="color:rgba(164,210,166,0.5)">Secondary Persona A</div>
+          <div class="font-body text-sm font-semibold text-white mb-1">Researcher / Analyst</div>
+          <div class="font-body text-xs text-white/60 mb-3">Comparative study across Bay Area neighborhoods</div>
+          <div class="space-y-1">
+            <div class="font-label text-[10px] tracking-wide text-white/40">CONSTRAINT</div>
+            <div class="font-body text-xs text-white/70">Spends most of analysis time on data wrangling, needs insight quickly</div>
+          </div>
+        </div>
+        <div class="rounded-xl p-4" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1)">
+          <div class="font-label text-xs tracking-wide mb-3" style="color:rgba(164,210,166,0.5)">Secondary Persona B</div>
+          <div class="font-body text-sm font-semibold text-white mb-1">NGO / Community educator</div>
+          <div class="font-body text-xs text-white/60 mb-3">Building a local advocacy case or community education piece</div>
+          <div class="space-y-1">
+            <div class="font-label text-[10px] tracking-wide text-white/40">CONSTRAINT</div>
+            <div class="font-body text-xs text-white/70">No technical background. Satellite data too complex.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Emotional jobs -->
+    <div class="grid md:grid-cols-2 gap-6 mb-16 reveal">
+      <div>
+        <div class="section-label">Core Functional Jobs</div>
+        <div class="card p-5 space-y-2">
+          <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0"></span><span class="font-body text-sm text-on-surface-variant">Compare neighborhoods across multiple indicators</span></div>
+          <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0"></span><span class="font-body text-sm text-on-surface-variant">Identify highest-priority intervention zones</span></div>
+          <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0"></span><span class="font-body text-sm text-on-surface-variant">Generate data-backed recommendations</span></div>
+          <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0"></span><span class="font-body text-sm text-on-surface-variant">Simulate impact of vegetation / heat interventions</span></div>
+          <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0"></span><span class="font-body text-sm text-on-surface-variant">Present findings to non-technical stakeholders</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="section-label">Emotional Jobs (what users need to feel)</div>
+        <div class="card p-5 space-y-3">
+          <div><span class="font-label text-xs font-bold text-primary">CONFIDENCE</span> <span class="font-body text-sm text-on-surface-variant ml-2">The data behind my recommendation is defensible</span></div>
+          <div><span class="font-label text-xs font-bold text-primary">CLARITY</span> <span class="font-body text-sm text-on-surface-variant ml-2">I know what to do first and to what extent</span></div>
+          <div><span class="font-label text-xs font-bold text-primary">MOMENTUM</span> <span class="font-body text-sm text-on-surface-variant ml-2">I feel empowered to start deciding and expanding from core insights instead of being stuck at data interpretation</span></div>
+          <div><span class="font-label text-xs font-bold text-primary">LEGITIMACY</span> <span class="font-body text-sm text-on-surface-variant ml-2">I sound credible to experts and specialized stakeholders</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Use cases -->
+    <div class="section-label reveal">Use Cases & User Stories</div>
+    <div class="card overflow-hidden reveal">
+      <table>
+        <thead><tr><th>Use Case</th><th>User Story</th><th>Feature</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="font-semibold text-primary text-xs">UC1 — Find top priority zone</td>
+            <td>"When preparing a proposal, I want to see which district has the worst combined profile, so I can justify where to invest first."</td>
+            <td><span class="tag-pill">Priority Zones mode + ranked hotspot list</span></td>
+          </tr>
+          <tr>
+            <td class="font-semibold text-primary text-xs">UC1b</td>
+            <td>"When comparing zones, I want to see why each ranked where it did, so I can explain it to city officials."</td>
+            <td><span class="tag-pill">Priority Score breakdown panel</span></td>
+          </tr>
+          <tr>
+            <td class="font-semibold text-primary text-xs">UC2 — Explore neighborhood</td>
+            <td>"When I click a neighborhood, I want to see its heat, air, and vegetation metrics together, so I understand its full environmental risk."</td>
+            <td><span class="tag-pill">Right-panel analytics + multi-indicator view</span></td>
+          </tr>
+          <tr>
+            <td class="font-semibold text-primary text-xs">UC2b</td>
+            <td>"When viewing a district, I want to see its trend over months, so I can assess if it's improving or worsening."</td>
+            <td><span class="tag-pill">Time-series line chart</span></td>
+          </tr>
+          <tr>
+            <td class="font-semibold text-primary text-xs">UC3 — Simulate intervention</td>
+            <td>"When choosing between interventions, I want to simulate NDVI increase and see projected temperature + air quality changes, so I can prioritize the highest-impact action."</td>
+            <td><span class="tag-pill">Scenario Planning slider</span></td>
+          </tr>
+          <tr>
+            <td class="font-semibold text-primary text-xs">UC3b</td>
+            <td>"When presenting to residents, I want visuals simple enough for non-experts, so the community understands the data."</td>
+            <td><span class="tag-pill">Color-coded map + plain-language summaries</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ── PRODUCT DECISIONS ── -->
+<section class="py-20">
+  <div class="max-w-screen-xl mx-auto px-6">
+    <div class="section-label reveal">Section E — Product Decisions</div>
+    <h2 class="font-headline text-4xl text-on-surface tracking-tight mb-12 reveal">What we chose and why</h2>
+
+    <div class="card overflow-hidden reveal mb-16">
+      <table>
+        <thead><tr><th>Decision</th><th>Chosen</th><th>Rejected</th><th>Tradeoff accepted</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="font-semibold text-on-surface">Scoring model</td>
+            <td class="text-primary font-medium">Hybrid Entropy + PCA</td>
+            <td class="text-on-surface-variant/60">Simple average of indicators</td>
+            <td>Higher technical complexity, but eliminates bias from correlated indicators. Defensible to judges.</td>
+          </tr>
+          <tr>
+            <td class="font-semibold text-on-surface">Mode design</td>
+            <td class="text-primary font-medium">Two modes: All Areas + Priority Zones</td>
+            <td class="text-on-surface-variant/60">Single unified view</td>
+            <td>Adds navigation complexity, gains user-context match. Planner uses Priority Zones. Student uses All Areas.</td>
+          </tr>
+          <tr>
+            <td class="font-semibold text-on-surface">Output type</td>
+            <td class="text-primary font-medium">Actionable recommendations + impact estimates</td>
+            <td class="text-on-surface-variant/60">Data-only visualization</td>
+            <td>Required more product thinking + content work, but closes the "so what" gap for the user.</td>
+          </tr>
+          <tr>
+            <td class="font-semibold text-on-surface">Data scope</td>
+            <td class="text-primary font-medium">3 indicators (NDVI, LST, AOD)</td>
+            <td class="text-on-surface-variant/60">Add population density + zoning</td>
+            <td>Reduced data pipeline complexity. Population density added later as overlay, not weighted in score.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Feature prioritization grid -->
+    <div class="section-label reveal">Feature Prioritization (Impact vs. Effort)</div>
+    <div class="grid grid-cols-2 gap-4 reveal max-w-2xl">
+      <div class="card p-5 border-t-2 border-primary">
+        <div class="font-label text-[10px] font-bold tracking-widest text-primary mb-3">HIGH IMPACT · LOW EFFORT</div>
+        <ul class="space-y-1">
+          <li class="font-body text-xs text-on-surface-variant">Priority zone ranking (top 10)</li>
+          <li class="font-body text-xs text-on-surface-variant">Color-coded map layers</li>
+          <li class="font-body text-xs text-on-surface-variant">Right-panel insights display</li>
+          <li class="font-body text-xs text-on-surface-variant">Recommended actions text</li>
+        </ul>
+      </div>
+      <div class="card p-5 border-t-2 border-on-surface">
+        <div class="font-label text-[10px] font-bold tracking-widest text-on-surface mb-3">HIGH IMPACT · HIGH EFFORT</div>
+        <ul class="space-y-1">
+          <li class="font-body text-xs text-on-surface-variant">Hybrid entropy+PCA score</li>
+          <li class="font-body text-xs text-on-surface-variant">Scenario simulation engine</li>
+          <li class="font-body text-xs text-on-surface-variant">Geospatial data pipeline (GEE)</li>
+        </ul>
+      </div>
+      <div class="card p-5 border-t-2 border-outline-variant" style="background:rgba(189,189,178,0.1)">
+        <div class="font-label text-[10px] font-bold tracking-widest text-on-surface-variant/50 mb-3">LOW IMPACT · LOW EFFORT — deprioritize</div>
+        <ul class="space-y-1">
+          <li class="font-body text-xs text-on-surface-variant/60">Generic AI feedback text</li>
+          <li class="font-body text-xs text-on-surface-variant/60">Long loading animations</li>
+          <li class="font-body text-xs text-on-surface-variant/60">Decorative onboarding tour</li>
+        </ul>
+      </div>
+      <div class="card p-5 border-t-2 border-outline-variant" style="background:rgba(189,189,178,0.1)">
+        <div class="font-label text-[10px] font-bold tracking-widest text-on-surface-variant/50 mb-3">LOW IMPACT · HIGH EFFORT — deprioritize</div>
+        <ul class="space-y-1">
+          <li class="font-body text-xs text-on-surface-variant/60">User accounts</li>
+          <li class="font-body text-xs text-on-surface-variant/60">PDF export</li>
+          <li class="font-body text-xs text-on-surface-variant/60">Multi-city support</li>
+          <li class="font-body text-xs text-on-surface-variant/60">Mobile responsive layout</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── OUTCOME / ROADMAP ── -->
+<section id="outcome" class="bg-surface-container py-20">
+  <div class="max-w-screen-xl mx-auto px-6">
+    <div class="section-label reveal">Section G — Roadmap</div>
+    <h2 class="font-headline text-4xl text-on-surface tracking-tight mb-12 reveal">What's next</h2>
+
+    <div class="card overflow-hidden reveal">
+      <table>
+        <thead><tr><th>Priority</th><th>Feature</th><th>User story it unlocks</th><th>Persona</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="priority-badge priority-now">Now</span></td>
+            <td class="font-semibold text-on-surface">Socioeconomic overlay (income, demographics)</td>
+            <td>"Show me if heat risk concentrates in low-income neighborhoods"</td>
+            <td><span class="tag-pill">Planner, NGO</span></td>
+          </tr>
+          <tr>
+            <td><span class="priority-badge priority-now">Now</span></td>
+            <td class="font-semibold text-on-surface">Context-aware recommendations (budget / land / time filters)</td>
+            <td>"Given I have $50k and 6 months, what should I do in this district first"</td>
+            <td><span class="tag-pill">Planner</span></td>
+          </tr>
+          <tr>
+            <td><span class="priority-badge priority-next">Next</span></td>
+            <td class="font-semibold text-on-surface">Historical trend comparison (year-over-year)</td>
+            <td>"Is this neighborhood getting worse or better over time"</td>
+            <td><span class="tag-pill">Researcher, Planner</span></td>
+          </tr>
+          <tr>
+            <td><span class="priority-badge priority-next">Next</span></td>
+            <td class="font-semibold text-on-surface">PDF / slide export of district profile</td>
+            <td>"I need a one-page brief for city council by Friday"</td>
+            <td><span class="tag-pill">Planner</span></td>
+          </tr>
+          <tr>
+            <td><span class="priority-badge priority-next">Next</span></td>
+            <td class="font-semibold text-on-surface">Side-by-side district comparison</td>
+            <td>"Show me Industrial East vs Port District across all indicators"</td>
+            <td><span class="tag-pill">Researcher</span></td>
+          </tr>
+          <tr>
+            <td><span class="priority-badge priority-later">Later</span></td>
+            <td class="font-semibold text-on-surface">Multi-city support</td>
+            <td>"Run the same analysis for Oakland, LA, and Houston"</td>
+            <td><span class="tag-pill">Researcher, Policy</span></td>
+          </tr>
+          <tr>
+            <td><span class="priority-badge priority-later">Later</span></td>
+            <td class="font-semibold text-on-surface">Open data API</td>
+            <td>"Integrate XANHinsights data into our city planning platform"</td>
+            <td><span class="tag-pill">Developer, Gov</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ── CLOSING ── -->
+<section class="hero-bg py-24">
+  <div class="dot-grid"></div>
+  <div class="relative max-w-screen-xl mx-auto px-6 text-center">
+    <div class="max-w-2xl mx-auto">
+      <div class="font-label text-[10px] tracking-widest uppercase text-inverse-primary/50 mb-6">Reflection</div>
+      <h2 class="font-headline text-4xl text-white tracking-tight mb-6">The hardest part wasn't the satellite data</h2>
+      <p class="font-body text-sm text-white/70 leading-relaxed mb-4">XANHinsights started as a response to a hackathon prompt. It became proof of something more specific: the hardest part of making satellite data useful isn't just the satellite data.</p>
+      <p class="font-body text-sm text-white/70 leading-relaxed mb-4">The real question came after: how do we make this mean something to someone who has never opened a NASA portal in their life?</p>
+      <p class="font-body text-sm text-white/60 leading-relaxed mb-12">That translation — from spectral index to planning decision, from Kelvin to action — is where the actual product lives. It turns out this gap exists in every city that has environmental data but no clear path from data to decision.</p>
+
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href="https://www.figma.com/make/7EPh8E80Ela2YpQTDqVpPt/Environmental-Dashboard-Mockup?fullscreen=1&t=FLAENNW081JrvnuM-1" target="_blank"
+           class="inline-flex items-center gap-2 bg-inverse-primary text-primary px-6 py-3 rounded-full font-label text-xs font-semibold tracking-widest uppercase hover:scale-[1.03] transition-transform">
+          <span class="material-symbols-outlined text-base">open_in_new</span>
+          View Live Prototype
+        </a>
+        <a href="https://github.com/kh26planner" target="_blank"
+           class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/15 text-white px-6 py-3 rounded-full font-label text-xs font-semibold tracking-widest uppercase transition-colors border border-white/15">
+          <span class="material-symbols-outlined text-base">code</span>
+          GitHub Repo
+        </a>
+        <a href="work.html"
+           class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/15 text-white px-6 py-3 rounded-full font-label text-xs font-semibold tracking-widest uppercase transition-colors border border-white/15">
+          <span class="material-symbols-outlined text-base">arrow_back</span>
+          Back to Work
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="w-full pt-16 pb-10 bg-surface-container border-t border-outline-variant/10">
+  <div class="flex flex-col md:flex-row justify-between items-start px-12 max-w-screen-xl mx-auto gap-12">
+    <div class="max-w-xs">
+      <a href="index.html" class="font-headline text-xl mb-4 block text-primary">pling's portfolio</a>
+      <p class="font-label text-[10px] tracking-widest uppercase text-on-surface-variant/70 leading-relaxed">© pling's portfolio</p>
+    </div>
+    <div class="flex flex-wrap gap-12">
+      <div class="space-y-4">
+        <p class="font-label text-xs font-bold tracking-[0.3em] uppercase text-primary">Explore</p>
+        <div class="flex flex-col gap-2 font-label text-xs tracking-widest uppercase text-on-surface-variant">
+          <a class="hover:text-primary transition-all" href="index.html">About</a>
+          <a class="hover:text-primary transition-all" href="work.html">Work</a>
+        </div>
+      </div>
+      <div class="space-y-4">
+        <p class="font-label text-xs font-bold tracking-[0.3em] uppercase text-primary">Connect</p>
+        <div class="flex flex-col gap-2 font-label text-xs tracking-widest uppercase text-on-surface-variant">
+          <a class="hover:text-primary transition-all" href="mailto:linhphuongng.work@gmail.com">Email</a>
+          <a class="hover:text-primary transition-all" href="https://linkedin.com/in/phuong-linh-nguyen-">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add("visible");
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
