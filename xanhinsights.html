@@ -123,6 +123,15 @@
       position: relative;
       overflow: hidden;
     }
+    .hero-bg-img {
+      position: absolute;
+      inset: 0;
+      background-image: url('images/projects/xanhinsights/hero.png');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.18;
+      pointer-events: none;
+    }
     .hero-bg::before {
       content: "";
       position: absolute;
@@ -299,6 +308,7 @@
 
 <!-- ── HERO ── -->
 <section class="hero-bg py-24 md:py-32">
+  <div class="hero-bg-img"></div>
   <div class="dot-grid"></div>
   <div class="relative max-w-screen-xl mx-auto px-6">
     <div class="max-w-3xl">
@@ -398,6 +408,16 @@
         <div class="font-body text-sm text-white/80 flex items-start gap-2"><span class="w-1 h-1 rounded-full bg-inverse-primary mt-2 flex-shrink-0"></span>Led UX/UI direction in Figma, centering planner workflows</div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ── SECTION A IMAGES ── -->
+<section class="max-w-screen-xl mx-auto px-6 pb-20">
+  <div class="space-y-4">
+    <img src="images/projects/xanhinsights/sessionA-1.png" alt="XANHinsights screenshot 1" class="w-full rounded-xl object-cover" style="aspect-ratio:4/3"/>
+    <img src="images/projects/xanhinsights/sessionA-2.png" alt="XANHinsights screenshot 2" class="w-full rounded-xl object-cover" style="aspect-ratio:4/3"/>
+    <img src="images/projects/xanhinsights/sessionA-3.png" alt="XANHinsights screenshot 3" class="w-full rounded-xl object-cover" style="aspect-ratio:4/3"/>
+    <img src="images/projects/xanhinsights/sessionA-4.png" alt="XANHinsights screenshot 4" class="w-full rounded-xl object-cover" style="aspect-ratio:4/3"/>
   </div>
 </section>
 
