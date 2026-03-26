@@ -278,8 +278,48 @@
       color: #1d4626;
     }
 
+    /* Obstacle flip cards */
+    .obstacle-flip {
+      perspective: 1000px;
+      height: 200px;
+    }
+    .obstacle-flip-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+      transform-style: preserve-3d;
+    }
+    .obstacle-flip:hover .obstacle-flip-inner {
+      transform: rotateY(180deg);
+    }
+    .obstacle-front,
+    .obstacle-back {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: 1rem;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .obstacle-front {
+      background: #eaeade;
+      border: 1px solid rgba(189,189,178,0.3);
+    }
+    .obstacle-back {
+      transform: rotateY(180deg);
+      background: #1d4626;
+      border: 1px solid rgba(191,238,193,0.12);
+      gap: 0.75rem;
+      overflow-y: auto;
+    }
+
     @media (max-width: 768px) {
       .stat-number { font-size: 1.75rem; }
+      .obstacle-flip { height: auto; min-height: 200px; }
     }
   </style>
 </head>
@@ -609,80 +649,129 @@
     <h2 class="font-headline text-4xl text-on-surface tracking-tight mb-4 reveal">Why this was harder than it looks</h2>
     <p class="font-body text-sm text-on-surface-variant mb-12 max-w-2xl reveal">Our engineering team spent over 30 of 48 hours on data alone. Here is what that actually involved.</p>
 
-    <!-- 8 obstacles -->
+    <!-- 8 obstacles — flip cards -->
     <div class="grid md:grid-cols-2 gap-4 mb-16">
-      <div class="card p-5 reveal">
-        <div class="flex items-start gap-3">
-          <div class="step-badge flex-shrink-0">01</div>
-          <div>
-            <div class="font-label text-xs font-bold text-on-surface mb-1 tracking-wide">Tiled raster extraction</div>
-            <div class="font-body text-xs text-on-surface-variant leading-relaxed">MODIS NDVI, LST, and AOD don't arrive as clean tables. Each is a georeferenced raster tile with spectral index values per pixel. We extracted tiles one by one, isolated each index in Python, rendered them as color-gradient map layers. The volume alone consumed most of 48 hours.</div>
+
+      <div class="obstacle-flip reveal">
+        <div class="obstacle-flip-inner">
+          <div class="obstacle-front">
+            <div class="step-badge">01</div>
+            <div class="font-label text-sm font-bold text-on-surface tracking-wide">Tiled raster extraction</div>
+            <div class="font-body text-xs text-on-surface-variant/70 leading-relaxed">Raw satellite data as georeferenced pixel tiles — not clean tables.</div>
+            <div class="flip-hint mt-auto">hover to flip ↻</div>
+          </div>
+          <div class="obstacle-back">
+            <div class="step-badge" style="background:rgba(164,210,166,0.15);color:#a4d2a6;">01</div>
+            <div class="font-body text-sm text-white/85 leading-relaxed">MODIS NDVI, LST, and AOD don't arrive as clean tables. Each is a georeferenced raster tile with spectral index values per pixel. We extracted tiles one by one, isolated each index in Python, rendered them as color-gradient map layers. The volume alone consumed most of 48 hours.</div>
           </div>
         </div>
       </div>
-      <div class="card p-5 reveal">
-        <div class="flex items-start gap-3">
-          <div class="step-badge flex-shrink-0">02</div>
-          <div>
-            <div class="font-label text-xs font-bold text-on-surface mb-1 tracking-wide">Stitching two incompatible map systems</div>
-            <div class="font-body text-xs text-on-surface-variant leading-relaxed">Bay Area boundaries came from TIGER/Line census data — a different coordinate system and resolution than the NASA raster grid. Aligning required cropping each raster to each neighborhood boundary, computing per-neighborhood index averages, exporting a unified CSV. The hardest technical step in the entire pipeline.</div>
+
+      <div class="obstacle-flip reveal">
+        <div class="obstacle-flip-inner">
+          <div class="obstacle-front">
+            <div class="step-badge">02</div>
+            <div class="font-label text-sm font-bold text-on-surface tracking-wide">Stitching two incompatible map systems</div>
+            <div class="font-body text-xs text-on-surface-variant/70 leading-relaxed">Census boundaries vs. NASA raster grids — different CRS, different resolution.</div>
+            <div class="flip-hint mt-auto">hover to flip ↻</div>
+          </div>
+          <div class="obstacle-back">
+            <div class="step-badge" style="background:rgba(164,210,166,0.15);color:#a4d2a6;">02</div>
+            <div class="font-body text-sm text-white/85 leading-relaxed">Bay Area boundaries came from TIGER/Line census data — a different coordinate system and resolution than the NASA raster grid. Aligning required cropping each raster to each neighborhood boundary, computing per-neighborhood index averages, exporting a unified CSV. The hardest technical step in the entire pipeline.</div>
           </div>
         </div>
       </div>
-      <div class="card p-5 reveal">
-        <div class="flex items-start gap-3">
-          <div class="step-badge flex-shrink-0">03</div>
-          <div>
-            <div class="font-label text-xs font-bold text-on-surface mb-1 tracking-wide">Temporal complexity</div>
-            <div class="font-body text-xs text-on-surface-variant leading-relaxed">LST is recorded hourly. NDVI and AOD are monthly composites. Producing a coherent per-district metric across all three required a 12-month averaging approach reconciling fundamentally different time resolutions. File sizes created processing bottlenecks on standard laptops throughout the build.</div>
+
+      <div class="obstacle-flip reveal">
+        <div class="obstacle-flip-inner">
+          <div class="obstacle-front">
+            <div class="step-badge">03</div>
+            <div class="font-label text-sm font-bold text-on-surface tracking-wide">Temporal complexity</div>
+            <div class="font-body text-xs text-on-surface-variant/70 leading-relaxed">LST hourly, NDVI monthly — three datasets on three different time resolutions.</div>
+            <div class="flip-hint mt-auto">hover to flip ↻</div>
+          </div>
+          <div class="obstacle-back">
+            <div class="step-badge" style="background:rgba(164,210,166,0.15);color:#a4d2a6;">03</div>
+            <div class="font-body text-sm text-white/85 leading-relaxed">LST is recorded hourly. NDVI and AOD are monthly composites. Producing a coherent per-district metric across all three required a 12-month averaging approach reconciling fundamentally different time resolutions. File sizes created processing bottlenecks on standard laptops throughout the build.</div>
           </div>
         </div>
       </div>
-      <div class="card p-5 reveal">
-        <div class="flex items-start gap-3">
-          <div class="step-badge flex-shrink-0">04</div>
-          <div>
-            <div class="font-label text-xs font-bold text-on-surface mb-1 tracking-wide">Building Priority Score with no existing library</div>
-            <div class="font-body text-xs text-on-surface-variant leading-relaxed">The hybrid Entropy + PCA weighting formula was written from the ground up. No off-the-shelf library handles this combination. Entropy assigns higher influence to indicators that vary across districts; PCA removes redundancy between correlated ones. The result: one statistically defensible score per district.</div>
+
+      <div class="obstacle-flip reveal">
+        <div class="obstacle-flip-inner">
+          <div class="obstacle-front">
+            <div class="step-badge">04</div>
+            <div class="font-label text-sm font-bold text-on-surface tracking-wide">Building Priority Score with no existing library</div>
+            <div class="font-body text-xs text-on-surface-variant/70 leading-relaxed">Hybrid Entropy + PCA weighting — written entirely from scratch.</div>
+            <div class="flip-hint mt-auto">hover to flip ↻</div>
+          </div>
+          <div class="obstacle-back">
+            <div class="step-badge" style="background:rgba(164,210,166,0.15);color:#a4d2a6;">04</div>
+            <div class="font-body text-sm text-white/85 leading-relaxed">The hybrid Entropy + PCA weighting formula was written from the ground up. No off-the-shelf library handles this combination. Entropy assigns higher influence to indicators that vary across districts; PCA removes redundancy between correlated ones. The result: one statistically defensible score per district.</div>
           </div>
         </div>
       </div>
-      <div class="card p-5 reveal">
-        <div class="flex items-start gap-3">
-          <div class="step-badge flex-shrink-0">05</div>
-          <div>
-            <div class="font-label text-xs font-bold text-on-surface mb-1 tracking-wide">Choosing proxy indicators without domain expertise</div>
-            <div class="font-body text-xs text-on-surface-variant leading-relaxed">NDVI, LST, and AOD are not self-evidently the right variables. AOD approximates PM2.5 imperfectly. LST measures surface temperature, not the air temperature residents experience. Each indicator choice was a judgment call made from NASA documentation — under time pressure, with no way to validate against real-world planning practice.</div>
+
+      <div class="obstacle-flip reveal">
+        <div class="obstacle-flip-inner">
+          <div class="obstacle-front">
+            <div class="step-badge">05</div>
+            <div class="font-label text-sm font-bold text-on-surface tracking-wide">Choosing proxy indicators without domain expertise</div>
+            <div class="font-body text-xs text-on-surface-variant/70 leading-relaxed">Every variable was a judgment call made from NASA docs under time pressure.</div>
+            <div class="flip-hint mt-auto">hover to flip ↻</div>
+          </div>
+          <div class="obstacle-back">
+            <div class="step-badge" style="background:rgba(164,210,166,0.15);color:#a4d2a6;">05</div>
+            <div class="font-body text-sm text-white/85 leading-relaxed">NDVI, LST, and AOD are not self-evidently the right variables. AOD approximates PM2.5 imperfectly. LST measures surface temperature, not the air temperature residents experience. Each indicator choice was a judgment call made from NASA documentation — under time pressure, with no way to validate against real-world planning practice.</div>
           </div>
         </div>
       </div>
-      <div class="card p-5 reveal">
-        <div class="flex items-start gap-3">
-          <div class="step-badge flex-shrink-0">06</div>
-          <div>
-            <div class="font-label text-xs font-bold text-on-surface mb-1 tracking-wide">Translating data into what users understand</div>
-            <div class="font-body text-xs text-on-surface-variant leading-relaxed">Raw outputs were scientifically correct but unusable: LST in Kelvin, NDVI as a decimal, AOD as an optical depth coefficient. We had to decide what each indicator should be called, at what level of abstraction, and how to display it without losing meaning. That translation work produced the Heat Exposure Index, Vegetation Index, and Air Exposure Index naming.</div>
+
+      <div class="obstacle-flip reveal">
+        <div class="obstacle-flip-inner">
+          <div class="obstacle-front">
+            <div class="step-badge">06</div>
+            <div class="font-label text-sm font-bold text-on-surface tracking-wide">Translating data into what users understand</div>
+            <div class="font-body text-xs text-on-surface-variant/70 leading-relaxed">Kelvin, NDVI decimals, AOD coefficients — none of it means anything to a planner.</div>
+            <div class="flip-hint mt-auto">hover to flip ↻</div>
+          </div>
+          <div class="obstacle-back">
+            <div class="step-badge" style="background:rgba(164,210,166,0.15);color:#a4d2a6;">06</div>
+            <div class="font-body text-sm text-white/85 leading-relaxed">Raw outputs were scientifically correct but unusable: LST in Kelvin, NDVI as a decimal, AOD as an optical depth coefficient. We had to decide what each indicator should be called, at what level of abstraction, and how to display it without losing meaning. That translation work produced the Heat Exposure Index, Vegetation Index, and Air Exposure Index naming.</div>
           </div>
         </div>
       </div>
-      <div class="card p-5 reveal">
-        <div class="flex items-start gap-3">
-          <div class="step-badge flex-shrink-0">07</div>
-          <div>
-            <div class="font-label text-xs font-bold text-on-surface mb-1 tracking-wide">Deterministic recommendations — a deliberate choice</div>
-            <div class="font-body text-xs text-on-surface-variant leading-relaxed">Intervention recommendations are rule-based, not AI-generated. Each district's score across four components triggers a specific recommendation set. In a planning context, explainable outputs traceable to specific data signals are far more trustworthy than opaque model suggestions. Determinism was a feature, not a limitation.</div>
+
+      <div class="obstacle-flip reveal">
+        <div class="obstacle-flip-inner">
+          <div class="obstacle-front">
+            <div class="step-badge">07</div>
+            <div class="font-label text-sm font-bold text-on-surface tracking-wide">Deterministic recommendations — a deliberate choice</div>
+            <div class="font-body text-xs text-on-surface-variant/70 leading-relaxed">Rule-based, not AI. In a planning context, explainability outweighs sophistication.</div>
+            <div class="flip-hint mt-auto">hover to flip ↻</div>
+          </div>
+          <div class="obstacle-back">
+            <div class="step-badge" style="background:rgba(164,210,166,0.15);color:#a4d2a6;">07</div>
+            <div class="font-body text-sm text-white/85 leading-relaxed">Intervention recommendations are rule-based, not AI-generated. Each district's score across four components triggers a specific recommendation set. In a planning context, explainable outputs traceable to specific data signals are far more trustworthy than opaque model suggestions. Determinism was a feature, not a limitation.</div>
           </div>
         </div>
       </div>
-      <div class="card p-5 reveal">
-        <div class="flex items-start gap-3">
-          <div class="step-badge flex-shrink-0">08</div>
-          <div>
-            <div class="font-label text-xs font-bold text-on-surface mb-1 tracking-wide">Design and pipeline out of sync</div>
-            <div class="font-body text-xs text-on-surface-variant leading-relaxed">Hi-fi wireframes were built while the data pipeline was still unfinished. The UI needed real district metrics — but for most of the build phase, that data didn't exist. We unblocked design by building on assumptions and mocked values so both tracks ran in parallel, then reconciled when real data came in.</div>
+
+      <div class="obstacle-flip reveal">
+        <div class="obstacle-flip-inner">
+          <div class="obstacle-front">
+            <div class="step-badge">08</div>
+            <div class="font-label text-sm font-bold text-on-surface tracking-wide">Design and pipeline out of sync</div>
+            <div class="font-body text-xs text-on-surface-variant/70 leading-relaxed">Hi-fi wireframes built before real data existed — two tracks running on assumptions.</div>
+            <div class="flip-hint mt-auto">hover to flip ↻</div>
+          </div>
+          <div class="obstacle-back">
+            <div class="step-badge" style="background:rgba(164,210,166,0.15);color:#a4d2a6;">08</div>
+            <div class="font-body text-sm text-white/85 leading-relaxed">Hi-fi wireframes were built while the data pipeline was still unfinished. The UI needed real district metrics — but for most of the build phase, that data didn't exist. We unblocked design by building on assumptions and mocked values so both tracks ran in parallel, then reconciled when real data came in.</div>
           </div>
         </div>
       </div>
+
     </div>
 
     <!-- User persona -->
