@@ -179,33 +179,23 @@
     transition: transform 0.65s cubic-bezier(0.23, 1, 0.32, 1);
     transform-style: preserve-3d;
   }
-  .flip-card:hover .flip-card-inner,
-  .flip-card.flipped .flip-card-inner {
+  .flip-card:hover .flip-card-inner {
     transform: rotateY(180deg);
   }
 
-  /* Flip toggle button */
-  .flip-btn {
-    position: absolute;
-    bottom: 14px;
-    right: 14px;
-    z-index: 20;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0.28;
-    transition: opacity 0.2s, transform 0.2s;
-    padding: 0;
+  /* Hover-away hint on card back */
+  .flip-card-back::before {
+    content: 'HOVER AWAY TO FLIP BACK';
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8.5px;
+    letter-spacing: 0.18em;
+    font-weight: 600;
+    color: rgba(255,255,255,0.18);
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    flex-shrink: 0;
   }
-  .flip-btn:hover { opacity: 0.7; transform: rotate(20deg); }
-  .flip-btn-front { background: rgba(0,0,0,0.09); color: #191910; }
-  .flip-btn-back  { background: rgba(255,255,255,0.12); color: #ffffff; }
-  .flip-btn .material-symbols-outlined { font-size: 17px; }
   .flip-card-front,
   .flip-card-back {
     position: absolute;
@@ -1276,26 +1266,6 @@
     window.scrollTo({ top: document.querySelector('.sticky').offsetTop + 1, behavior: 'smooth' });
   }
 
-  // Inject flip buttons into every card face
-  document.querySelectorAll('.flip-card').forEach(card => {
-    const front = card.querySelector('.flip-card-front');
-    const back  = card.querySelector('.flip-card-back');
-
-    const mkBtn = (side) => {
-      const btn = document.createElement('button');
-      btn.className = `flip-btn flip-btn-${side}`;
-      btn.title = side === 'front' ? 'Flip to see more' : 'Flip back';
-      btn.innerHTML = '<span class="material-symbols-outlined">flip</span>';
-      btn.addEventListener('click', e => {
-        e.stopPropagation();
-        card.classList.toggle('flipped', side === 'front');
-      });
-      return btn;
-    };
-
-    if (front) front.appendChild(mkBtn('front'));
-    if (back)  back.appendChild(mkBtn('back'));
-  });
 </script>
 
 </body>
