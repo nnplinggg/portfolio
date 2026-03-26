@@ -812,43 +812,49 @@
     </div>
 
     <!-- Jobs -->
-    <img src="images/projects/xanhinsights/jobs.png" alt="Core functional and emotional jobs" class="w-full rounded-xl object-cover mb-16 reveal"/>
+    <img src="images/projects/xanhinsights/jobs.png" alt="Core functional and emotional jobs" class="rounded-xl object-cover mb-16 reveal mx-auto block" style="max-width:70%"/>
 
     <!-- Use cases -->
     <div class="section-label reveal">Use Cases & User Stories</div>
-    <div class="card overflow-hidden reveal">
+    <div class="reveal" style="border-radius:1rem;overflow:hidden;border:1px solid rgba(29,70,38,0.15);">
       <table>
-        <thead><tr><th>Use Case</th><th>User Story</th><th>Feature</th></tr></thead>
+        <thead>
+          <tr style="background:#1d4626;">
+            <th style="background:#1d4626;color:rgba(164,210,166,0.8);">Use Case</th>
+            <th style="background:#1d4626;color:rgba(164,210,166,0.8);">User Story</th>
+            <th style="background:#1d4626;color:rgba(164,210,166,0.8);">Feature</th>
+          </tr>
+        </thead>
         <tbody>
           <tr>
             <td class="font-semibold text-primary text-xs">UC1 — Find top priority zone</td>
             <td>"When preparing a proposal, I want to see which district has the worst combined profile, so I can justify where to invest first."</td>
-            <td><span class="tag-pill">Priority Zones mode + ranked hotspot list</span></td>
+            <td><span class="tag-pill-green">Priority Zones mode + ranked hotspot list</span></td>
           </tr>
-          <tr>
+          <tr style="background:rgba(29,70,38,0.03)">
             <td class="font-semibold text-primary text-xs">UC1b</td>
             <td>"When comparing zones, I want to see why each ranked where it did, so I can explain it to city officials."</td>
-            <td><span class="tag-pill">Priority Score breakdown panel</span></td>
+            <td><span class="tag-pill-green">Priority Score breakdown panel</span></td>
           </tr>
           <tr>
             <td class="font-semibold text-primary text-xs">UC2 — Explore neighborhood</td>
             <td>"When I click a neighborhood, I want to see its heat, air, and vegetation metrics together, so I understand its full environmental risk."</td>
-            <td><span class="tag-pill">Right-panel analytics + multi-indicator view</span></td>
+            <td><span class="tag-pill-green">Right-panel analytics + multi-indicator view</span></td>
           </tr>
-          <tr>
+          <tr style="background:rgba(29,70,38,0.03)">
             <td class="font-semibold text-primary text-xs">UC2b</td>
             <td>"When viewing a district, I want to see its trend over months, so I can assess if it's improving or worsening."</td>
-            <td><span class="tag-pill">Time-series line chart</span></td>
+            <td><span class="tag-pill-green">Time-series line chart</span></td>
           </tr>
           <tr>
             <td class="font-semibold text-primary text-xs">UC3 — Simulate intervention</td>
             <td>"When choosing between interventions, I want to simulate NDVI increase and see projected temperature + air quality changes, so I can prioritize the highest-impact action."</td>
-            <td><span class="tag-pill">Scenario Planning slider</span></td>
+            <td><span class="tag-pill-green">Scenario Planning slider</span></td>
           </tr>
-          <tr>
+          <tr style="background:rgba(29,70,38,0.03)">
             <td class="font-semibold text-primary text-xs">UC3b</td>
             <td>"When presenting to residents, I want visuals simple enough for non-experts, so the community understands the data."</td>
-            <td><span class="tag-pill">Color-coded map + plain-language summaries</span></td>
+            <td><span class="tag-pill-green">Color-coded map + plain-language summaries</span></td>
           </tr>
         </tbody>
       </table>
@@ -896,38 +902,38 @@
     <!-- Feature prioritization grid -->
     <div class="section-label reveal">Feature Prioritization (Impact vs. Effort)</div>
     <div class="grid grid-cols-2 gap-4 reveal max-w-2xl">
-      <div class="card p-5 border-t-2 border-primary">
+      <div class="p-5 rounded-xl" style="background:rgba(29,70,38,0.08);border:1px solid rgba(29,70,38,0.18);">
         <div class="font-label text-[10px] font-bold tracking-widest text-primary mb-3">HIGH IMPACT · LOW EFFORT</div>
-        <ul class="space-y-1">
-          <li class="font-body text-xs text-on-surface-variant">Priority zone ranking (top 10)</li>
-          <li class="font-body text-xs text-on-surface-variant">Color-coded map layers</li>
-          <li class="font-body text-xs text-on-surface-variant">Right-panel insights display</li>
-          <li class="font-body text-xs text-on-surface-variant">Recommended actions text</li>
+        <ul class="space-y-1.5">
+          <li class="font-body text-xs text-primary/80 flex items-center gap-2"><span class="w-1 h-1 rounded-full bg-primary flex-shrink-0"></span>Priority zone ranking (top 10)</li>
+          <li class="font-body text-xs text-primary/80 flex items-center gap-2"><span class="w-1 h-1 rounded-full bg-primary flex-shrink-0"></span>Color-coded map layers</li>
+          <li class="font-body text-xs text-primary/80 flex items-center gap-2"><span class="w-1 h-1 rounded-full bg-primary flex-shrink-0"></span>Right-panel insights display</li>
+          <li class="font-body text-xs text-primary/80 flex items-center gap-2"><span class="w-1 h-1 rounded-full bg-primary flex-shrink-0"></span>Recommended actions text</li>
         </ul>
       </div>
-      <div class="card p-5 border-t-2 border-on-surface">
-        <div class="font-label text-[10px] font-bold tracking-widest text-on-surface mb-3">HIGH IMPACT · HIGH EFFORT</div>
-        <ul class="space-y-1">
-          <li class="font-body text-xs text-on-surface-variant">Hybrid entropy+PCA score</li>
-          <li class="font-body text-xs text-on-surface-variant">Scenario simulation engine</li>
-          <li class="font-body text-xs text-on-surface-variant">Geospatial data pipeline (GEE)</li>
+      <div class="p-5 rounded-xl" style="background:#1d4626;border:1px solid rgba(164,210,166,0.15);">
+        <div class="font-label text-[10px] font-bold tracking-widest mb-3" style="color:rgba(164,210,166,0.6)">HIGH IMPACT · HIGH EFFORT</div>
+        <ul class="space-y-1.5">
+          <li class="font-body text-xs flex items-center gap-2" style="color:rgba(164,210,166,0.85)"><span class="w-1 h-1 rounded-full flex-shrink-0" style="background:#a4d2a6"></span>Hybrid entropy+PCA score</li>
+          <li class="font-body text-xs flex items-center gap-2" style="color:rgba(164,210,166,0.85)"><span class="w-1 h-1 rounded-full flex-shrink-0" style="background:#a4d2a6"></span>Scenario simulation engine</li>
+          <li class="font-body text-xs flex items-center gap-2" style="color:rgba(164,210,166,0.85)"><span class="w-1 h-1 rounded-full flex-shrink-0" style="background:#a4d2a6"></span>Geospatial data pipeline (GEE)</li>
         </ul>
       </div>
-      <div class="card p-5 border-t-2 border-outline-variant" style="background:rgba(189,189,178,0.1)">
-        <div class="font-label text-[10px] font-bold tracking-widest text-on-surface-variant/50 mb-3">LOW IMPACT · LOW EFFORT — deprioritize</div>
+      <div class="p-5 rounded-xl" style="background:rgba(189,189,178,0.12);border:1px solid rgba(189,189,178,0.2);">
+        <div class="font-label text-[10px] font-bold tracking-widest text-on-surface-variant/40 mb-3">LOW IMPACT · LOW EFFORT</div>
         <ul class="space-y-1">
-          <li class="font-body text-xs text-on-surface-variant/60">Generic AI feedback text</li>
-          <li class="font-body text-xs text-on-surface-variant/60">Long loading animations</li>
-          <li class="font-body text-xs text-on-surface-variant/60">Decorative onboarding tour</li>
+          <li class="font-body text-xs text-on-surface-variant/40">Generic AI feedback text</li>
+          <li class="font-body text-xs text-on-surface-variant/40">Long loading animations</li>
+          <li class="font-body text-xs text-on-surface-variant/40">Decorative onboarding tour</li>
         </ul>
       </div>
-      <div class="card p-5 border-t-2 border-outline-variant" style="background:rgba(189,189,178,0.1)">
-        <div class="font-label text-[10px] font-bold tracking-widest text-on-surface-variant/50 mb-3">LOW IMPACT · HIGH EFFORT — deprioritize</div>
+      <div class="p-5 rounded-xl" style="background:rgba(189,189,178,0.12);border:1px solid rgba(189,189,178,0.2);">
+        <div class="font-label text-[10px] font-bold tracking-widest text-on-surface-variant/40 mb-3">LOW IMPACT · HIGH EFFORT</div>
         <ul class="space-y-1">
-          <li class="font-body text-xs text-on-surface-variant/60">User accounts</li>
-          <li class="font-body text-xs text-on-surface-variant/60">PDF export</li>
-          <li class="font-body text-xs text-on-surface-variant/60">Multi-city support</li>
-          <li class="font-body text-xs text-on-surface-variant/60">Mobile responsive layout</li>
+          <li class="font-body text-xs text-on-surface-variant/40">User accounts</li>
+          <li class="font-body text-xs text-on-surface-variant/40">PDF export</li>
+          <li class="font-body text-xs text-on-surface-variant/40">Multi-city support</li>
+          <li class="font-body text-xs text-on-surface-variant/40">Mobile responsive layout</li>
         </ul>
       </div>
     </div>
