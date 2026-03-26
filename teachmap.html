@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TeachMap — Case Study</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-container-low": "#f1f1da",
+            "secondary-fixed": "#e2e2d5",
+            "surface-bright": "#f7f7e3",
+            "secondary-fixed-dim": "#c3c3b8",
+            "on-secondary-fixed-variant": "#424240",
+            "on-secondary": "#ffffff",
+            "surface-container-highest": "#dcdcbc",
+            "on-error": "#ffffff",
+            "on-tertiary-container": "#ffb6c8",
+            "primary": "#1d4626",
+            "inverse-primary": "#a4d2a6",
+            "on-tertiary-fixed": "#370b1b",
+            "outline-variant": "#bdbdb2",
+            "on-primary": "#ffffff",
+            "inverse-surface": "#2d2d22",
+            "primary-container": "#355e3b",
+            "surface-dim": "#d5d5b8",
+            "on-secondary-fixed": "#1b1b18",
+            "error": "#ba1a1a",
+            "primary-fixed-dim": "#a4d2a6",
+            "on-tertiary-fixed-variant": "#6b3646",
+            "secondary-container": "#ddddd0",
+            "surface-container-high": "#e4e4ca",
+            "on-primary-fixed-variant": "#274f2e",
+            "outline": "#6b6b60",
+            "surface-variant": "#dcdcbc",
+            "surface-tint": "#3e6844",
+            "primary-fixed": "#bfeec1",
+            "on-primary-fixed": "#002109",
+            "on-error-container": "#93000a",
+            "tertiary-container": "#7c4454",
+            "surface": "#f7f7e3",
+            "error-container": "#ffdad6",
+            "background": "#f7f7e3",
+            "on-surface-variant": "#404040",
+            "on-surface": "#191910",
+            "tertiary-fixed-dim": "#fcb2c5",
+            "secondary": "#5a5a55",
+            "on-tertiary": "#ffffff",
+            "on-background": "#191910",
+            "inverse-on-surface": "#f0f0e0",
+            "tertiary-fixed": "#ffd9e1",
+            "on-primary-container": "#a8d6a9",
+            "surface-container-lowest": "#ffffff",
+            "on-secondary-container": "#5d5d58",
+            "tertiary": "#612d3d",
+            "surface-container": "#eaeade"
+          },
+          fontFamily: {
+            "headline": ["Libre Caslon Text", "serif"],
+            "body": ["Montserrat", "sans-serif"],
+            "label": ["Nunito Sans", "sans-serif"],
+          },
+          borderRadius: {
+            DEFAULT: "0.5rem",
+            lg: "1rem",
+            xl: "1.5rem",
+            full: "9999px",
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    * { box-sizing: border-box; }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    body { background: #f7f7e3; color: #191910; font-family: "Montserrat", sans-serif; }
+
+    /* ── STICKY NAV ── */
+    .sticky-nav {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(247,247,227,0.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(189,189,178,0.3);
+    }
+
+    /* ── HERO ── */
+    .hero-bg { background: #1d4626; position: relative; overflow: hidden; }
+    .hero-bg::before {
+      content: ""; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 80% at 90% 40%, rgba(164,210,166,0.1) 0%, transparent 65%),
+                  radial-gradient(ellipse 50% 60% at 5% 90%, rgba(53,94,59,0.35) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .dot-grid {
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(164,210,166,0.07) 1px, transparent 1px);
+      background-size: 28px 28px; pointer-events: none;
+    }
+
+    /* ── TYPOGRAPHY ── */
+    .section-label {
+      font-family: "Nunito Sans", sans-serif; font-size: 10px; font-weight: 700;
+      letter-spacing: 0.25em; text-transform: uppercase; color: rgba(29,70,38,0.5); margin-bottom: 1rem;
+    }
+    .section-label-light { color: rgba(164,210,166,0.45); }
+
+    /* ── CARDS ── */
+    .card { background: #eaeade; border-radius: 1rem; border: 1px solid rgba(189,189,178,0.3); }
+    .card-dark { background: #1d4626; border-radius: 1rem; border: 1px solid rgba(164,210,166,0.15); color: white; }
+
+    /* ── TAG PILLS ── */
+    .tag-pill {
+      display: inline-block;
+      padding: 2px 10px; border-radius: 999px; font-size: 10px; letter-spacing: 0.06em;
+      font-family: "Nunito Sans", sans-serif; font-weight: 600;
+      background: #eaeade; color: #404040; border: 1px solid rgba(189,189,178,0.25);
+    }
+    .tag-pill-green {
+      display: inline-block;
+      padding: 2px 10px; border-radius: 999px; font-size: 10px; letter-spacing: 0.06em;
+      font-family: "Nunito Sans", sans-serif; font-weight: 600;
+      background: rgba(191,238,193,0.15); color: #1d4626;
+      border: 1px solid rgba(191,238,193,0.5);
+    }
+
+    /* ── TABLE ── */
+    table { width: 100%; border-collapse: collapse; }
+    th { font-family: "Nunito Sans", sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #404040; padding: 10px 16px; text-align: left; background: #e4e4ca; border-bottom: 1px solid rgba(189,189,178,0.4); }
+    td { font-family: "Montserrat", sans-serif; font-size: 12px; color: #404040; padding: 10px 16px; border-bottom: 1px solid rgba(189,189,178,0.2); vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(189,189,178,0.1); }
+
+    /* ── THOUGHT BUBBLES ── */
+    .thought-container { position: relative; cursor: pointer; }
+    .thought-trigger {
+      background: #eaeade; border: 1.5px solid rgba(189,189,178,0.4); border-radius: 1rem;
+      padding: 1rem 1.25rem; transition: all 0.25s ease;
+      position: relative; min-height: 110px;
+    }
+    .thought-trigger:hover { background: #e4e4ca; border-color: rgba(29,70,38,0.3); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(29,70,38,0.08); }
+    .thought-trigger.active { background: #1d4626; border-color: transparent; }
+    .thought-trigger.active * { color: white !important; }
+    .thought-trigger.active .thought-tag { background: rgba(164,210,166,0.15) !important; color: rgba(164,210,166,0.9) !important; border-color: rgba(164,210,166,0.25) !important; }
+
+    .thought-bubble {
+      display: none; position: absolute; left: 0; right: 0; z-index: 10;
+      background: #1d4626; border-radius: 1rem; padding: 1.25rem 1.5rem;
+      border: 1px solid rgba(164,210,166,0.2); margin-top: 8px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    }
+    .thought-bubble::before {
+      content: ""; position: absolute; top: -8px; left: 32px;
+      width: 0; height: 0;
+      border-left: 8px solid transparent; border-right: 8px solid transparent;
+      border-bottom: 8px solid #1d4626;
+    }
+    .thought-bubble.show { display: block; animation: bubbleIn 0.2s ease; }
+    @keyframes bubbleIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+    /* ── TEACHER DOTS ── */
+    .teacher-dot {
+      width: 28px; height: 28px; border-radius: 50%; display: inline-flex;
+      align-items: center; justify-content: center; font-size: 14px;
+      transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+      border: 2px solid transparent; flex-shrink: 0;
+    }
+    .teacher-dot.wrong { background: rgba(97,45,61,0.15); border-color: rgba(97,45,61,0.3); }
+    .teacher-dot.right { background: rgba(29,70,38,0.12); border-color: rgba(29,70,38,0.3); }
+
+    /* ── SCHOOL BOXES ── */
+    .school-box { border-radius: 0.75rem; padding: 1rem; text-align: center; transition: all 0.5s ease; }
+    .school-urban { background: rgba(97,45,61,0.08); border: 1.5px solid rgba(97,45,61,0.2); }
+    .school-remote { background: rgba(189,189,178,0.15); border: 1.5px dashed rgba(189,189,178,0.5); }
+    .school-remote.covered { background: rgba(29,70,38,0.08); border-color: rgba(29,70,38,0.3); border-style: solid; }
+
+    /* ── RESPONSIBILITY FLOW ── */
+    .resp-node {
+      position: relative; cursor: pointer;
+      background: #eaeade; border: 1px solid rgba(189,189,178,0.3); border-radius: 0.75rem;
+      padding: 0.75rem 1rem; transition: all 0.2s;
+      flex: 1; min-width: 0;
+    }
+    .resp-node:hover, .resp-node.active { background: #1d4626; border-color: transparent; }
+    .resp-node:hover *, .resp-node.active * { color: white !important; }
+    .resp-tooltip {
+      display: none; position: absolute; top: calc(100% + 10px); left: 50%; transform: translateX(-50%);
+      width: 220px; background: #191910; border-radius: 0.75rem; padding: 0.875rem;
+      z-index: 20; box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    }
+    .resp-tooltip::before {
+      content: ""; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%);
+      border: 6px solid transparent; border-bottom-color: #191910;
+    }
+    .resp-node:hover .resp-tooltip, .resp-node.active .resp-tooltip { display: block; animation: bubbleIn 0.15s ease; }
+
+    /* ── USE CASE CARDS ── */
+    .uc-card {
+      background: #eaeade; border-radius: 1.25rem; overflow: hidden;
+      border: 1px solid rgba(189,189,178,0.3); transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .uc-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+    .uc-img-placeholder {
+      width: 100%; aspect-ratio: 16/9; background: #e4e4ca;
+      display: flex; align-items: center; justify-content: center;
+      font-family: "Nunito Sans", sans-serif; font-size: 11px; color: rgba(64,64,64,0.4);
+      letter-spacing: 0.1em; text-transform: uppercase;
+    }
+
+    /* ── JSON BLOCK ── */
+    .json-wrap { background: #191910; border-radius: 1rem; padding: 1.5rem; font-family: "Courier New", monospace; font-size: 12px; line-height: 1.7; color: #a4d2a6; overflow-x: auto; }
+    .json-key { color: #a4d2a6; }
+    .json-str { color: #f7c87a; }
+    .json-num { color: #7ecfff; }
+    .json-label {
+      display: inline-block; background: rgba(164,210,166,0.12); color: rgba(164,210,166,0.8);
+      border: 1px solid rgba(164,210,166,0.2); border-radius: 999px;
+      font-family: "Nunito Sans", sans-serif; font-size: 10px; font-weight: 600;
+      padding: 1px 8px; letter-spacing: 0.05em; margin-left: 8px; vertical-align: middle;
+    }
+
+    /* ── STAT COUNTER ── */
+    .stat-num {
+      font-family: "Libre Caslon Text", serif; font-size: 3rem; font-weight: 700;
+      color: #1d4626; line-height: 1;
+    }
+
+    /* ── PRIORITY BADGES ── */
+    .priority-badge { display: inline-block; padding: 1px 8px; border-radius: 999px; font-family: "Nunito Sans", sans-serif; font-size: 10px; font-weight: 700; }
+    .p-high { background: rgba(29,70,38,0.1); color: #1d4626; border: 1px solid rgba(29,70,38,0.2); }
+    .p-med  { background: rgba(97,45,61,0.08); color: #612d3d; border: 1px solid rgba(97,45,61,0.2); }
+    .p-low  { background: rgba(189,189,178,0.3); color: #404040; border: 1px solid rgba(189,189,178,0.5); }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* ── FLOAT ANIMATIONS ── */
+    @keyframes floatWrong { 0%,100%{transform:translateY(-1px)} 50%{transform:translateY(2px)} }
+    @keyframes floatRight { 0%,100%{transform:translateY(-2px)} 50%{transform:translateY(1px)} }
+    .teacher-wrong { animation: floatWrong 2s ease-in-out infinite; }
+    .teacher-right { animation: floatRight 2.5s ease-in-out infinite; }
+
+    blockquote {
+      border-left: 3px solid #a4d2a6; padding-left: 1.25rem;
+      font-family: "Libre Caslon Text", serif; font-style: italic; color: #1d4626;
+    }
+
+    /* ── STEP BADGE ── */
+    .step-badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px; border-radius: 50%;
+      background: #1d4626; color: #a4d2a6;
+      font-family: "Nunito Sans", sans-serif; font-size: 11px; font-weight: 700; flex-shrink: 0;
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+
+<!-- ── NAV ── -->
+<nav class="sticky-nav">
+  <div class="max-w-screen-xl mx-auto px-6 py-3 flex items-center justify-between">
+    <a href="work.html" class="inline-flex items-center gap-2 font-label text-xs tracking-widest uppercase text-on-surface-variant hover:text-primary transition-colors">
+      <span class="material-symbols-outlined text-base">arrow_back</span>
+      Back to Work
+    </a>
+    <div class="flex items-center gap-6">
+      <a href="#problem" class="font-label text-[10px] tracking-widest uppercase text-on-surface-variant/60 hover:text-primary transition-colors hidden md:block">Problem</a>
+      <a href="#process" class="font-label text-[10px] tracking-widest uppercase text-on-surface-variant/60 hover:text-primary transition-colors hidden md:block">PM Layer</a>
+      <a href="#usecases" class="font-label text-[10px] tracking-widest uppercase text-on-surface-variant/60 hover:text-primary transition-colors hidden md:block">Use Cases</a>
+      <a href="#arch" class="font-label text-[10px] tracking-widest uppercase text-on-surface-variant/60 hover:text-primary transition-colors hidden md:block">Architecture</a>
+      <a href="https://github.com/tony-buildd/Soda-hack" target="_blank"
+         class="inline-flex items-center gap-1.5 bg-primary text-inverse-primary px-4 py-1.5 rounded-full font-label text-[10px] font-semibold tracking-widest uppercase hover:scale-[1.03] transition-transform">
+        <span class="material-symbols-outlined text-sm">code</span>
+        GitHub
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero-bg py-24 md:py-32">
+  <div class="dot-grid"></div>
+  <div class="relative max-w-screen-xl mx-auto px-6">
+    <div class="max-w-3xl">
+      <div class="flex flex-wrap gap-2 mb-6">
+        <span class="tag-pill" style="background:rgba(164,210,166,0.1);color:#a4d2a6;border-color:rgba(164,210,166,0.2);">SODAHACKS Hackathon</span>
+        <span class="tag-pill" style="background:rgba(164,210,166,0.1);color:#a4d2a6;border-color:rgba(164,210,166,0.2);">Product Manager</span>
+        <span class="tag-pill" style="background:rgba(164,210,166,0.1);color:#a4d2a6;border-color:rgba(164,210,166,0.2);">Team of 3</span>
+      </div>
+      <h1 class="font-headline text-5xl md:text-7xl text-white leading-tight tracking-tight mb-4">
+        Teach<span style="color:#a4d2a6;">Map</span>
+      </h1>
+      <p class="font-body text-base text-white/70 leading-relaxed max-w-2xl mb-4">
+        Vietnam has 5,091 surplus teachers coexisting with a shortage of 62,877 — inside the same national system. Not a supply crisis. A placement logic failure.
+      </p>
+      <p class="font-body text-sm text-white/50 leading-relaxed max-w-xl">
+        TeachMap is a teacher allocation optimization system for provincial education officers. Min-Cost Max-Flow algorithm + a government-grade interface built to replace Excel and phone calls.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mt-16">
+      <div class="card-dark p-5 rounded-xl">
+        <div class="font-headline text-3xl text-inverse-primary font-bold">51</div>
+        <div class="font-label text-xs text-white/50 tracking-wide mt-1">Mountainous provinces — replicable architecture</div>
+      </div>
+      <div class="card-dark p-5 rounded-xl">
+        <div class="font-headline text-3xl text-inverse-primary font-bold">3</div>
+        <div class="font-label text-xs text-white/50 tracking-wide mt-1">Use cases designed and shipped</div>
+      </div>
+      <div class="card-dark p-5 rounded-xl">
+        <div class="font-body text-sm text-inverse-primary font-semibold leading-tight">Min-Cost Max-Flow</div>
+        <div class="font-label text-xs text-white/50 tracking-wide mt-1">Core optimization algorithm</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTEXT ── -->
+<section class="max-w-screen-xl mx-auto px-6 py-16">
+  <div class="grid md:grid-cols-3 gap-6 reveal">
+    <div class="card p-6">
+      <div class="section-label">Architecture</div>
+      <div class="space-y-3">
+        <div class="flex items-center gap-2">
+          <span class="tag-pill" style="white-space:nowrap;">Next.js</span>
+          <span class="font-body text-xs text-on-surface-variant">Web UI</span>
+        </div>
+        <div class="flex items-center gap-1 pl-2 text-on-surface-variant/40 text-xs">↓</div>
+        <div class="flex items-center gap-2">
+          <span class="tag-pill" style="white-space:nowrap;">Flask API</span>
+          <span class="font-body text-xs text-on-surface-variant">Request routing</span>
+        </div>
+        <div class="flex items-center gap-1 pl-2 text-on-surface-variant/40 text-xs">↓</div>
+        <div class="flex items-center gap-2">
+          <span class="tag-pill" style="white-space:nowrap;">C++ Core Engine</span>
+          <span class="font-body text-xs text-on-surface-variant">MCMF + Greedy baseline + KPI</span>
+        </div>
+        <div class="flex items-center gap-1 pl-2 text-on-surface-variant/40 text-xs">↓</div>
+        <div class="flex items-center gap-2">
+          <span class="tag-pill" style="white-space:nowrap;">JSON results</span>
+          <span class="font-body text-xs text-on-surface-variant">→ Next.js statistics dashboard</span>
+        </div>
+      </div>
+    </div>
+    <div class="card p-6">
+      <div class="section-label">Team</div>
+      <div class="space-y-3">
+        <div><div class="font-body text-sm font-semibold text-on-surface">Tony Nguyen</div><div class="font-label text-xs text-on-surface-variant/70">Full-stack developer</div></div>
+        <div><div class="font-body text-sm font-semibold text-on-surface">Ngan Huong</div><div class="font-label text-xs text-on-surface-variant/70">Backend developer, data scientist</div></div>
+        <div><div class="font-body text-sm font-semibold text-on-surface">Kien Han</div><div class="font-label text-xs text-on-surface-variant/70">Math, MCMF algorithm, backend developer</div></div>
+        <div><div class="font-body text-sm font-semibold text-on-surface">Linh Nguyen — me</div><div class="font-label text-xs text-on-surface-variant/70">Product strategy, problem framing, UX/UI, pitch</div></div>
+      </div>
+    </div>
+    <div class="card-dark p-6">
+      <div class="section-label section-label-light">My contribution</div>
+      <div class="space-y-2 mt-1">
+        <div class="font-body text-xs text-white/75 flex items-start gap-2"><span class="w-1 h-1 rounded-full bg-inverse-primary mt-1.5 flex-shrink-0"></span>Led problem and gap analysis, <strong class="text-white/90">scoped to itinerant teacher pool</strong> (5–15% of provincial workforce)</div>
+        <div class="font-body text-xs text-white/75 flex items-start gap-2"><span class="w-1 h-1 rounded-full bg-inverse-primary mt-1.5 flex-shrink-0"></span>Prioritized and designed <strong class="text-white/90">3 use cases</strong> for district education officers: annual allocation, mid-year emergency reallocation, equity audit/reporting</div>
+        <div class="font-body text-xs text-white/75 flex items-start gap-2"><span class="w-1 h-1 rounded-full bg-inverse-primary mt-1.5 flex-shrink-0"></span>Architected <strong class="text-white/90">CSV data schemas</strong>; generated synthetic datasets for Hà Giang and Lai Châu via Python</div>
+        <div class="font-body text-xs text-white/75 flex items-start gap-2"><span class="w-1 h-1 rounded-full bg-inverse-primary mt-1.5 flex-shrink-0"></span>Authored <strong class="text-white/90">evidence-based problem document</strong> for government, NGO, and hackathon audiences (MOET, UNICEF Vietnam, World Bank)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROBLEM ── -->
+<section id="problem" class="bg-surface-container py-20">
+  <div class="max-w-screen-xl mx-auto px-6">
+    <h2 class="font-headline text-4xl text-on-surface tracking-tight mb-4 reveal">The allocation paradox</h2>
+    <blockquote class="mb-12 reveal max-w-2xl">
+      "The localized surplus and shortage is not only at the provincial level — within a single school, there is structural mismatch."
+      <div class="font-label text-xs text-primary/60 mt-2 not-italic tracking-wide">— National Assembly Chair Vương Đình Huệ</div>
+    </blockquote>
+
+    <!-- Animated misallocation diagram -->
+    <div class="card p-6 mb-6 reveal">
+      <div class="flex items-center justify-between mb-6">
+        <div class="font-body text-base font-semibold text-on-surface">Greedy/convenient placement — before TeachMap</div>
+        <button id="toggle-flow" onclick="toggleFlow()" class="inline-flex items-center gap-2 px-4 py-2 rounded-full font-label text-xs font-semibold tracking-widest uppercase transition-all border" style="background:#1d4626;border-color:rgba(164,210,166,0.3);color:#a4d2a6;">
+          Show corrected flow ↻
+        </button>
+      </div>
+
+      <div id="misalloc-before" style="transition:all 0.4s ease;">
+        <div class="grid grid-cols-3 gap-4 items-start">
+          <div>
+            <div class="font-label text-[10px] tracking-widest uppercase text-on-surface-variant/50 mb-3 text-center">Available teachers</div>
+            <div class="space-y-2">
+              <div class="flex items-center gap-2 p-2.5 rounded-xl" style="background:rgba(97,45,61,0.06);">
+                <span class="teacher-dot wrong teacher-wrong" style="font-size:14px;">👩‍🏫</span>
+                <div><div class="font-body text-xs font-semibold text-on-surface">English T1</div><div class="font-label text-[10px] text-on-surface-variant/60">Hanoi</div></div>
+              </div>
+              <div class="flex items-center gap-2 p-2.5 rounded-xl" style="background:rgba(97,45,61,0.06);">
+                <span class="teacher-dot wrong teacher-wrong" style="font-size:14px;">👨‍🏫</span>
+                <div><div class="font-body text-xs font-semibold text-on-surface">IT T2</div><div class="font-label text-[10px] text-on-surface-variant/60">Hanoi</div></div>
+              </div>
+              <div class="flex items-center gap-2 p-2.5 rounded-xl" style="background:rgba(97,45,61,0.06);">
+                <span class="teacher-dot wrong teacher-wrong" style="font-size:14px;">👩‍🏫</span>
+                <div><div class="font-body text-xs font-semibold text-on-surface">Math T3</div><div class="font-label text-[10px] text-on-surface-variant/60">Hanoi</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col gap-3 items-center justify-center pt-8">
+            <div class="font-label text-[10px] tracking-widest uppercase text-tertiary/70 mb-1">Greedy/convenient placement</div>
+            <div class="flex flex-col gap-2 w-full">
+              <div class="flex items-center gap-1"><div class="h-px flex-1" style="background:rgba(97,45,61,0.3)"></div><span style="color:#612d3d;font-size:10px;">→ urban</span></div>
+              <div class="flex items-center gap-1"><div class="h-px flex-1" style="background:rgba(97,45,61,0.3)"></div><span style="color:#612d3d;font-size:10px;">→ urban</span></div>
+              <div class="flex items-center gap-1"><div class="h-px flex-1" style="background:rgba(189,189,178,0.4)"></div><span style="color:#bdbdb2;font-size:10px;">→ ?</span></div>
+            </div>
+            <div class="text-center mt-2">
+              <div class="font-headline text-2xl text-tertiary font-bold">62,877</div>
+              <div class="font-label text-[10px] text-on-surface-variant/50 tracking-wide">shortage</div>
+            </div>
+          </div>
+          <div class="space-y-2">
+            <div class="font-label text-[10px] tracking-widest uppercase text-on-surface-variant/50 mb-3 text-center">Schools</div>
+            <div class="school-box school-urban">
+              <div class="font-body text-xs font-semibold text-tertiary">Urban school</div>
+              <div class="font-label text-[10px] text-on-surface-variant/60 mt-0.5">Already staffed ✓</div>
+              <div class="flex gap-1 mt-2 justify-center"><span style="font-size:13px;">👩‍🏫</span><span style="font-size:13px;">👨‍🏫</span></div>
+            </div>
+            <div class="school-box school-remote">
+              <div class="font-body text-xs font-semibold text-on-surface-variant">Remote school</div>
+              <div class="font-label text-[10px] text-on-surface-variant/50 mt-0.5">Hà Giang, 18 schools</div>
+              <div class="font-label text-[10px] text-tertiary mt-1.5 font-semibold">1 English teacher for 76 classes</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="misalloc-after" style="display:none;transition:all 0.4s ease;">
+        <div class="grid grid-cols-3 gap-4 items-start">
+          <div>
+            <div class="font-label text-[10px] tracking-widest uppercase text-on-surface-variant/50 mb-3 text-center">Available teachers</div>
+            <div class="space-y-2">
+              <div class="flex items-center gap-2 p-2.5 rounded-xl" style="background:rgba(29,70,38,0.08);">
+                <span class="teacher-dot right teacher-right" style="font-size:14px;">👩‍🏫</span>
+                <div><div class="font-body text-xs font-semibold text-on-surface">English T1</div><div class="font-label text-[10px] text-primary/60">→ Nearer base, remote priority</div></div>
+              </div>
+              <div class="flex items-center gap-2 p-2.5 rounded-xl" style="background:rgba(29,70,38,0.08);">
+                <span class="teacher-dot right teacher-right" style="font-size:14px;">👨‍🏫</span>
+                <div><div class="font-body text-xs font-semibold text-on-surface">IT T2</div><div class="font-label text-[10px] text-primary/60">→ Coverage gap matched</div></div>
+              </div>
+              <div class="flex items-center gap-2 p-2.5 rounded-xl" style="background:rgba(29,70,38,0.08);">
+                <span class="teacher-dot right teacher-right" style="font-size:14px;">👩‍🏫</span>
+                <div><div class="font-body text-xs font-semibold text-on-surface">Math T3</div><div class="font-label text-[10px] text-primary/60">→ Distance-optimized</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col gap-3 items-center justify-center pt-8">
+            <div class="font-label text-[10px] tracking-widest uppercase text-primary/60 mb-1">TeachMap optimizer</div>
+            <div class="flex flex-col gap-2 w-full">
+              <div class="flex items-center gap-1"><div class="h-px flex-1" style="background:rgba(29,70,38,0.4)"></div><span style="color:#1d4626;font-size:10px;">→ remote ✓</span></div>
+              <div class="flex items-center gap-1"><div class="h-px flex-1" style="background:rgba(29,70,38,0.4)"></div><span style="color:#1d4626;font-size:10px;">→ remote ✓</span></div>
+              <div class="flex items-center gap-1"><div class="h-px flex-1" style="background:rgba(29,70,38,0.4)"></div><span style="color:#1d4626;font-size:10px;">→ optimized ✓</span></div>
+            </div>
+            <div class="text-center mt-2">
+              <div class="font-headline text-2xl text-primary font-bold">↑ coverage</div>
+              <div class="font-label text-[10px] text-on-surface-variant/50 tracking-wide">same 3 teachers</div>
+            </div>
+          </div>
+          <div class="space-y-2">
+            <div class="font-label text-[10px] tracking-widest uppercase text-on-surface-variant/50 mb-3 text-center">Schools</div>
+            <div class="school-box school-urban">
+              <div class="font-body text-xs font-semibold text-on-surface">Urban school</div>
+              <div class="font-label text-[10px] text-on-surface-variant/60 mt-0.5">Adequate coverage maintained</div>
+            </div>
+            <div class="school-box school-remote covered">
+              <div class="font-body text-xs font-semibold text-primary">Remote school</div>
+              <div class="font-label text-[10px] text-primary/60 mt-0.5">Priority: 5/5 flagged</div>
+              <div class="font-label text-[10px] text-primary mt-1.5 font-semibold">English + IT coverage optimized ✓</div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-4 pt-4 border-t border-outline-variant/20 space-y-1">
+          <div class="font-label text-[10px] text-primary/50 tracking-wide flex items-center gap-2"><span class="w-1 h-1 rounded-full bg-primary/40 flex-shrink-0"></span>Teachers allocated to schools nearer their home base</div>
+          <div class="font-label text-[10px] text-primary/50 tracking-wide flex items-center gap-2"><span class="w-1 h-1 rounded-full bg-primary/40 flex-shrink-0"></span>English + IT teacher coverage optimized by subject gap and priority score</div>
+          <div class="font-label text-[10px] text-primary/50 tracking-wide flex items-center gap-2"><span class="w-1 h-1 rounded-full bg-primary/40 flex-shrink-0"></span>Teacher shortage still exists — but clearly surfaced in unmet demand report to drive policy adaptation</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gap stats row -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 reveal">
+      <div class="card p-5">
+        <div class="font-headline text-2xl font-bold text-tertiary">5,091</div>
+        <div class="font-label text-xs text-on-surface-variant/60 tracking-wide mt-1">Surplus teachers (national)</div>
+      </div>
+      <div class="card p-5">
+        <div class="font-headline text-2xl font-bold text-primary">62,877</div>
+        <div class="font-label text-xs text-on-surface-variant/60 tracking-wide mt-1">Shortage — same system</div>
+      </div>
+      <div class="card p-5">
+        <div class="font-headline text-2xl font-bold text-on-surface">26,000+</div>
+        <div class="font-label text-xs text-on-surface-variant/60 tracking-wide mt-1">Satellite schools affected</div>
+      </div>
+      <div class="card p-5">
+        <div class="font-headline text-2xl font-bold text-on-surface">46.4%</div>
+        <div class="font-label text-xs text-on-surface-variant/60 tracking-wide mt-1">Rural upper secondary completion</div>
+      </div>
+    </div>
+
+    <div class="card-dark p-6 reveal">
+      <div class="flex items-start gap-4">
+        <span class="material-symbols-outlined text-inverse-primary flex-shrink-0" style="font-size:20px;">arrow_forward</span>
+        <p class="font-body text-sm text-white/80 leading-relaxed">As we can't immediately make their road to school <strong class="text-white">shorter or less dangerous</strong>, we bring the educators <strong class="text-inverse-primary">closer to them.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── THOUGHT BUBBLES — USER STORIES ── -->
+<section class="py-20">
+  <div class="max-w-screen-xl mx-auto px-6">
+    <h2 class="font-headline text-4xl text-on-surface tracking-tight mb-3 reveal">What are Sở officer's user stories?</h2>
+    <p class="font-body text-sm text-on-surface-variant max-w-xl mb-10 reveal">Click each situation to expand. These are the jobs we designed for.</p>
+
+    <div class="grid md:grid-cols-2 gap-4" style="align-items:start;">
+
+      <div class="thought-container reveal" onclick="toggleBubble(this)">
+        <div class="thought-trigger">
+          <div class="flex items-start gap-3 mb-3">
+            <span class="material-symbols-outlined text-primary" style="font-size:20px;">calendar_month</span>
+            <div>
+              <div class="font-body text-sm font-semibold text-on-surface">The annual allocation crunch</div>
+              <div class="font-label text-xs text-on-surface-variant/60 mt-0.5">August · New academic year approaching</div>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="thought-tag tag-pill">200+ teachers</span>
+            <span class="thought-tag tag-pill">80 schools</span>
+            <span class="thought-tag tag-pill">6 weeks</span>
+            <span class="thought-tag tag-pill">Excel + phone calls</span>
+          </div>
+        </div>
+        <div class="thought-bubble">
+          <div class="font-body text-sm text-white/90 leading-relaxed italic">"When I have 200+ teachers to assign across 80 schools in 6 weeks, and my only tools are Excel sheets and phone calls to district officers who each advocate for their own area, I want to generate an optimized assignment plan that accounts for subject gaps, distance, and school priority — so I can stop making decisions based on whoever called me last and start making decisions I can actually defend."</div>
+          <div class="mt-3 pt-3 border-t border-white/10">
+            <div class="font-label text-[10px] tracking-wide text-inverse-primary/60 uppercase">TeachMap addresses this with</div>
+            <div class="font-body text-xs text-white/70 mt-1">UC1 Annual Allocation Planning · Gap matrix · Optimizer produces full draft in seconds</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="thought-container reveal reveal-delay-1" onclick="toggleBubble(this)">
+        <div class="thought-trigger">
+          <div class="flex items-start gap-3 mb-3">
+            <span class="material-symbols-outlined text-tertiary" style="font-size:20px;">warning</span>
+            <div>
+              <div class="font-body text-sm font-semibold text-on-surface">The invisible shortage</div>
+              <div class="font-label text-xs text-on-surface-variant/60 mt-0.5">October · Teacher quits mid-year</div>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="thought-tag tag-pill">Dìn Chin school</span>
+            <span class="thought-tag tag-pill">4 Grade 3 classes</span>
+            <span class="thought-tag tag-pill">3 weeks no English</span>
+          </div>
+        </div>
+        <div class="thought-bubble">
+          <div class="font-body text-sm text-white/90 leading-relaxed italic">"When a school principal in Dìn Chin calls me saying their only English teacher quit in October and 4 classes of Grade 3 students haven't had English for 3 weeks, and I have no way to quickly see which nearby teacher has capacity without disrupting another school's coverage, I want to instantly query the current allocation state and find the least-disruptive reassignment option — so students don't lose an entire semester of a mandatory subject while I make phone calls for two weeks."</div>
+          <div class="mt-3 pt-3 border-t border-white/10">
+            <div class="font-label text-[10px] tracking-wide text-inverse-primary/60 uppercase">TeachMap addresses this with</div>
+            <div class="font-body text-xs text-white/70 mt-1">UC2 Mid-Year Emergency Reallocation · Nearest available teacher query · Disruption minimization</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="thought-container reveal reveal-delay-2" onclick="toggleBubble(this)">
+        <div class="thought-trigger">
+          <div class="flex items-start gap-3 mb-3">
+            <span class="material-symbols-outlined text-primary" style="font-size:20px;">bar_chart</span>
+            <div>
+              <div class="font-body text-sm font-semibold text-on-surface">Directing resources to those in need</div>
+              <div class="font-label text-xs text-on-surface-variant/60 mt-0.5">Budget meeting · Director/donor asks</div>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="thought-tag tag-pill">No data</span>
+            <span class="thought-tag tag-pill">Vague regional knowledge</span>
+            <span class="thought-tag tag-pill">UNICEF reporting</span>
+          </div>
+        </div>
+        <div class="thought-bubble">
+          <div class="font-body text-sm text-white/90 leading-relaxed italic">"When I'm in a budget meeting and my director asks which schools are most underserved and I have no answer beyond vague regional knowledge, I want a coverage map that shows exactly which schools have unmet demand by subject and how large the gap is — so I can stop guessing and start directing resources to those in need."</div>
+          <div class="mt-3 pt-3 border-t border-white/10">
+            <div class="font-label text-[10px] tracking-wide text-inverse-primary/60 uppercase">TeachMap addresses this with</div>
+            <div class="font-body text-xs text-white/70 mt-1">UC3 Equity Audit · Coverage map · Exportable unmet demand report by school and subject</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="thought-container reveal reveal-delay-3" onclick="toggleBubble(this)">
+        <div class="thought-trigger">
+          <div class="flex items-start gap-3 mb-3">
+            <span class="material-symbols-outlined text-on-surface-variant" style="font-size:20px;">swap_horiz</span>
+            <div>
+              <div class="font-body text-sm font-semibold text-on-surface">The rotation that might never happen</div>
+              <div class="font-label text-xs text-on-surface-variant/60 mt-0.5">Policy exists since 2006 · Than Uyên: 6 years without rotation</div>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="thought-tag tag-pill">5 years hardship post</span>
+            <span class="thought-tag tag-pill">Chain of moves</span>
+            <span class="thought-tag tag-pill">Coverage gap risk</span>
+          </div>
+        </div>
+        <div class="thought-bubble">
+          <div class="font-body text-sm text-white/90 leading-relaxed italic">"When a teacher has been in a hardship post for 5 years and is entitled to rotate back, but every time I try to move them I can't find a replacement who fits without creating a worse gap somewhere else, I want to see the full chain of moves required to honor that rotation without dropping coverage — so I can actually implement the policy that's been on paper since 2006 instead of telling that teacher to wait another year."</div>
+          <div class="mt-3 pt-3 border-t border-white/10">
+            <div class="font-label text-[10px] tracking-wide text-inverse-primary/60 uppercase">TeachMap addresses this with</div>
+            <div class="font-body text-xs text-white/70 mt-1">Rotation constraints encoded as inputs · System enforces hardship caps automatically</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── PM RESPONSIBILITIES ── -->
+<section id="process" class="bg-surface-container py-20">
+  <div class="max-w-screen-xl mx-auto px-6">
+    <h2 class="font-headline text-4xl text-on-surface tracking-tight mb-3 reveal">What I built and why</h2>
+    <p class="font-body text-sm text-on-surface-variant mb-10 reveal max-w-xl">Hover each node for what I actually did. The framing contribution — redefining the problem — changed everything downstream.</p>
+
+    <div class="flex flex-wrap gap-3 reveal">
+      <div class="resp-node">
+        <div class="font-label text-[10px] tracking-widest uppercase text-primary/50 mb-0.5">01</div>
+        <div class="font-body text-xs font-semibold text-on-surface">Problem Definition</div>
+        <div class="resp-tooltip">
+          <div class="font-label text-[10px] tracking-widest uppercase text-inverse-primary/50 mb-1">What I did</div>
+          <div class="font-body text-xs text-white/80 leading-relaxed">Reframed surplus/shortage paradox as a placement logic failure, not a supply gap. This changed what the system needed to optimize for and how it communicated results to government users.</div>
+        </div>
+      </div>
+      <div class="flex items-center text-outline-variant/40 font-body text-lg">→</div>
+      <div class="resp-node">
+        <div class="font-label text-[10px] tracking-widest uppercase text-primary/50 mb-0.5">02</div>
+        <div class="font-body text-xs font-semibold text-on-surface">Scope Design</div>
+        <div class="resp-tooltip">
+          <div class="font-label text-[10px] tracking-widest uppercase text-inverse-primary/50 mb-1">What I did</div>
+          <div class="font-body text-xs text-white/80 leading-relaxed">Defined Tier 1 (intra-district) vs Tier 2 (cross-district) boundary. Scoped the system to the itinerant teacher pool — 5–15% of workforce — as the tractable intervention point.</div>
+        </div>
+      </div>
+      <div class="flex items-center text-outline-variant/40 font-body text-lg">→</div>
+      <div class="resp-node">
+        <div class="font-label text-[10px] tracking-widest uppercase text-primary/50 mb-0.5">03</div>
+        <div class="font-body text-xs font-semibold text-on-surface">Use Case Design</div>
+        <div class="resp-tooltip">
+          <div class="font-label text-[10px] tracking-widest uppercase text-inverse-primary/50 mb-1">What I did</div>
+          <div class="font-body text-xs text-white/80 leading-relaxed">Designed 3 use cases with distinct trigger logic, input conditions, and output formats — Annual Planning, Emergency Reallocation, and Equity Audit — each serving different stakeholder needs.</div>
+        </div>
+      </div>
+      <div class="flex items-center text-outline-variant/40 font-body text-lg">→</div>
+      <div class="resp-node">
+        <div class="font-label text-[10px] tracking-widest uppercase text-primary/50 mb-0.5">04</div>
+        <div class="font-body text-xs font-semibold text-on-surface">Data Architecture</div>
+        <div class="resp-tooltip">
+          <div class="font-label text-[10px] tracking-widest uppercase text-inverse-primary/50 mb-1">What I did</div>
+          <div class="font-body text-xs text-white/80 leading-relaxed">Defined CSV schemas for teachers and schools. Generated synthetic data for Hà Giang and Lai Châu via Python pipeline — province-prefixed IDs, flat demand columns, non-diacritic names for encoding safety.</div>
+        </div>
+      </div>
+      <div class="flex items-center text-outline-variant/40 font-body text-lg">→</div>
+      <div class="resp-node">
+        <div class="font-label text-[10px] tracking-widest uppercase text-primary/50 mb-0.5">05</div>
+        <div class="font-body text-xs font-semibold text-on-surface">Integration Schema</div>
+        <div class="resp-tooltip">
+          <div class="font-label text-[10px] tracking-widest uppercase text-inverse-primary/50 mb-1">What I did</div>
+          <div class="font-body text-xs text-white/80 leading-relaxed">Authored the JSON request/response contract between frontend and algorithm team. This prevented dependency bottlenecks and let both tracks run in parallel throughout the sprint.</div>
+        </div>
+      </div>
+      <div class="flex items-center text-outline-variant/40 font-body text-lg">→</div>
+      <div class="resp-node">
+        <div class="font-label text-[10px] tracking-widest uppercase text-primary/50 mb-0.5">06</div>
+        <div class="font-body text-xs font-semibold text-on-surface">UI Prototyping</div>
+        <div class="resp-tooltip">
+          <div class="font-label text-[10px] tracking-widest uppercase text-inverse-primary/50 mb-1">What I did</div>
+          <div class="font-body text-xs text-white/80 leading-relaxed">Built full HTML/CSS 3-panel interface for all use cases — designed for a Sở officer in their 40s-50s, comfortable with Excel. Not a data scientist. The UI's job was to make the optimization output feel like a decision the officer made, not a machine.</div>
+        </div>
+      </div>
+      <div class="flex items-center text-outline-variant/40 font-body text-lg">→</div>
+      <div class="resp-node">
+        <div class="font-label text-[10px] tracking-widest uppercase text-primary/50 mb-0.5">07</div>
+        <div class="font-body text-xs font-semibold text-on-surface">Research & Docs</div>
+        <div class="resp-tooltip">
+          <div class="font-label text-[10px] tracking-widest uppercase text-inverse-primary/50 mb-1">What I did</div>
+          <div class="font-body text-xs text-white/80 leading-relaxed">Evidence-based problem analysis from MOET national statistics, UNICEF Vietnam country reports, World Bank Human Capital assessments, and academic research on teacher attrition in mountainous provinces.</div>
+        </div>
+      </div>
+      <div class="flex items-center text-outline-variant/40 font-body text-lg">→</div>
+      <div class="resp-node">
+        <div class="font-label text-[10px] tracking-widest uppercase text-primary/50 mb-0.5">08</div>
+        <div class="font-body text-xs font-semibold text-on-surface">Pitch Strategy</div>
+        <div class="resp-tooltip">
+          <div class="font-label text-[10px] tracking-widest uppercase text-inverse-primary/50 mb-1">What I did</div>
+          <div class="font-body text-xs text-white/80 leading-relaxed">12-slide deck with story-first arc. Opened with a personal experience learning English, contrasted against a highland child with no English teacher due to placement failure. Audience-segmented talking points for judges, NGOs, and government.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── USE CASES ── -->
+<section id="usecases" class="py-20">
+  <div class="max-w-screen-xl mx-auto px-6">
+    <h2 class="font-headline text-4xl text-on-surface tracking-tight mb-12 reveal">What the system does</h2>
+
+    <div class="grid md:grid-cols-3 gap-6">
+
+      <div class="uc-card reveal">
+        <div class="uc-img-placeholder">
+          <span class="material-symbols-outlined" style="font-size:40px;color:rgba(64,64,64,0.15)">assignment</span>
+        </div>
+        <div class="p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="step-badge">UC1</span>
+            <div class="font-body text-sm font-semibold text-on-surface">Annual Allocation Planning</div>
+          </div>
+          <div class="space-y-2.5">
+            <div><div class="font-label text-[10px] tracking-widest uppercase text-primary/50">User</div><div class="font-body text-xs text-on-surface-variant">Sở GD&ĐT provincial officer</div></div>
+            <div><div class="font-label text-[10px] tracking-widest uppercase text-primary/50">Timing</div><div class="font-body text-xs text-on-surface-variant">July–August, before each school year</div></div>
+            <div><div class="font-label text-[10px] tracking-widest uppercase text-primary/50">Trigger</div><div class="font-body text-xs text-on-surface-variant">New teachers graduate or get approved biên chế slots; existing teachers request transfers; some retire</div></div>
+            <div><div class="font-label text-[10px] tracking-widest uppercase text-primary/50">System action</div><div class="font-body text-xs text-on-surface-variant">Officer uploads teacher pool + school demand → MCMF solver returns optimized assignment matrix, minimizing total travel cost while satisfying subject demand per school</div></div>
+            <div><div class="font-label text-[10px] tracking-widest uppercase text-primary/50">Output</div><div class="font-body text-xs text-primary font-semibold">Coverage %, total travel km, assignment list by school and teacher — exportable</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="uc-card reveal reveal-delay-1">
+        <div class="uc-img-placeholder">
+          <span class="material-symbols-outlined" style="font-size:40px;color:rgba(64,64,64,0.15)">emergency</span>
+        </div>
+        <div class="p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="step-badge">UC2</span>
+            <div class="font-body text-sm font-semibold text-on-surface">Mid-Year Emergency Reallocation</div>
+          </div>
+          <div class="space-y-2.5">
+            <div><div class="font-label text-[10px] tracking-widest uppercase text-primary/50">User</div><div class="font-body text-xs text-on-surface-variant">Sở officer, notified by school principal</div></div>
+            <div><div class="font-label text-[10px] tracking-widest uppercase text-primary/50">Timing</div><div class="font-body text-xs text-on-surface-variant">Anytime a teacher quits, dies, or goes on extended leave</div></div>
+            <div><div class="font-label text-[10px] tracking-widest uppercase text-primary/50">Trigger</div><div class="font-body text-xs text-on-surface-variant">A school loses its only teacher for a mandatory subject mid-year</div></div>
+            <div><div class="font-label text-[10px] tracking-widest uppercase text-primary/50">System action</div><div class="font-body text-xs text-on-surface-variant">Finds nearest available teacher with matching subject capacity; proposes reassignment with minimal disruption to other current assignments</div></div>
+            <div><div class="font-label text-[10px] tracking-widest uppercase text-primary/50">Output</div><div class="font-body text-xs text-primary font-semibold">Replacement proposal with ripple impact preview — weeks to hours</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="uc-card reveal reveal-delay-2">
+        <div class="uc-img-placeholder">
+          <span class="material-symbols-outlined" style="font-size:40px;color:rgba(64,64,64,0.15)">map</span>
+        </div>
+        <div class="p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="step-badge">UC3</span>
+            <div class="font-body text-sm font-semibold text-on-surface">Equity Audit and Reporting</div>
+          </div>
+          <div class="space-y-2.5">
+            <div><div class="font-label text-[10px] tracking-widest uppercase text-primary/50">User</div><div class="font-body text-xs text-on-surface-variant">Sở leadership, MOET, NGOs (UNICEF, GPE), World Bank</div></div>
+            <div><div class="font-label text-[10px] tracking-widest uppercase text-primary/50">Timing</div><div class="font-body text-xs text-on-surface-variant">Before budget cycles or donor reporting periods</div></div>
+            <div><div class="font-label text-[10px] tracking-widest uppercase text-primary/50">Trigger</div><div class="font-body text-xs text-on-surface-variant">Run optimizer on current vs. optimal allocation. The gap quantifies inequity</div></div>
+            <div><div class="font-label text-[10px] tracking-widest uppercase text-primary/50">System action</div><div class="font-body text-xs text-on-surface-variant">Province-level map of teacher distribution weighted by school remoteness priority (1–5 scale). Under-served schools flagged automatically</div></div>
+            <div><div class="font-label text-[10px] tracking-widest uppercase text-primary/50">Output</div><div class="font-body text-xs text-primary font-semibold">Exportable report for Sở GD-ĐT submission — "the problem is exactly this large, in these specific locations"</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DATA ARCHITECTURE ── -->
+<section id="arch" class="bg-surface-container py-20">
+  <div class="max-w-screen-xl mx-auto px-6">
+    <h2 class="font-headline text-4xl text-on-surface tracking-tight mb-10 reveal">Schema design decisions</h2>
+
+    <div class="grid md:grid-cols-2 gap-6 mb-10">
+      <div class="reveal">
+        <div class="section-label">Teacher CSV schema</div>
+        <div class="card overflow-hidden">
+          <table>
+            <thead><tr><th>Field</th><th>Type</th><th>Why</th></tr></thead>
+            <tbody>
+              <tr><td class="font-mono text-xs text-primary">teacher_id</td><td>HG001, LC001</td><td><span class="tag-pill-green" style="font-size:9px;">Province prefix</span> <strong>multi-province pipeline</strong> compatible</td></tr>
+              <tr><td class="font-mono text-xs text-primary">name</td><td>string (romanized)</td><td><span class="tag-pill" style="font-size:9px;background:#e4e4ca;">Encoding safe</span> <strong>non-diacritic</strong> for Python/pandas safety</td></tr>
+              <tr><td class="font-mono text-xs text-primary">base_lat / base_lng</td><td>float</td><td><strong>Distance cost input</strong> to MCMF solver</td></tr>
+              <tr><td class="font-mono text-xs text-primary">subjects</td><td>semicolon-separated</td><td><span class="tag-pill" style="font-size:9px;background:#e4e4ca;">Flat CSV</span> keeps structure <strong>flat</strong>, no nested arrays</td></tr>
+              <tr><td class="font-mono text-xs text-primary">capacity_hours_per_week</td><td>int</td><td><strong>Capacity constraint</strong> for flow solver</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-1">
+        <div class="section-label">School CSV schema</div>
+        <div class="card overflow-hidden">
+          <table>
+            <thead><tr><th>Field</th><th>Type</th><th>Why</th></tr></thead>
+            <tbody>
+              <tr><td class="font-mono text-xs text-primary">school_id</td><td>HG-S012</td><td><span class="tag-pill-green" style="font-size:9px;">Province prefix</span> consistent with teacher ID system</td></tr>
+              <tr><td class="font-mono text-xs text-primary">priority</td><td>1–5 scale</td><td><strong>Remoteness weight</strong> in equity audit output</td></tr>
+              <tr><td class="font-mono text-xs text-primary">demand_Math</td><td>int (hours)</td><td><span class="tag-pill" style="font-size:9px;background:#e4e4ca;">Flat columns</span> not nested — <strong>simplifies solver ingestion</strong></td></tr>
+              <tr><td class="font-mono text-xs text-primary">demand_English</td><td>int (hours)</td><td>Separate column per subject for <strong>direct query</strong></td></tr>
+              <tr><td class="font-mono text-xs text-primary">lat / lng</td><td>float</td><td><strong>Geographic distance</strong> calculation to teachers</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-4 reveal">
+      <div class="card p-5 border-l-4 border-primary">
+        <div class="font-label text-xs font-bold text-primary tracking-wide mb-2">Province-prefixed IDs</div>
+        <div class="font-body text-sm text-on-surface-variant leading-relaxed">Using HG001, LC001 instead of sequential integers means the pipeline can process multiple provinces simultaneously without ID collisions. One decision in the schema made the system scalable to all 51 provinces without a single code change.</div>
+      </div>
+      <div class="card p-5 border-l-4 border-outline-variant">
+        <div class="font-label text-xs font-bold text-on-surface-variant/60 tracking-wide mb-2">Flat demand columns</div>
+        <div class="font-body text-sm text-on-surface-variant leading-relaxed">demand_Math, demand_English as separate columns instead of nested JSON means the MCMF solver reads demand directly with pandas without any parsing step. Reduced integration complexity significantly under time pressure.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── INTEGRATION DESIGN ── -->
+<section class="py-20">
+  <div class="max-w-screen-xl mx-auto px-6">
+    <h2 class="font-headline text-4xl text-on-surface tracking-tight mb-4 reveal">The interface contract</h2>
+    <p class="font-body text-sm text-on-surface-variant mb-10 reveal max-w-xl">I authored the JSON schema as the contract between my frontend work and the algorithm team's solver. Both tracks ran in parallel throughout the sprint. No dependency bottlenecks.</p>
+
+    <div class="grid md:grid-cols-2 gap-6 reveal">
+      <div>
+        <div class="section-label mb-3">Request schema</div>
+        <div class="json-wrap">
+          <div><span class="json-key">"allocation_request"</span>: {</div>
+          <div class="ml-4"><span class="json-key">"province_code"</span>: <span class="json-str">"HG"</span>, <span class="json-label">scope identifier</span></div>
+          <div class="ml-4"><span class="json-key">"district_id"</span>: <span class="json-str">"HG-D03"</span>,</div>
+          <div class="ml-4"><span class="json-key">"teachers"</span>: [...], <span class="json-label">from CSV pipeline</span></div>
+          <div class="ml-4"><span class="json-key">"schools"</span>: [...],</div>
+          <div class="ml-4"><span class="json-key">"constraints"</span>: {</div>
+          <div class="ml-8"><span class="json-key">"max_distance_km"</span>: <span class="json-num">50</span>, <span class="json-label">hard cap</span></div>
+          <div class="ml-8"><span class="json-key">"fairness_weight"</span>: <span class="json-num">0.3</span> <span class="json-label">equity vs. efficiency</span></div>
+          <div class="ml-4">}</div>
+          <div>}</div>
+        </div>
+      </div>
+      <div>
+        <div class="section-label mb-3">Response schema</div>
+        <div class="json-wrap">
+          <div><span class="json-key">"allocation_response"</span>: {</div>
+          <div class="ml-4"><span class="json-key">"assignments"</span>: [{</div>
+          <div class="ml-8"><span class="json-key">"teacher_id"</span>: <span class="json-str">"HG001"</span>,</div>
+          <div class="ml-8"><span class="json-key">"school_id"</span>: <span class="json-str">"HG-S012"</span>,</div>
+          <div class="ml-8"><span class="json-key">"subject"</span>: <span class="json-str">"Math"</span>,</div>
+          <div class="ml-8"><span class="json-key">"hours_per_week"</span>: <span class="json-num">18</span>,</div>
+          <div class="ml-8"><span class="json-key">"distance_km"</span>: <span class="json-num">12.4</span> <span class="json-label">travel cost</span></div>
+          <div class="ml-4">}],</div>
+          <div class="ml-4"><span class="json-key">"unmet_demand"</span>: [...], <span class="json-label">must surface failures</span></div>
+          <div class="ml-4"><span class="json-key">"solver_meta"</span>: {</div>
+          <div class="ml-8"><span class="json-key">"total_cost"</span>: <span class="json-num">482.3</span>,</div>
+          <div class="ml-8"><span class="json-key">"fairness_score"</span>: <span class="json-num">0.87</span> <span class="json-label">traceable audit</span></div>
+          <div class="ml-4">}</div>
+          <div>}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-5 mt-6 reveal border-l-4 border-primary">
+      <div class="font-body text-sm text-on-surface-variant leading-relaxed">The <span class="font-semibold text-primary">unmet_demand</span> field was a deliberate product decision, as a tool that can hide its own failures loses trust immediately. A tool that explicitly says "here are the 6 schools we could not cover, and here is why" becomes a planning instrument government officers will actually use.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PITCH STRATEGY ── -->
+<section class="bg-surface-container py-20">
+  <div class="max-w-screen-xl mx-auto px-6">
+    <h2 class="font-headline text-4xl text-on-surface tracking-tight mb-4 reveal">Three audiences, three messages</h2>
+    <p class="font-body text-sm text-on-surface-variant mb-10 reveal max-w-xl">The pitch opened with my personal experience learning English, contrasted with a highland child who has no English teacher because placement logic failed. Personal and verifiable — no fictional character.</p>
+
+    <div class="grid md:grid-cols-3 gap-4 reveal">
+      <div class="card-dark p-6">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="material-symbols-outlined text-inverse-primary" style="font-size:18px;">gavel</span>
+          <div class="font-body text-sm font-semibold text-white">Hackathon Judges</div>
+        </div>
+        <div class="mb-3"><div class="font-label text-[10px] tracking-widest uppercase text-inverse-primary/50 mb-1">Core message</div><div class="font-body text-sm text-white/80">Technical rigor + real problem</div></div>
+        <div class="mb-4"><div class="font-label text-[10px] tracking-widest uppercase text-inverse-primary/50 mb-1">Hook</div><div class="font-body text-sm text-white/70">Algorithm solves a graph problem no tool currently addresses. MCMF on a real dataset from 2 provinces.</div></div>
+        <div class="pt-3 border-t border-white/10"><div class="font-label text-[10px] tracking-widest uppercase text-inverse-primary/50 mb-1">What they needed to believe</div><div class="font-body text-xs text-white/60">This could actually work in production, not just in a hackathon demo</div></div>
+      </div>
+
+      <div class="card-dark p-6" style="background:#355e3b;">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="material-symbols-outlined text-inverse-primary" style="font-size:18px;">volunteer_activism</span>
+          <div class="font-body text-sm font-semibold text-white">NGOs / UNICEF</div>
+        </div>
+        <div class="mb-3"><div class="font-label text-[10px] tracking-widest uppercase text-inverse-primary/50 mb-1">Core message</div><div class="font-body text-sm text-white/80">Equity and access</div></div>
+        <div class="mb-4"><div class="font-label text-[10px] tracking-widest uppercase text-inverse-primary/50 mb-1">Hook</div><div class="font-body text-sm text-white/70">Children in highland communes lose subject access due to placement failure. 46.4% rural upper secondary completion. 1 in 3 Hmong girls never enters school.</div></div>
+        <div class="pt-3 border-t border-white/10"><div class="font-label text-[10px] tracking-widest uppercase text-inverse-primary/50 mb-1">What they needed to believe</div><div class="font-body text-xs text-white/60">The tool transforms "we know there's a problem" into granular data they can report to donors</div></div>
+      </div>
+
+      <div class="card-dark p-6" style="background:#263f2e;">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="material-symbols-outlined text-inverse-primary" style="font-size:18px;">account_balance</span>
+          <div class="font-body text-sm font-semibold text-white">Government / DOET</div>
+        </div>
+        <div class="mb-3"><div class="font-label text-[10px] tracking-widest uppercase text-inverse-primary/50 mb-1">Core message</div><div class="font-body text-sm text-white/80">Operational efficiency</div></div>
+        <div class="mb-4"><div class="font-label text-[10px] tracking-widest uppercase text-inverse-primary/50 mb-1">Hook</div><div class="font-body text-sm text-white/70">Officers make better decisions faster with zero new data collection required. 3–4 weeks of Excel → hours. Every decision has a traceable audit trail.</div></div>
+        <div class="pt-3 border-t border-white/10"><div class="font-label text-[10px] tracking-widest uppercase text-inverse-primary/50 mb-1">What they needed to believe</div><div class="font-body text-xs text-white/60">This fits within their existing workflow and doesn't require new hiring or new data sources</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── IMPACT ── -->
+<section class="py-20">
+  <div class="max-w-screen-xl mx-auto px-6">
+    <h2 class="font-headline text-4xl text-on-surface tracking-tight mb-12 reveal">What we shipped in a sprint</h2>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12 reveal">
+      <div class="text-center">
+        <div class="stat-num" data-target="3">0</div>
+        <div class="font-label text-xs text-on-surface-variant/60 tracking-wide mt-2">Use cases shipped</div>
+      </div>
+      <div class="text-center">
+        <div class="font-headline text-5xl font-bold text-primary">✓</div>
+        <div class="font-label text-xs text-on-surface-variant/60 tracking-wide mt-2">Fully functional optimization engine</div>
+      </div>
+      <div class="text-center">
+        <div class="stat-num" data-target="51">0</div>
+        <div class="font-label text-xs text-on-surface-variant/60 tracking-wide mt-2">Provinces — replicable architecture</div>
+      </div>
+      <div class="text-center">
+        <div class="stat-num" data-target="12">0</div>
+        <div class="font-label text-xs text-on-surface-variant/60 tracking-wide mt-2">Pitch deck slides</div>
+      </div>
+    </div>
+
+    <div class="card overflow-hidden reveal">
+      <table>
+        <thead><tr><th>Stakeholder</th><th>Before</th><th>After TeachMap</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="font-semibold text-primary">Sở officer</td>
+            <td>3–4 weeks making allocation calls manually with Excel and phone calls</td>
+            <td class="text-primary font-medium">Hours to run, review, adjust, and export decision</td>
+          </tr>
+          <tr>
+            <td class="font-semibold text-on-surface">Remote school</td>
+            <td>Receives assignment based on who they know or luck</td>
+            <td class="text-primary font-medium">Receives assignment based on objective coverage priority score</td>
+          </tr>
+          <tr>
+            <td class="font-semibold text-on-surface">Ethnic minority student</td>
+            <td>May not have English or IT teacher for the entire year</td>
+            <td class="text-primary font-medium">Higher probability of having one — priority-flagged schools go first</td>
+          </tr>
+          <tr>
+            <td class="font-semibold text-on-surface">UNICEF / World Bank</td>
+            <td>Knows problem exists, no granular data to report</td>
+            <td class="text-primary font-medium">Province-level coverage maps, unmet demand by subject and location — exportable</td>
+          </tr>
+          <tr>
+            <td class="font-semibold text-on-surface">MOET</td>
+            <td>Cannot see allocation quality across provinces</td>
+            <td class="text-primary font-medium">Could aggregate data nationally if multiple provinces adopt the system</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ── CLOSING ── -->
+<section class="hero-bg py-24">
+  <div class="dot-grid"></div>
+  <div class="relative max-w-screen-xl mx-auto px-6 text-center">
+    <div class="max-w-2xl mx-auto">
+      <div class="font-label text-[10px] tracking-widest uppercase text-inverse-primary/50 mb-6">Reflection</div>
+      <h2 class="font-headline text-4xl text-white tracking-tight mb-6">12 hours, one privilege put to work</h2>
+      <p class="font-body text-sm text-white/70 leading-relaxed mb-4">In 12 hours, we used the privilege of having learned English, learned to code, to try to build something for people who had neither. That asymmetry — between what we were given and what a child in a highland commune receives — is exactly the gap TeachMap was designed to close.</p>
+      <p class="font-body text-sm text-white/60 leading-relaxed mb-4">We didn't have time to finish the UI. But every small decision — the CSV template with province-prefixed IDs, the unmet demand field surfaced explicitly, the priority score traceable to real data — was optimized for one specific user: the Sở officer who makes allocation calls that determine whether a child in Dìn Chin has an English teacher this year.</p>
+      <p class="font-body text-sm text-white/50 leading-relaxed mb-12">That officer is not a data scientist. They're someone who has been making these decisions with Excel and phone calls for years. Every product decision we made was in service of making their job — and through it, those children's chances — better.</p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href="https://github.com/tony-buildd/Soda-hack" target="_blank"
+           class="inline-flex items-center gap-2 bg-inverse-primary text-primary px-6 py-3 rounded-full font-label text-xs font-semibold tracking-widest uppercase hover:scale-[1.03] transition-transform">
+          <span class="material-symbols-outlined text-base">code</span>
+          GitHub Repo
+        </a>
+        <a href="work.html" class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/15 text-white px-6 py-3 rounded-full font-label text-xs font-semibold tracking-widest uppercase transition-colors border border-white/15">
+          <span class="material-symbols-outlined text-base">arrow_back</span>
+          Back to Work
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="w-full pt-16 pb-10 bg-surface-container border-t border-outline-variant/10">
+  <div class="flex flex-col md:flex-row justify-between items-start px-12 max-w-screen-xl mx-auto gap-12">
+    <div class="max-w-xs">
+      <a href="index.html" class="font-headline text-xl mb-4 block text-primary">pling's portfolio</a>
+      <p class="font-label text-[10px] tracking-widest uppercase text-on-surface-variant/70">© pling's portfolio</p>
+    </div>
+    <div class="flex flex-wrap gap-12">
+      <div class="space-y-4">
+        <p class="font-label text-xs font-bold tracking-[0.3em] uppercase text-primary">Explore</p>
+        <div class="flex flex-col gap-2 font-label text-xs tracking-widest uppercase text-on-surface-variant">
+          <a class="hover:text-primary transition-all" href="index.html">About</a>
+          <a class="hover:text-primary transition-all" href="work.html">Work</a>
+        </div>
+      </div>
+      <div class="space-y-4">
+        <p class="font-label text-xs font-bold tracking-[0.3em] uppercase text-primary">Connect</p>
+        <div class="flex flex-col gap-2 font-label text-xs tracking-widest uppercase text-on-surface-variant">
+          <a class="hover:text-primary transition-all" href="mailto:linhphuongng.work@gmail.com">Email</a>
+          <a class="hover:text-primary transition-all" href="https://linkedin.com/in/phuong-linh-nguyen-">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("visible"); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+
+  // Stat counter animation
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const el = e.target;
+        const target = parseInt(el.dataset.target);
+        let start = 0;
+        const step = Math.ceil(target / (1200 / 16));
+        const timer = setInterval(() => {
+          start = Math.min(start + step, target);
+          el.textContent = start;
+          if (start >= target) clearInterval(timer);
+        }, 16);
+        counterObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll(".stat-num[data-target]").forEach(el => counterObserver.observe(el));
+
+  // Misallocation toggle
+  let showingAfter = false;
+  function toggleFlow() {
+    showingAfter = !showingAfter;
+    const before = document.getElementById("misalloc-before");
+    const after = document.getElementById("misalloc-after");
+    const btn = document.getElementById("toggle-flow");
+    if (showingAfter) {
+      before.style.display = "none";
+      after.style.display = "block";
+      btn.textContent = "Show greedy placement ↻";
+      btn.style.background = "#eaeade";
+      btn.style.color = "#1d4626";
+      btn.style.borderColor = "rgba(189,189,178,0.4)";
+    } else {
+      before.style.display = "block";
+      after.style.display = "none";
+      btn.textContent = "Show corrected flow ↻";
+      btn.style.background = "#1d4626";
+      btn.style.color = "#a4d2a6";
+      btn.style.borderColor = "rgba(164,210,166,0.3)";
+    }
+  }
+
+  // Thought bubbles
+  function toggleBubble(container) {
+    const trigger = container.querySelector(".thought-trigger");
+    const bubble = container.querySelector(".thought-bubble");
+    const isActive = trigger.classList.contains("active");
+    document.querySelectorAll(".thought-trigger").forEach(t => t.classList.remove("active"));
+    document.querySelectorAll(".thought-bubble").forEach(b => b.classList.remove("show"));
+    if (!isActive) {
+      trigger.classList.add("active");
+      bubble.classList.add("show");
+    }
+  }
+
+  // Close bubbles on outside click
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".thought-container")) {
+      document.querySelectorAll(".thought-trigger").forEach(t => t.classList.remove("active"));
+      document.querySelectorAll(".thought-bubble").forEach(b => b.classList.remove("show"));
+    }
+  });
+</script>
+</body>
+</html>
