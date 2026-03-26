@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>pling — a learner</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "surface-container-low": "#f1f1da",
+          "secondary-fixed": "#e2e2d5",
+          "surface-bright": "#f7f7e3",
+          "secondary-fixed-dim": "#c3c3b8",
+          "on-secondary-fixed-variant": "#424240",
+          "on-secondary": "#ffffff",
+          "surface-container-highest": "#dcdcbc",
+          "on-error": "#ffffff",
+          "on-tertiary-container": "#ffb6c8",
+          "primary": "#1d4626",
+          "inverse-primary": "#a4d2a6",
+          "on-tertiary-fixed": "#370b1b",
+          "outline-variant": "#bdbdb2",
+          "on-primary": "#ffffff",
+          "inverse-surface": "#2d2d22",
+          "primary-container": "#355e3b",
+          "surface-dim": "#d5d5b8",
+          "on-secondary-fixed": "#1b1b18",
+          "error": "#ba1a1a",
+          "primary-fixed-dim": "#a4d2a6",
+          "on-tertiary-fixed-variant": "#6b3646",
+          "secondary-container": "#ddddd0",
+          "surface-container-high": "#e4e4ca",
+          "on-primary-fixed-variant": "#274f2e",
+          "outline": "#6b6b60",
+          "surface-variant": "#dcdcbc",
+          "surface-tint": "#3e6844",
+          "primary-fixed": "#bfeec1",
+          "on-primary-fixed": "#002109",
+          "on-error-container": "#93000a",
+          "tertiary-container": "#7c4454",
+          "surface": "#f7f7e3",
+          "error-container": "#ffdad6",
+          "background": "#f7f7e3",
+          "on-surface-variant": "#404040",
+          "on-surface": "#191910",
+          "tertiary-fixed-dim": "#fcb2c5",
+          "secondary": "#5a5a55",
+          "on-tertiary": "#ffffff",
+          "on-background": "#191910",
+          "inverse-on-surface": "#f0f0e0",
+          "tertiary-fixed": "#ffd9e1",
+          "on-primary-container": "#a8d6a9",
+          "surface-container-lowest": "#ffffff",
+          "on-secondary-container": "#5d5d58",
+          "tertiary": "#612d3d",
+          "surface-container": "#eaeade"
+        },
+        fontFamily: {
+          "headline": ["Libre Caslon Text"],
+          "body": ["Montserrat"],
+          "label": ["Nunito Sans"]
+        },
+        borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+      },
+    },
+  }
+</script>
+<style>
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+
+  .glass-nav {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  /* Scroll reveal */
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  [data-reveal].revealed { opacity: 1; transform: translateY(0); }
+
+  [data-reveal="left"] {
+    opacity: 0;
+    transform: translateX(-28px);
+    transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  [data-reveal="right"] {
+    opacity: 0;
+    transform: translateX(28px);
+    transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  [data-reveal="left"].revealed,
+  [data-reveal="right"].revealed { opacity: 1; transform: translateX(0); }
+
+  /* Hero entrance */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-line { opacity: 0; animation: fadeUp 0.85s cubic-bezier(0.16,1,0.3,1) forwards; }
+  .hero-line:nth-child(1) { animation-delay: 0.15s; }
+  .hero-line:nth-child(2) { animation-delay: 0.35s; }
+
+  /* Green underline accent */
+  .accent-underline {
+    text-decoration: underline;
+    text-decoration-color: #1d4626;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 5px;
+  }
+
+  /* Stat block sticky */
+  .stat-sticky { position: sticky; top: 96px; }
+
+  /* Milestone list */
+  .milestone-item {
+    padding-left: 20px;
+    border-left: 2px solid #bdbdb2;
+    transition: border-color 0.25s;
+  }
+  .milestone-item:hover { border-color: #1d4626; }
+
+  /* Tag pill */
+  .tag-pill {
+    display: inline-block;
+    padding: 3px 11px;
+    border-radius: 999px;
+    font-size: 11px;
+    letter-spacing: 0.035em;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 600;
+    background: #eaeade;
+    color: #404040;
+    border: 1px solid rgba(189,189,178,0.35);
+  }
+
+  /* Course card hover */
+  .course-card {
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  .course-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    transform: translateY(-2px);
+  }
+</style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+
+<!-- ── Navigation ── -->
+<nav id="main-nav" class="fixed top-0 w-full z-50 transition-all duration-500 border-b border-transparent">
+  <div class="flex justify-between items-center px-8 py-6 max-w-screen-2xl mx-auto">
+    <a class="font-headline text-2xl font-bold tracking-tighter text-on-surface" href="index.html">pling's portfolio</a>
+    <div class="hidden md:flex items-center gap-10 font-headline text-base tracking-tight">
+      <a class="text-on-surface/50 hover:text-on-surface transition-colors" href="index.html#about">About</a>
+      <a class="text-on-surface/50 hover:text-on-surface transition-colors" href="work.html">A Builder</a>
+      <a class="text-on-surface/50 hover:text-on-surface transition-colors" href="voice.html">A Storyteller</a>
+      <a class="text-on-surface border-b border-primary pb-0.5" href="learn.html">A Learner</a>
+    </div>
+    <button class="bg-primary text-on-primary px-8 py-2.5 rounded-full font-label text-sm font-semibold tracking-widest uppercase hover:scale-[1.02] active:scale-95 transition-all duration-300">Resume</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ── Section 1: Page Header ── -->
+<section class="pt-44 pb-20 px-8 text-center">
+  <div class="max-w-3xl mx-auto space-y-6">
+    <h1 class="hero-line font-headline text-5xl md:text-[3.5rem] text-on-surface tracking-tight leading-[1.2] [text-wrap:balance]">
+      Finding beauty in <span class="accent-underline">technology</span> through its <span class="accent-underline">human</span> side.
+    </h1>
+    <p class="hero-line font-body text-sm text-on-surface-variant/65 tracking-wide leading-relaxed">
+      A record of what I studied, what changed my mind, and what I'm still figuring out.
+    </p>
+  </div>
+</section>
+
+<div class="max-w-screen-xl mx-auto px-8"><div class="h-px bg-outline-variant/30"></div></div>
+
+<!-- ── Section 2: Before Minerva ── -->
+<section class="py-24 px-8">
+  <div class="max-w-screen-xl mx-auto">
+    <div data-reveal class="mb-14">
+      <p class="font-label text-[10px] tracking-[0.4em] uppercase font-bold text-primary/60">Before Minerva</p>
+    </div>
+    <div class="flex flex-col md:flex-row gap-16 items-start">
+
+      <!-- Left: Stat block (sticky) -->
+      <div data-reveal="left" class="w-full md:w-[340px] shrink-0 stat-sticky">
+        <div class="rounded-2xl bg-surface-container-low border-l-[4px] border-primary p-8 space-y-6">
+          <div>
+            <p class="font-headline text-lg font-bold text-on-surface leading-snug">Ha Long High School<br/>for Gifted Students</p>
+            <p class="font-label text-xs text-on-surface-variant/55 mt-1.5 tracking-wide">English Honor · Quang Ninh, Vietnam</p>
+            <p class="font-label text-xs text-on-surface-variant/55 tracking-wide">2022 – 2025</p>
+          </div>
+          <div class="h-px bg-outline-variant/30"></div>
+          <div class="space-y-5">
+            <div class="flex items-baseline justify-between gap-4">
+              <span class="font-label text-[10px] tracking-[0.2em] uppercase font-bold text-on-surface-variant/45">GPA</span>
+              <span class="font-headline text-2xl font-bold text-primary">9.4 <span class="text-base font-normal text-on-surface-variant/40">/ 10</span></span>
+            </div>
+            <div class="flex items-baseline justify-between gap-4">
+              <span class="font-label text-[10px] tracking-[0.2em] uppercase font-bold text-on-surface-variant/45">SAT</span>
+              <div class="text-right">
+                <span class="font-headline text-2xl font-bold text-primary">1570</span>
+                <p class="font-label text-[10px] text-on-surface-variant/40 tracking-wide">99.7th percentile</p>
+              </div>
+            </div>
+            <div class="flex items-baseline justify-between gap-4">
+              <span class="font-label text-[10px] tracking-[0.2em] uppercase font-bold text-on-surface-variant/45">IELTS</span>
+              <div class="text-right">
+                <span class="font-headline text-2xl font-bold text-primary">8.0</span>
+                <p class="font-label text-[10px] text-on-surface-variant/40 tracking-wide">C1</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Prose + Milestones -->
+      <div data-reveal="right" class="flex-1 space-y-10 min-w-0" style="transition-delay:0.1s">
+        <p class="font-headline text-xl italic text-on-surface/75 leading-relaxed [text-wrap:balance]">
+          "While building my initiated communities and playing with kids from remote mountain communities, I also managed to get scholarship scores 6/6 semesters in a row."
+        </p>
+        <div class="space-y-5">
+          <div class="milestone-item">
+            <p class="font-body text-sm text-on-surface">Provincial Merit Scholarships</p>
+            <p class="font-label text-xs text-on-surface-variant/45 mt-0.5">6 out of 6 semesters</p>
+          </div>
+          <div class="milestone-item">
+            <p class="font-body text-sm text-on-surface">First Prize · English Academic Excellence Contest of Quang Ninh Province</p>
+            <p class="font-label text-xs text-on-surface-variant/45 mt-0.5">2022</p>
+          </div>
+          <div class="milestone-item">
+            <p class="font-body text-sm text-on-surface">Silver Medal · Academic Contest for Gifted Students in Northern Areas</p>
+            <p class="font-label text-xs text-on-surface-variant/45 mt-0.5">2022</p>
+          </div>
+          <div class="milestone-item">
+            <p class="font-body text-sm text-on-surface">Outstanding Academic Achiever · City Department of Education and Training</p>
+            <p class="font-label text-xs text-on-surface-variant/45 mt-0.5">2021–2022</p>
+          </div>
+          <div class="milestone-item">
+            <p class="font-body text-sm text-on-surface">National Runner-up · National Schools Debating Championship, Open Division</p>
+            <p class="font-label text-xs text-on-surface-variant/45 mt-0.5">2024</p>
+          </div>
+          <div class="milestone-item">
+            <p class="font-body text-sm text-on-surface">Finalist · Southeast Asia Youth Leadership Program · US Embassy</p>
+            <p class="font-label text-xs text-on-surface-variant/45 mt-0.5">2024</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Section 3: At Minerva ── -->
+<section class="bg-surface-container-low py-24 px-8">
+  <div class="max-w-screen-xl mx-auto space-y-28">
+
+    <!-- 3a: Intro Block -->
+    <div data-reveal class="max-w-[680px] mx-auto space-y-7">
+      <div class="text-center space-y-2">
+        <p class="font-label text-[10px] tracking-[0.4em] uppercase font-bold text-primary/60">Minerva University · San Francisco, CA</p>
+        <p class="font-body text-sm font-semibold text-on-surface">BSc. Computer Science &amp; BA. Business · GPA 3.8/4.0 · 2025–2029</p>
+        <p class="font-label text-xs text-on-surface-variant/45 italic">The most innovative university in the world — WURI · Curriculum designed across 4 continents</p>
+      </div>
+      <div class="h-px w-16 bg-primary/20 mx-auto"></div>
+      <div class="space-y-5 font-body text-sm text-on-surface-variant leading-[1.9]">
+        <p>By far, my first year at this university is the most transformative one in my whole life.</p>
+        <p>I learned to model irrational human behavior using <strong class="text-on-surface font-semibold">Kahneman's frameworks</strong>. I built optimization algorithms in <strong class="text-on-surface font-semibold">Python</strong> and implemented <strong class="text-on-surface font-semibold">epidemiological models</strong> from scratch. I studied how <strong class="text-on-surface font-semibold">persuasion</strong> works at the <strong class="text-on-surface font-semibold">neurological</strong> level — Social Judgment Theory, Elaboration Likelihood Model, Cognitive Dissonance — and then applied it immediately in <strong class="text-on-surface font-semibold">real advocacy work</strong>. I also learned <strong class="text-on-surface font-semibold">scientific study design</strong> and did some cool projects on how historical racist housing <strong class="text-on-surface font-semibold">policy</strong> affects current environmental <strong class="text-on-surface font-semibold">inequality</strong>.</p>
+        <p>But the education that mattered most was not in a classroom. It was in the <strong class="text-on-surface font-semibold">rotations across 4 continents</strong> — which is first San Francisco: empathizing with unhoused people in the Tenderloin, playing alongside neurodivergent teen artists at Creativity Explored, navigating a campus of 80+ nationalities where each small talk is a cultural and historical lesson, and every assumption about context or meaning had to be questioned.</p>
+        <p>Beyond that, I moved from being someone who avoided quantitative subjects to someone who truly <strong class="text-on-surface font-semibold">enjoys the beauty of math and programming</strong> — and earned a 4.0 for my CS (FA) course. And that discovery is still ongoing, with my endless curiosity.</p>
+      </div>
+    </div>
+
+    <!-- 3b: Coursework Grid -->
+    <div data-reveal class="space-y-8" style="transition-delay:0.1s">
+      <p class="font-label text-[10px] tracking-[0.4em] uppercase font-bold text-primary/60 text-center">Coursework</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+        <!-- Card 1: Formal Analysis -->
+        <div class="course-card bg-surface rounded-2xl border border-outline-variant/25 p-7 space-y-4">
+          <p class="font-label text-[10px] tracking-[0.3em] uppercase font-bold text-primary">Formal Analysis · Computer Science</p>
+          <p class="font-body text-sm text-on-surface-variant italic leading-relaxed">How to think precisely — with code, math, and models.</p>
+          <div class="flex flex-wrap gap-2 pt-1">
+            <span class="tag-pill">algorithm design</span>
+            <span class="tag-pill">optimization</span>
+            <span class="tag-pill">machine learning</span>
+            <span class="tag-pill">OOP in Python</span>
+            <span class="tag-pill">epidemiological modeling</span>
+            <span class="tag-pill">Bayesian statistics</span>
+            <span class="tag-pill">decision theory</span>
+            <span class="tag-pill">Expected Utility Theory</span>
+            <span class="tag-pill">game theory</span>
+            <span class="tag-pill">behavioral economics</span>
+          </div>
+        </div>
+
+        <!-- Card 2: Empirical Analysis -->
+        <div class="course-card bg-surface rounded-2xl border border-outline-variant/25 p-7 space-y-4">
+          <p class="font-label text-[10px] tracking-[0.3em] uppercase font-bold text-primary">Empirical Analysis · Natural Science</p>
+          <p class="font-body text-sm text-on-surface-variant italic leading-relaxed">How to test what you believe — rigorously.</p>
+          <div class="flex flex-wrap gap-2 pt-1">
+            <span class="tag-pill">gap analysis</span>
+            <span class="tag-pill">A/B testing</span>
+            <span class="tag-pill">hypothesis testing</span>
+            <span class="tag-pill">interview design</span>
+            <span class="tag-pill">survey methods</span>
+            <span class="tag-pill">problem-solving</span>
+            <span class="tag-pill">causal inference</span>
+          </div>
+        </div>
+
+        <!-- Card 3: Multimodal Communication -->
+        <div class="course-card bg-surface rounded-2xl border border-outline-variant/25 p-7 space-y-4">
+          <p class="font-label text-[10px] tracking-[0.3em] uppercase font-bold text-primary">Multimodal Communication · Art &amp; Humanities</p>
+          <p class="font-body text-sm text-on-surface-variant italic leading-relaxed">How to say something that actually lands.</p>
+          <div class="flex flex-wrap gap-2 pt-1">
+            <span class="tag-pill">design thinking</span>
+            <span class="tag-pill">persuasion theory (SJT, ELM, CDT)</span>
+            <span class="tag-pill">ethics</span>
+            <span class="tag-pill">cross-cultural analysis</span>
+            <span class="tag-pill">visual art analysis</span>
+            <span class="tag-pill">film analysis</span>
+          </div>
+        </div>
+
+        <!-- Card 4: Complex Systems -->
+        <div class="course-card bg-surface rounded-2xl border border-outline-variant/25 p-7 space-y-4">
+          <p class="font-label text-[10px] tracking-[0.3em] uppercase font-bold text-primary">Complex Systems · Social Sciences</p>
+          <p class="font-body text-sm text-on-surface-variant italic leading-relaxed">How to see the whole, not just the parts.</p>
+          <div class="flex flex-wrap gap-2 pt-1">
+            <span class="tag-pill">emergent property</span>
+            <span class="tag-pill">network systems</span>
+            <span class="tag-pill">system dynamics</span>
+            <span class="tag-pill">power dynamics</span>
+            <span class="tag-pill">negotiation</span>
+            <span class="tag-pill">leadership</span>
+            <span class="tag-pill">philosophical theory</span>
+            <span class="tag-pill">ethical and moral reasoning</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3c: Technical Stack -->
+    <div data-reveal class="space-y-8" style="transition-delay:0.15s">
+      <p class="font-label text-[10px] tracking-[0.4em] uppercase font-bold text-primary/60 text-center">Skills &amp; Tools</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-outline-variant/20">
+
+        <!-- Product -->
+        <div class="py-8 md:py-0 md:pr-10 space-y-5">
+          <p class="font-label text-[10px] tracking-[0.3em] uppercase font-bold text-primary">Product</p>
+          <ul class="space-y-3">
+            <li class="font-body text-[13px] text-on-surface-variant leading-snug">User Research · interviews, surveys, usability testing</li>
+            <li class="font-body text-[13px] text-on-surface-variant leading-snug">Problem Framing &amp; Opportunity Sizing</li>
+            <li class="font-body text-[13px] text-on-surface-variant leading-snug">Prioritization · RICE, MoSCoW</li>
+            <li class="font-body text-[13px] text-on-surface-variant leading-snug">Agile · Scrum, sprint planning, retros</li>
+            <li class="font-body text-[13px] text-on-surface-variant leading-snug">Roadmapping</li>
+            <li class="font-body text-[13px] text-on-surface-variant leading-snug">Experimentation · A/B testing, hypothesis design</li>
+            <li class="font-body text-[13px] text-on-surface-variant leading-snug">PRD Writing</li>
+            <li class="font-body text-[13px] text-on-surface-variant leading-snug">Product Analytics · funnel, retention, cohorting</li>
+            <li class="font-body text-[13px] text-on-surface-variant leading-snug">Product Marketing · positioning, GTM basics</li>
+          </ul>
+        </div>
+
+        <!-- Data & Technical -->
+        <div class="py-8 md:py-0 md:px-10 space-y-5">
+          <p class="font-label text-[10px] tracking-[0.3em] uppercase font-bold text-primary">Data &amp; Technical</p>
+          <ul class="space-y-3">
+            <li class="font-body text-[13px] text-on-surface-variant leading-snug">Python · pandas, NumPy, Matplotlib/Seaborn</li>
+            <li class="font-body text-[13px] text-on-surface-variant leading-snug">SQL · joins, aggregations, window functions</li>
+            <li class="font-body text-[13px] text-on-surface-variant leading-snug">JavaScript · DOM manipulation, async basics</li>
+            <li class="font-body text-[13px] text-on-surface-variant leading-snug">HTML/CSS · responsive layouts</li>
+            <li class="font-body text-[13px] text-on-surface-variant leading-snug">REST APIs</li>
+            <li class="font-body text-[13px] text-on-surface-variant leading-snug">Git · version control</li>
+          </ul>
+        </div>
+
+        <!-- Design & Operations + Certs -->
+        <div class="py-8 md:py-0 md:pl-10 space-y-5">
+          <p class="font-label text-[10px] tracking-[0.3em] uppercase font-bold text-primary">Design &amp; Operations</p>
+          <ul class="space-y-3">
+            <li class="font-body text-[13px] text-on-surface-variant leading-snug">Figma</li>
+            <li class="font-body text-[13px] text-on-surface-variant leading-snug">Event &amp; Program Operations</li>
+            <li class="font-body text-[13px] text-on-surface-variant leading-snug">Stakeholder Management</li>
+            <li class="font-body text-[13px] text-on-surface-variant leading-snug">Fundraising &amp; Partnerships</li>
+            <li class="font-body text-[13px] text-on-surface-variant leading-snug">Vietnamese (native) · English C1 (IELTS 8.0)</li>
+          </ul>
+          <div class="h-px bg-outline-variant/25 my-2"></div>
+          <p class="font-label text-[10px] tracking-[0.3em] uppercase font-bold text-primary">Certifications</p>
+          <ul class="space-y-3">
+            <li class="font-body text-[13px] text-on-surface-variant leading-snug">Python for Data Science, AI &amp; Development — IBM · Dec 2025</li>
+            <li class="font-body text-[13px] text-on-surface-variant leading-snug">Breaking Into Product Management · Dec 2025</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Section 4: Closing Line ── -->
+<section class="py-36 px-8 text-center">
+  <p data-reveal class="font-headline text-2xl md:text-[1.75rem] italic text-on-surface-variant/55 leading-relaxed max-w-xl mx-auto [text-wrap:balance]">
+    "I am still learning, and will forever learning with my own pace."
+  </p>
+</section>
+
+<!-- ── Bottom nav hint ── -->
+<div class="border-t border-outline-variant/20 py-10 px-8">
+  <div class="max-w-screen-xl mx-auto flex justify-between items-center">
+    <a class="font-body text-sm text-on-surface-variant/55 hover:text-primary transition-colors flex items-center gap-2" href="work.html">
+      ← A Builder
+    </a>
+    <a class="font-headline text-sm text-on-surface-variant/35 hover:text-on-surface transition-colors" href="index.html">
+      pling's portfolio
+    </a>
+    <a class="font-body text-sm text-on-surface-variant/55 hover:text-primary transition-colors flex items-center gap-2" href="voice.html">
+      A Storyteller →
+    </a>
+  </div>
+</div>
+
+</main>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('revealed');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+
+  // Nav background on scroll
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 40) {
+      nav.classList.add('glass-nav', 'bg-surface/85', 'border-outline-variant/20');
+    } else {
+      nav.classList.remove('glass-nav', 'bg-surface/85', 'border-outline-variant/20');
+    }
+  }, { passive: true });
+</script>
+</body>
+</html>
