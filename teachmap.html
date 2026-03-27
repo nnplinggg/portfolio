@@ -96,6 +96,12 @@
 
     /* ── HERO ── */
     .hero-bg { background: #1d4626; position: relative; overflow: hidden; }
+    .hero-bg-img {
+      position: absolute; inset: 0;
+      background-image: url('images/projects/teachmap/teachmap.jpg');
+      background-size: cover; background-position: center;
+      opacity: 0.15; pointer-events: none;
+    }
     .hero-bg::before {
       content: ""; position: absolute; inset: 0;
       background: radial-gradient(ellipse 70% 80% at 90% 40%, rgba(164,210,166,0.1) 0%, transparent 65%),
@@ -293,6 +299,7 @@
 
 <!-- ── HERO ── -->
 <section class="hero-bg py-24 md:py-32">
+  <div class="hero-bg-img"></div>
   <div class="dot-grid"></div>
   <div class="relative max-w-screen-xl mx-auto px-6">
     <div class="max-w-3xl">
