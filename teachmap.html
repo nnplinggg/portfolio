@@ -191,6 +191,26 @@
     .school-remote.covered { background: rgba(29,70,38,0.08); border-color: rgba(29,70,38,0.3); border-style: solid; }
 
     /* ── RESPONSIBILITY FLOW ── */
+    /* ── INTERACTION HINTS ── */
+    @keyframes hint-float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+    @keyframes hint-fade-out {
+      to { opacity: 0; pointer-events: none; }
+    }
+    .interaction-hint {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 12px; border-radius: 999px;
+      background: rgba(29,70,38,0.08); border: 1px solid rgba(29,70,38,0.2);
+      font-family: 'Nunito Sans', sans-serif; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.04em; color: #1d4626;
+      animation: hint-float 1.6s ease-in-out infinite;
+      transition: opacity 0.4s; user-select: none; cursor: default;
+    }
+    .interaction-hint.hidden { animation: hint-fade-out 0.4s forwards; }
+    .interaction-hint .hint-icon { font-size: 14px; }
+
     .resp-node {
       position: relative; cursor: pointer;
       background: #eaeade; border: 1px solid rgba(189,189,178,0.3); border-radius: 0.75rem;
@@ -708,7 +728,13 @@
 <section class="py-20">
   <div class="max-w-screen-xl mx-auto px-6">
     <h2 class="font-headline text-4xl text-on-surface tracking-tight mb-3 reveal">What are Sở officer's user stories?</h2>
-    <p class="font-body text-sm text-on-surface-variant max-w-xl mb-10 reveal">Click each situation to expand. These are the jobs we designed for.</p>
+    <p class="font-body text-sm text-on-surface-variant max-w-xl mb-4 reveal">These are the jobs we designed for.</p>
+    <div class="mb-8 reveal">
+      <span id="story-hint" class="interaction-hint">
+        <span class="material-symbols-outlined hint-icon" style="font-variation-settings:'FILL' 1,'wght' 400;">touch_app</span>
+        click any card to expand
+      </span>
+    </div>
 
     <div class="grid md:grid-cols-2 gap-4" style="align-items:start;">
 
@@ -817,7 +843,13 @@
 <section id="process" class="bg-surface-container py-20">
   <div class="max-w-screen-xl mx-auto px-6">
     <h2 class="font-headline text-4xl text-on-surface tracking-tight mb-3 reveal">What I built</h2>
-    <p class="font-body text-sm text-on-surface-variant mb-10 reveal max-w-xl">Hover each node for more details</p>
+    <p class="font-body text-sm text-on-surface-variant mb-4 reveal max-w-xl">Hover each node for more details</p>
+    <div class="mb-8 reveal">
+      <span id="node-hint" class="interaction-hint">
+        <span class="material-symbols-outlined hint-icon" style="font-variation-settings:'FILL' 1,'wght' 400;">arrow_forward</span>
+        hover the nodes
+      </span>
+    </div>
 
     <div class="flex flex-wrap gap-3 reveal">
       <div class="resp-node">
@@ -1291,8 +1323,15 @@
     }
   }
 
+  // Hide interaction hints on first use
+  function dismissHint(id) {
+    const el = document.getElementById(id);
+    if (el) { el.classList.add("hidden"); setTimeout(() => el.remove(), 450); }
+  }
+
   // Thought bubbles
   function toggleBubble(container) {
+    dismissHint("story-hint");
     const trigger = container.querySelector(".thought-trigger");
     const bubble = container.querySelector(".thought-bubble");
     const isActive = trigger.classList.contains("active");
@@ -1303,6 +1342,11 @@
       bubble.classList.add("show");
     }
   }
+
+  // Dismiss node hint on first hover
+  document.querySelectorAll(".resp-node").forEach(n => {
+    n.addEventListener("mouseenter", () => dismissHint("node-hint"), { once: true });
+  });
 
   // Close bubbles on outside click
   document.addEventListener("click", (e) => {
