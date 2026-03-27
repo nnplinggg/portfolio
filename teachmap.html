@@ -305,16 +305,16 @@
         Teach<span style="color:#a4d2a6;">Map</span>
       </h1>
       <p class="font-body text-base text-white/70 leading-relaxed max-w-2xl mb-4">
-        Vietnam has 5,091 surplus teachers coexisting with a shortage of 62,877 in remote, mountainous areas. This means thousands of children never have access to subjects like English or IT. This is a systemic allocation problem.
+        Vietnam has 5,091 surplus teachers coexisting with a shortage of 62,877 — in the same national system. Thousands of children in remote and mountainous areas never have access to subjects like English or IT. This is not a supply problem. It is a systemic placement failure.
       </p>
       <p class="font-body text-sm text-white/50 leading-relaxed max-w-xl">
-        TeachMap is an equitable teacher allocation optimization system for provincial education officers. Min-Cost Max-Flow algorithm + a government-grade interface built to replace Excel and phone calls.
+        TeachMap is an equitable teacher allocation optimization system for provincial education officers — built around a Min-Cost Max-Flow algorithm and a government-grade interface designed to replace Excel spreadsheets and phone calls.
       </p>
     </div>
 
     <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mt-16">
       <div class="card-dark p-5 rounded-xl">
-        <div class="font-headline text-3xl text-inverse-primary font-bold">51</div>
+        <div class="font-headline text-3xl text-inverse-primary font-bold">20</div>
         <div class="font-label text-xs text-white/50 tracking-wide mt-1">Mountainous provinces — replicable architecture</div>
       </div>
       <div class="card-dark p-5 rounded-xl">
@@ -368,10 +368,10 @@
     <div class="card-dark p-6">
       <div class="section-label section-label-light">My contribution</div>
       <div class="space-y-2 mt-1">
-        <div class="font-body text-xs text-white/75 flex items-start gap-2"><span class="w-1 h-1 rounded-full bg-inverse-primary mt-1.5 flex-shrink-0"></span>Led problem and gap analysis, <strong class="text-white/90">scoped to itinerant teacher pool</strong> (5–15% of provincial workforce)</div>
-        <div class="font-body text-xs text-white/75 flex items-start gap-2"><span class="w-1 h-1 rounded-full bg-inverse-primary mt-1.5 flex-shrink-0"></span>Prioritized and designed <strong class="text-white/90">3 use cases</strong> for district education officers: annual allocation, mid-year emergency reallocation, equity audit/reporting</div>
+        <div class="font-body text-xs text-white/75 flex items-start gap-2"><span class="w-1 h-1 rounded-full bg-inverse-primary mt-1.5 flex-shrink-0"></span>Led problem, gap and user analysis, <strong class="text-white/90">scoped to itinerant teacher pool</strong></div>
+        <div class="font-body text-xs text-white/75 flex items-start gap-2"><span class="w-1 h-1 rounded-full bg-inverse-primary mt-1.5 flex-shrink-0"></span>Prioritized and designed <strong class="text-white/90">3 use cases</strong> and core UX/UI flow</div>
         <div class="font-body text-xs text-white/75 flex items-start gap-2"><span class="w-1 h-1 rounded-full bg-inverse-primary mt-1.5 flex-shrink-0"></span>Architected <strong class="text-white/90">CSV data schemas</strong>; generated synthetic datasets for Hà Giang and Lai Châu via Python</div>
-        <div class="font-body text-xs text-white/75 flex items-start gap-2"><span class="w-1 h-1 rounded-full bg-inverse-primary mt-1.5 flex-shrink-0"></span>Authored <strong class="text-white/90">evidence-based problem document</strong> for government, NGO, and hackathon audiences (MOET, UNICEF Vietnam, World Bank)</div>
+        <div class="font-body text-xs text-white/75 flex items-start gap-2"><span class="w-1 h-1 rounded-full bg-inverse-primary mt-1.5 flex-shrink-0"></span>Authored <strong class="text-white/90">evidence-based problem document</strong> for government, NGO, and hackathon audiences</div>
       </div>
     </div>
   </div>
@@ -380,7 +380,14 @@
 <!-- ── PROBLEM ── -->
 <section id="problem" class="bg-surface-container py-20">
   <div class="max-w-screen-xl mx-auto px-6">
-    <h2 class="font-headline text-4xl text-on-surface tracking-tight mb-4 reveal">The allocation paradox</h2>
+    <div class="flex items-center justify-between mb-4 reveal">
+      <h2 class="font-headline text-4xl text-on-surface tracking-tight">The allocation paradox</h2>
+      <a href="https://drive.google.com/file/d/1d6FgAli1QL4LLyCcU4H-eX5CnVFevc53/view?usp=sharing" target="_blank"
+         class="inline-flex items-center gap-1.5 bg-primary text-inverse-primary px-4 py-2 rounded-full font-label text-[10px] font-semibold tracking-widest uppercase hover:scale-[1.03] transition-transform flex-shrink-0">
+        <span class="material-symbols-outlined text-sm">description</span>
+        Preliminary Research
+      </a>
+    </div>
     <blockquote class="mb-12 reveal max-w-2xl">
       "The localized surplus and shortage is not only at the provincial level — within a single school, there is structural mismatch."
       <div class="font-label text-xs text-primary/60 mt-2 not-italic tracking-wide">— National Assembly Chair Vương Đình Huệ</div>
@@ -389,7 +396,7 @@
     <!-- Animated misallocation diagram -->
     <div class="card p-6 mb-6 reveal">
       <div class="flex items-center justify-between mb-6">
-        <div class="font-body text-base font-semibold text-on-surface">Greedy/convenient placement — before TeachMap</div>
+        <div class="font-body text-base font-semibold text-on-surface">Before and after TeachMap</div>
         <button id="toggle-flow" onclick="toggleFlow()" class="inline-flex items-center gap-2 px-4 py-2 rounded-full font-label text-xs font-semibold tracking-widest uppercase transition-all border" style="background:#1d4626;border-color:rgba(164,210,166,0.3);color:#a4d2a6;">
           Show corrected flow ↻
         </button>
@@ -487,9 +494,9 @@
           </div>
         </div>
         <div class="mt-4 pt-4 border-t border-outline-variant/20 space-y-1">
-          <div class="font-label text-[10px] text-primary/50 tracking-wide flex items-center gap-2"><span class="w-1 h-1 rounded-full bg-primary/40 flex-shrink-0"></span>Teachers allocated to schools nearer their home base</div>
-          <div class="font-label text-[10px] text-primary/50 tracking-wide flex items-center gap-2"><span class="w-1 h-1 rounded-full bg-primary/40 flex-shrink-0"></span>English + IT teacher coverage optimized by subject gap and priority score</div>
-          <div class="font-label text-[10px] text-primary/50 tracking-wide flex items-center gap-2"><span class="w-1 h-1 rounded-full bg-primary/40 flex-shrink-0"></span>Teacher shortage still exists — but clearly surfaced in unmet demand report to drive policy adaptation</div>
+          <div class="font-label text-xs text-primary/50 tracking-wide flex items-center gap-2"><span class="w-1 h-1 rounded-full bg-primary/40 flex-shrink-0"></span>Teachers allocated to schools nearer their home base</div>
+          <div class="font-label text-xs text-primary/50 tracking-wide flex items-center gap-2"><span class="w-1 h-1 rounded-full bg-primary/40 flex-shrink-0"></span>English + IT teacher coverage optimized by subject gap and priority score</div>
+          <div class="font-label text-xs text-primary/50 tracking-wide flex items-center gap-2"><span class="w-1 h-1 rounded-full bg-primary/40 flex-shrink-0"></span>Teacher shortage still exists — but clearly surfaced in unmet demand report to drive policy adaptation</div>
         </div>
       </div>
     </div>
@@ -692,12 +699,6 @@
       </div>
     </div>
 
-    <div class="card-dark p-6 reveal">
-      <div class="flex items-start gap-4">
-        <span class="material-symbols-outlined text-inverse-primary flex-shrink-0" style="font-size:20px;">arrow_forward</span>
-        <p class="font-body text-sm text-white/80 leading-relaxed">As we can't immediately make their road to school <strong class="text-white">shorter or less dangerous</strong>, we bring the educators <strong class="text-inverse-primary">closer to them.</strong></p>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -813,8 +814,8 @@
 <!-- ── PM RESPONSIBILITIES ── -->
 <section id="process" class="bg-surface-container py-20">
   <div class="max-w-screen-xl mx-auto px-6">
-    <h2 class="font-headline text-4xl text-on-surface tracking-tight mb-3 reveal">What I built and why</h2>
-    <p class="font-body text-sm text-on-surface-variant mb-10 reveal max-w-xl">Hover each node for what I actually did. The framing contribution — redefining the problem — changed everything downstream.</p>
+    <h2 class="font-headline text-4xl text-on-surface tracking-tight mb-3 reveal">What I built as a PM</h2>
+    <p class="font-body text-sm text-on-surface-variant mb-10 reveal max-w-xl">Hover each node for more details</p>
 
     <div class="flex flex-wrap gap-3 reveal">
       <div class="resp-node">
@@ -896,6 +897,7 @@
 <section id="usecases" class="py-20">
   <div class="max-w-screen-xl mx-auto px-6">
     <h2 class="font-headline text-4xl text-on-surface tracking-tight mb-12 reveal">What the system does</h2>
+    <style>.uc-img-placeholder { display: none; }</style>
 
     <div class="grid md:grid-cols-3 gap-6">
 
@@ -1166,7 +1168,7 @@
     <div class="max-w-2xl mx-auto">
       <div class="font-label text-[10px] tracking-widest uppercase text-inverse-primary/50 mb-6">Reflection</div>
       <h2 class="font-headline text-4xl text-white tracking-tight mb-6">12 hours, one privilege put to work</h2>
-      <p class="font-body text-sm text-white/70 leading-relaxed mb-4">In 12 hours, we used the privilege of having learned English, learned to code, to try to build something for people who had neither. That asymmetry — between what we were given and what a child in a highland commune receives — is exactly the gap TeachMap was designed to close.</p>
+      <p class="font-body text-sm text-white/70 leading-relaxed mb-4">In 12 hours, we used the privilege of having learned English, learned to code, to try to build something for people who had neither. That asymmetry — between what we were given and what a child in a highland commune receives — is the gap TeachMap was designed to close.</p>
       <p class="font-body text-sm text-white/60 leading-relaxed mb-4">We didn't have time to finish the UI. But every small decision — the CSV template with province-prefixed IDs, the unmet demand field surfaced explicitly, the priority score traceable to real data — was optimized for one specific user: the Sở officer who makes allocation calls that determine whether a child in Dìn Chin has an English teacher this year.</p>
       <p class="font-body text-sm text-white/50 leading-relaxed mb-12">That officer is not a data scientist. They're someone who has been making these decisions with Excel and phone calls for years. Every product decision we made was in service of making their job — and through it, those children's chances — better.</p>
       <div class="flex flex-wrap gap-4 justify-center">
