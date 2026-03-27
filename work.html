@@ -1259,6 +1259,11 @@
     window.scrollTo({ top: document.querySelector('.sticky').offsetTop + 1, behavior: 'smooth' });
   }
 
+  // Hash-based tab switching on load
+  if (window.location.hash === '#community') {
+    switchTab('community');
+  }
+
   // Click-to-flip cards
   document.querySelectorAll('.flip-card').forEach(card => {
     card.addEventListener('click', e => {
