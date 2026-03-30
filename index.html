@@ -171,6 +171,29 @@
             transform: translateX(0);
         }
 
+        /* ── Builder sub-cards ── */
+        .builder-subcard {
+            opacity: 0;
+            transform: translateY(16px) scale(0.97);
+            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                        box-shadow 0.3s ease;
+        }
+        .builder-card-wrap:hover .subcard-1 {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            transition-delay: 0.05s;
+        }
+        .builder-card-wrap:hover .subcard-2 {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            transition-delay: 0.15s;
+        }
+        .builder-subcard:hover {
+            box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+            transform: translateY(-2px) scale(1.02) !important;
+        }
+
         /* ── Scale-in for currently cards ── */
         [data-reveal-scale] {
             opacity: 0;
@@ -237,50 +260,56 @@
 </div>
 </div>
 </section>
-<!-- About Section (Bio only) -->
-<section class="bg-surface-container-low py-40 overflow-hidden" id="about">
-<div class="max-w-screen-2xl mx-auto px-8 flex flex-col items-center">
-<!-- Collage Header -->
-<div data-reveal class="relative w-full max-w-4xl h-[500px] mb-20 flex items-center justify-center">
-<!-- Decorative background photos -->
-<div class="absolute -top-10 -left-10 w-48 h-64 rotate-[-12deg] rounded-lg overflow-hidden shadow-xl z-0 opacity-40"><div class="collage-layer w-full h-full" data-rate="0.07"><img alt="Personal collage" class="w-full h-full object-cover" src="images/main2.jpg"/></div></div>
-<div class="absolute top-20 right-[-5%] w-60 h-80 rotate-[8deg] rounded-lg overflow-hidden shadow-xl z-0 opacity-40"><div class="collage-layer w-full h-full" data-rate="-0.05"><img alt="Personal collage" class="w-full h-full object-cover scale-110" src="images/main3.jpg"/></div></div>
-<div class="absolute bottom-[-10%] left-20 w-56 h-40 rotate-[5deg] rounded-lg overflow-hidden shadow-xl z-0 opacity-40"><div class="collage-layer w-full h-full" data-rate="0.04"><img alt="Personal collage" class="w-full h-full object-cover scale-110" src="images/main4.jpg"/></div></div>
-<!-- Main Portrait -->
-<div class="relative z-10 w-72 md:w-80 aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border-8 border-surface">
-<img alt="Linh Nguyen Portrait" class="w-full h-full object-cover" src="images/main.jpg"/>
-</div>
-</div>
-<!-- Bio Text -->
-<div class="max-w-3xl text-center space-y-8">
-<h2 data-reveal class="font-headline text-5xl text-primary tracking-tight" style="transition-delay:0s">Hi, I’m Linh.</h2>
-<div data-reveal class="h-px w-24 bg-primary/20 mx-auto" style="transition-delay:0.08s"></div>
-<div class="font-body text-base text-on-surface-variant leading-relaxed text-left md:text-center max-w-5xl mx-auto space-y-6 [&>p]:[text-wrap:balance]">
-<p data-reveal style="transition-delay:0.15s">Hi, I’m Linh — born on Christmas, in Quang Ninh Province, Vietnam.</p>
-<p data-reveal style="transition-delay:0.22s">I grew up building cardboard houses for stray cats and helping Santa run imaginary classes for Teddy and Barbie. Somewhere between those sketchy Math formula and a fantasy about delivering books to every child on earth with Santa Claus, I figured out what I actually wanted to do with my life.</p>
-<p data-reveal style="transition-delay:0.29s"><strong>I want to be a builder, one that bridges the distance between people and what they deserve access to.</strong></p>
-<p data-reveal style="transition-delay:0.36s">I don’t separate strategy from people. Every system — a product, a program, a community — succeeds or fails based on how well it understands real human pain. That belief took me from founding youth programs in my province, to doing gap analysis for neurodivergent teen artists in San Francisco, to building AI agent for early-stage founders or teacher allocation optimization tool, and many more.</p>
-<p data-reveal style="transition-delay:0.43s">I’m currently at Minerva University, rotating through 4 continents in 4 years, studying CS and Business, and trying to stay as close to real people as possible while I learn to build bigger systems.</p>
-<p data-reveal style="transition-delay:0.5s">Long term? I’m not optimizing for a title. I believe in my ability to connect us humans using data, technology, and stories — and eventually, maybe, go back to host that Barbie class for kids in the mountains.</p>
-</div>
-</div>
-</div>
-</section>
 <!-- Preview Tiles -->
 <section class="max-w-5xl mx-auto px-16 py-24">
 <div class="flex flex-col md:flex-row gap-8">
-<!-- Builder Card — half width, portrait -->
-<a data-reveal class="group relative bg-surface-container-highest rounded-2xl overflow-hidden md:w-2/3 aspect-[4/5] hover:bg-[#1A1A1A] transition-all duration-700 magnetic" href="work.html">
-<div class="absolute inset-0 opacity-40 group-hover:opacity-20 transition-opacity">
-<img alt="Builder" class="w-full h-full object-cover" src="images/builder.jpg"/>
+<!-- Builder Card — 2/3 width, portrait, with hover sub-cards -->
+<div data-reveal class="group/builder relative bg-surface-container-highest rounded-2xl overflow-visible md:w-2/3 aspect-[4/5] magnetic builder-card-wrap">
+  <!-- Card background -->
+  <div class="absolute inset-0 rounded-2xl overflow-hidden bg-surface-container-highest group-hover/builder:bg-[#1A1A1A] transition-all duration-700">
+    <div class="absolute inset-0 opacity-40 group-hover/builder:opacity-20 transition-opacity">
+      <img alt="Builder" class="w-full h-full object-cover" src="images/builder.jpg"/>
+    </div>
+    <div class="relative h-full p-10 flex flex-col justify-end">
+      <p class="font-body text-sm text-surface/80 opacity-0 group-hover/builder:opacity-100 transition-all duration-500 mb-6 leading-relaxed max-w-sm">Being both a product builder and community builder. I build at the intersection of human-centered design, systems thinking, and social impact.</p>
+      <span class="font-label text-sm tracking-widest uppercase text-primary group-hover/builder:text-surface-container-low transition-colors mb-2 block">My journey as a</span>
+      <h3 class="font-headline text-6xl text-primary-container group-hover/builder:text-surface transition-colors mb-4">Builder</h3>
+      <div class="h-px w-0 group-hover/builder:w-full bg-primary/30 group-hover/builder:bg-surface/30 transition-all duration-700"></div>
+    </div>
+  </div>
+
+  <!-- Hover sub-cards overlay -->
+  <div class="builder-subcards absolute inset-0 pointer-events-none z-20 overflow-visible">
+    <!-- Sub-card 1: Product Projects (upper, left) -->
+    <a href="work.html"
+       class="builder-subcard subcard-1 pointer-events-auto absolute flex items-stretch rounded-xl overflow-hidden shadow-2xl border border-outline-variant/20"
+       style="top: 12%; left: -6%; width: 72%;">
+      <div class="flex-shrink-0" style="width: 44%; aspect-ratio: 16/9;">
+        <img src="images/product.png" alt="Product Projects" class="w-full h-full object-cover"/>
+      </div>
+      <div class="flex flex-col justify-center px-5 py-4 bg-surface/95 backdrop-blur-md flex-1">
+        <span class="font-label text-[10px] tracking-[0.25em] uppercase text-primary/60 mb-1">Explore</span>
+        <h4 class="font-headline text-lg leading-tight text-on-surface mb-1">My Product Projects</h4>
+        <span class="material-symbols-outlined text-primary text-base">arrow_forward</span>
+      </div>
+    </a>
+
+    <!-- Sub-card 2: Community Projects (lower, right, staggered) -->
+    <a href="work.html#community"
+       class="builder-subcard subcard-2 pointer-events-auto absolute flex items-stretch rounded-xl overflow-hidden shadow-2xl border border-outline-variant/20"
+       style="top: 42%; left: 16%; width: 72%;">
+      <div class="flex-shrink-0" style="width: 44%; aspect-ratio: 16/9;">
+        <img src="images/community.png" alt="Community Projects" class="w-full h-full object-cover"/>
+      </div>
+      <div class="flex flex-col justify-center px-5 py-4 bg-surface/95 backdrop-blur-md flex-1">
+        <span class="font-label text-[10px] tracking-[0.25em] uppercase text-primary/60 mb-1">Explore</span>
+        <h4 class="font-headline text-lg leading-tight text-on-surface mb-1">My Community Projects</h4>
+        <span class="material-symbols-outlined text-primary text-base">arrow_forward</span>
+      </div>
+    </a>
+  </div>
 </div>
-<div class="relative h-full p-10 flex flex-col justify-end">
-<p class="font-body text-sm text-surface/80 opacity-0 group-hover:opacity-100 transition-all duration-500 mb-6 leading-relaxed max-w-sm">Being both a product builder and community builder. I build at the intersection of human-centered design, systems thinking, and social impact.</p>
-<span class="font-label text-sm tracking-widest uppercase text-primary group-hover:text-surface-container-low transition-colors mb-2 block">My journey as a</span>
-<h3 class="font-headline text-6xl text-primary-container group-hover:text-surface transition-colors mb-4">Builder</h3>
-<div class="h-px w-0 group-hover:w-full bg-primary/30 group-hover:bg-surface/30 transition-all duration-700"></div>
-</div>
-</a>
+
 <!-- Right column — Learner + Storyteller stacked, half width, same height as Builder -->
 <div data-reveal class="md:w-1/3 flex flex-col gap-8" style="aspect-ratio:4/5; transition-delay:0.15s">
 <!-- Learner Card -->
@@ -308,6 +337,34 @@
 </div>
 </a>
 </div>
+</div>
+</section>
+<!-- About Section (Bio only) -->
+<section class="bg-surface-container-low py-24 overflow-hidden" id="about">
+<div class="max-w-screen-xl mx-auto px-16">
+  <div class="flex flex-col md:flex-row items-center gap-10 lg:gap-16">
+    <!-- Left: Collage — 52% width -->
+    <div data-reveal="left" class="relative w-full md:w-[52%] flex-shrink-0 h-[480px] flex items-center justify-center">
+      <div class="absolute top-0 left-4 w-36 h-52 rotate-[-12deg] rounded-lg overflow-hidden shadow-xl z-0 opacity-40"><div class="collage-layer w-full h-full" data-rate="0.07"><img alt="Personal collage" class="w-full h-full object-cover" src="images/main2.jpg"/></div></div>
+      <div class="absolute top-12 right-4 w-48 h-64 rotate-[8deg] rounded-lg overflow-hidden shadow-xl z-0 opacity-40"><div class="collage-layer w-full h-full" data-rate="-0.05"><img alt="Personal collage" class="w-full h-full object-cover scale-110" src="images/main3.jpg"/></div></div>
+      <div class="absolute bottom-0 left-24 w-44 h-32 rotate-[5deg] rounded-lg overflow-hidden shadow-xl z-0 opacity-40"><div class="collage-layer w-full h-full" data-rate="0.04"><img alt="Personal collage" class="w-full h-full object-cover scale-110" src="images/main4.jpg"/></div></div>
+      <div class="relative z-10 w-56 md:w-64 aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border-8 border-surface-container-low">
+        <img alt="Linh Nguyen Portrait" class="w-full h-full object-cover" src="images/main.jpg"/>
+      </div>
+    </div>
+    <!-- Right: Bio — remaining 48% -->
+    <div class="flex-1">
+      <h2 data-reveal class="font-headline text-4xl md:text-5xl text-primary tracking-tight mb-4" style="transition-delay:0s">About me</h2>
+      <div data-reveal class="h-px w-24 bg-primary/20 mb-6" style="transition-delay:0.08s"></div>
+      <div class="space-y-4">
+        <p data-reveal class="font-body text-sm text-on-surface-variant leading-relaxed" style="transition-delay:0.14s">Hi, I’m Linh — born on Christmas, in Quang Ninh, Vietnam.</p>
+        <p data-reveal class="font-body text-sm text-on-surface-variant leading-relaxed" style="transition-delay:0.2s">I grew up building cardboard houses for stray cats and helping Santa host imaginary classes for Teddy and Barbie.</p>
+        <p data-reveal class="font-body text-sm text-on-surface font-semibold leading-relaxed" style="transition-delay:0.26s">Now, I want to be a Product Manager who bridges the distance between people and what they deserve access to.</p>
+        <p data-reveal class="font-body text-sm text-on-surface-variant leading-relaxed" style="transition-delay:0.32s">As a dreamer and leader, I build products and communities that connect us, humans, through data, technology, and stories — from a youth entrepreneurship club to AI-powered tools for urban planners, strategists, and educators.</p>
+        <p data-reveal class="font-body text-sm text-on-surface-variant leading-relaxed" style="transition-delay:0.38s">Currently CS and Business double major at Minerva University, where I’ll rotate through 4 continents and continue my building journey — and eventually, maybe, go back to host that Santa class for kids in the mountains.</p>
+      </div>
+    </div>
+  </div>
 </div>
 </section>
 <!-- Currently Section -->
